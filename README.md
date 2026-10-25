@@ -38,6 +38,7 @@ for submission to a computer science review/survey journal.
 │   └── tables/                  # Script-generated summary tables
 ├── docs/
 │   ├── research-protocol.md     # Roles, milestones, reproducibility checklist
+│   ├── research-plan.md         # Concrete phased plan, current status, RQs, taxonomy, next actions
 │   └── timeline.md              # Project schedule
 ├── requirements.txt            # Python deps for analysis scripts
 ├── CITATION.cff                # Citation metadata
