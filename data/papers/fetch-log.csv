@@ -49,3 +49,122 @@ timestamp,study_id,source_url,pdf_url,local_path,status,http_code,message
 2026-10-25 15:58:15,SLR041,https://conf.researchr.org/details/icse-2025/icse-2025-software-engineering-in-practice/16/ASTER-Natural-and-Multi-language-Unit-Test-Generation-with-LLMs,https://arxiv.org/pdf/2409.03093.pdf,data\papers\SLR041.pdf,data\papers\SLR041.md,success,200,ok
 2026-10-25 15:59:56,SLR013,https://2024.esec-fse.org/details/fse-2024-demonstrations/6/ChatUniTest-A-Framework-for-LLM-based-Test-Generation,https://arxiv.org/pdf/2305.04764.pdf,data\papers\SLR013.pdf,data\papers\SLR013.md,success,200,ok
 2026-10-25 16:00:00,SLR036,https://conf.researchr.org/details/icse-2026/icse-2026-journal-first-papers/26/Seeing-is-Believing-Vision-driven-Non-crash-Functional-Bug-Detection-for-Mobile-Apps,https://arxiv.org/pdf/2407.03037.pdf,data\papers\SLR036.pdf,data\papers\SLR036.md,success,200,ok
+2026-10-25 16:02:37,SLR020,https://conf.researchr.org/details/apsec-2025/apsec-2025-papers/17/MUATC-Multi-Agent-Utilization-to-Augment-Test-Coverage,,,,data\papers\SLR020.abstract.md,abstract_only,200,"no PDF/full-text link detected; full text unavailable, saved abstract instead"
+2026-10-25 16:03:15,SLR020,https://conf.researchr.org/details/apsec-2025/apsec-2025-papers/17/MUATC-Multi-Agent-Utilization-to-Augment-Test-Coverage,,,,,no_pdf_found,200,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:03:22,SLR054,https://doi.org/10.1109/TSE.2024.3381015,,,,,no_pdf_found,202,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:03:31,SLR039,https://sol.sbc.org.br/index.php/cibse/article/view/35294,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:03:39,SLR060,https://www.researchgate.net/publication/416602275_From_AI-Assisted_Testing_to_Autonomous_Quality_Engineering_Agent-Based_Investigation_and_Reproduction_of_CI_Failures,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:03:43,SLR081,https://www.researchgate.net/publication/398930554_A_Self-Adaptive_AI-Powered_Testing_Framework_for_Cross-Platform_Systems_An_Architectural_Design_and_Industrial_Evaluation,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:03:55,SLR001,https://arxiv.org/abs/2307.07221,,data\papers\SLR001.pdf,data\papers\SLR001.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:03:55,SLR002,https://arxiv.org/abs/2308.10620,,data\papers\SLR002.pdf,data\papers\SLR002.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:03:55,SLR003,https://arxiv.org/abs/2310.03533,,data\papers\SLR003.pdf,data\papers\SLR003.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:03:55,SLR004,https://arxiv.org/abs/2409.02977,,data\papers\SLR004.pdf,data\papers\SLR004.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:03:56,SLR005,https://arxiv.org/abs/2408.02479,https://arxiv.org/pdf/2408.02479.pdf,data\papers\SLR005.pdf,data\papers\SLR005.md,,success,200,ok
+2026-10-25 16:03:58,SLR006,https://arxiv.org/abs/2409.09030,,data\papers\SLR006.pdf,data\papers\SLR006.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:03:58,SLR007,https://arxiv.org/abs/2511.21382,https://arxiv.org/pdf/2511.21382.pdf,data\papers\SLR007.pdf,data\papers\SLR007.md,,success,200,ok
+2026-10-25 16:04:00,SLR008,https://arxiv.org/abs/2506.15227,https://arxiv.org/pdf/2506.15227.pdf,data\papers\SLR008.pdf,data\papers\SLR008.md,,success,200,ok
+2026-10-25 16:04:01,SLR009,https://arxiv.org/abs/2409.00411,,data\papers\SLR009.pdf,data\papers\SLR009.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:02,SLR010,https://arxiv.org/abs/2406.08216,https://arxiv.org/pdf/2406.08216.pdf,data\papers\SLR010.pdf,data\papers\SLR010.md,,success,200,ok
+2026-10-25 16:04:03,SLR011,https://arxiv.org/abs/2302.06527,,data\papers\SLR011.pdf,data\papers\SLR011.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,,data\papers\SLR012.pdf,data\papers\SLR012.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR013,https://2024.esec-fse.org/details/fse-2024-demonstrations/6/ChatUniTest-A-Framework-for-LLM-based-Test-Generation,,data\papers\SLR013.pdf,data\papers\SLR013.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR014,https://arxiv.org/abs/2402.09171,,data\papers\SLR014.pdf,data\papers\SLR014.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR015,https://arxiv.org/abs/2403.16218,,data\papers\SLR015.pdf,data\papers\SLR015.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR016,https://arxiv.org/abs/2406.18181,,data\papers\SLR016.pdf,data\papers\SLR016.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:03,SLR017,https://arxiv.org/abs/2407.00225,https://arxiv.org/pdf/2407.00225.pdf,data\papers\SLR017.pdf,data\papers\SLR017.md,,success,200,ok
+2026-10-25 16:04:05,SLR018,https://arxiv.org/abs/2409.03093,https://arxiv.org/pdf/2409.03093.pdf,data\papers\SLR018.pdf,data\papers\SLR018.md,,success,200,ok
+2026-10-25 16:04:07,SLR019,https://arxiv.org/abs/2506.02943,,data\papers\SLR019.pdf,data\papers\SLR019.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:07,SLR020,https://conf.researchr.org/details/apsec-2025/apsec-2025-papers/17/MUATC-Multi-Agent-Utilization-to-Augment-Test-Coverage,,,,,no_pdf_found,200,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:04:09,SLR021,https://arxiv.org/abs/2511.10860,https://arxiv.org/pdf/2511.10860.pdf,data\papers\SLR021.pdf,data\papers\SLR021.md,,success,200,ok
+2026-10-25 16:04:10,SLR022,https://arxiv.org/abs/2607.09101,,data\papers\SLR022.pdf,data\papers\SLR022.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:10,SLR023,https://arxiv.org/abs/2405.15793,,data\papers\SLR023.pdf,data\papers\SLR023.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:10,SLR024,https://arxiv.org/abs/2407.01489,,data\papers\SLR024.pdf,data\papers\SLR024.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:10,SLR025,https://arxiv.org/abs/2404.05427,,data\papers\SLR025.pdf,data\papers\SLR025.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:10,SLR026,https://arxiv.org/abs/2209.11515,,data\papers\SLR026.pdf,data\papers\SLR026.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:10,SLR027,https://arxiv.org/abs/2311.04532,https://arxiv.org/pdf/2311.04532.pdf,data\papers\SLR027.pdf,data\papers\SLR027.md,,success,200,ok
+2026-10-25 16:04:12,SLR028,https://arxiv.org/abs/2406.12952,,data\papers\SLR028.pdf,data\papers\SLR028.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:12,G1,https://arxiv.org/abs/2310.15780,,data\papers\G1.pdf,data\papers\G1.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:12,G2,https://arxiv.org/abs/2305.09434,https://arxiv.org/pdf/2305.09434.pdf,data\papers\G2.pdf,data\papers\G2.md,,success,200,ok
+2026-10-25 16:04:14,G3,https://arxiv.org/abs/2311.08649,https://arxiv.org/pdf/2311.08649.pdf,data\papers\G3.pdf,data\papers\G3.md,,success,200,ok
+2026-10-25 16:04:17,G4,https://arxiv.org/abs/2409.10741,https://arxiv.org/pdf/2409.10741.pdf,data\papers\G4.pdf,data\papers\G4.md,,success,200,ok
+2026-10-25 16:04:18,G5,https://arxiv.org/abs/2408.01894,https://arxiv.org/pdf/2408.01894.pdf,data\papers\G5.pdf,data\papers\G5.md,,success,200,ok
+2026-10-25 16:04:20,G6,https://arxiv.org/abs/2602.11724,https://arxiv.org/pdf/2602.11724.pdf,data\papers\G6.pdf,data\papers\G6.md,,success,200,ok
+2026-10-25 16:04:22,P1,https://arxiv.org/abs/2411.07098,,data\papers\P1.pdf,data\papers\P1.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:22,P2,https://arxiv.org/abs/2501.08600,https://arxiv.org/pdf/2501.08600.pdf,data\papers\P2.pdf,data\papers\P2.md,,success,200,ok
+2026-10-25 16:04:24,P3,https://arxiv.org/abs/2312.00894,https://arxiv.org/pdf/2312.00894.pdf,data\papers\P3.pdf,data\papers\P3.md,,success,200,ok
+2026-10-25 16:04:25,Z1,https://arxiv.org/abs/2308.04748,,data\papers\Z1.pdf,data\papers\Z1.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:25,Z2,https://arxiv.org/abs/2212.14834,,data\papers\Z2.pdf,data\papers\Z2.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:25,Z3,https://arxiv.org/abs/2304.02014,https://arxiv.org/pdf/2304.02014.pdf,data\papers\Z3.pdf,data\papers\Z3.md,,success,200,ok
+2026-10-25 16:04:27,O1,https://arxiv.org/abs/2109.09262,,data\papers\O1.pdf,data\papers\O1.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:27,O2,https://arxiv.org/abs/2307.16023,,data\papers\O2.pdf,data\papers\O2.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:04:27,O3,https://arxiv.org/abs/2405.03786,https://arxiv.org/pdf/2405.03786.pdf,data\papers\O3.pdf,data\papers\O3.md,,success,200,ok
+2026-10-25 16:04:29,O4,https://arxiv.org/abs/2501.17461,https://arxiv.org/pdf/2501.17461.pdf,data\papers\O4.pdf,data\papers\O4.md,,success,200,ok
+2026-10-25 16:04:31,M1,https://arxiv.org/abs/2406.09843,https://arxiv.org/pdf/2406.09843.pdf,data\papers\M1.pdf,data\papers\M1.md,,success,200,ok
+2026-10-25 16:04:32,M2,https://arxiv.org/abs/2404.09952,https://arxiv.org/pdf/2404.09952.pdf,data\papers\M2.pdf,data\papers\M2.md,,success,200,ok
+2026-10-25 16:04:36,H1,https://arxiv.org/abs/2307.00012,https://arxiv.org/pdf/2307.00012.pdf,data\papers\H1.pdf,data\papers\H1.md,,success,200,ok
+2026-10-25 16:04:38,H2,https://helda.helsinki.fi/server/api/core/bitstreams/631b961a-8642-42ed-9826-3e196eac9cf7/content,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:04:39,H3,https://arxiv.org/abs/2603.20358,https://arxiv.org/pdf/2603.20358.pdf,data\papers\H3.pdf,data\papers\H3.md,,success,200,ok
+2026-10-25 16:04:41,SA1,https://arxiv.org/abs/1805.07354,https://arxiv.org/pdf/1805.07354.pdf,data\papers\SA1.pdf,data\papers\SA1.md,,success,200,ok
+2026-10-25 16:04:43,SA2,https://arxiv.org/abs/1903.04771,https://arxiv.org/pdf/1903.04771.pdf,data\papers\SA2.pdf,data\papers\SA2.md,,success,200,ok
+2026-10-25 16:04:44,SA3,https://arxiv.org/abs/2103.11481,https://arxiv.org/pdf/2103.11481.pdf,data\papers\SA3.pdf,data\papers\SA3.md,,success,200,ok
+2026-10-25 16:04:53,SA4,https://sindex.sdl.edu.sa/esploro/outputs/journalArticle/A-survey-on-runtime-testing-of/9912028808331,,,,,error,,"landing page fetch failed: HTTPSConnectionPool(host='sindex.sdl.edu.sa', port=443): Max retries exceeded with url: /esploro/outputs/journalArticle/A-survey-on-runtime-testing-of/9912028808331 (Caused by NewConnectionError(""HTTPSConnection(host='sindex.sdl.edu.sa', port=443): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"")); abstract fallback also failed (abstract fetch failed: HTTPSConnectionPool(host='sindex.sdl.edu.sa', port=443): Max retries exceeded with url: /esploro/outputs/journalArticle/A-survey-on-runtime-testing-of/9912028808331 (Caused by NewConnectionError(""HTTPSConnection(host='sindex.sdl.edu.sa', port=443): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"")))"
+2026-10-25 16:04:55,SLR029,https://arxiv.org/abs/2410.00752,https://arxiv.org/pdf/2410.00752.pdf,data\papers\SLR029.pdf,data\papers\SLR029.md,,success,200,ok
+2026-10-25 16:04:57,SLR030,https://arxiv.org/abs/2411.13323,https://arxiv.org/pdf/2411.13323.pdf,data\papers\SLR030.pdf,data\papers\SLR030.md,,success,200,ok
+2026-10-25 16:04:58,SLR031,https://arxiv.org/abs/2310.13229,https://arxiv.org/pdf/2310.13229.pdf,data\papers\SLR031.pdf,data\papers\SLR031.md,,success,200,ok
+2026-10-25 16:05:00,SLR032,https://arxiv.org/abs/2401.07930,https://arxiv.org/pdf/2401.07930.pdf,data\papers\SLR032.pdf,data\papers\SLR032.md,,success,200,ok
+2026-10-25 16:05:02,SLR033,https://arxiv.org/abs/2308.15272,,data\papers\SLR033.pdf,data\papers\SLR033.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:05:02,SLR034,https://arxiv.org/abs/2407.09018,https://arxiv.org/pdf/2407.09018.pdf,data\papers\SLR034.pdf,data\papers\SLR034.md,,success,200,ok
+2026-10-25 16:05:04,SLR035,https://arxiv.org/abs/2407.03037,https://arxiv.org/pdf/2407.03037.pdf,data\papers\SLR035.pdf,data\papers\SLR035.md,,success,200,ok
+2026-10-25 16:05:05,SLR036,https://conf.researchr.org/details/icse-2026/icse-2026-journal-first-papers/26/Seeing-is-Believing-Vision-driven-Non-crash-Functional-Bug-Detection-for-Mobile-Apps,,data\papers\SLR036.pdf,data\papers\SLR036.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:05:05,SLR037,https://arxiv.org/abs/2506.11006,https://arxiv.org/pdf/2506.11006.pdf,data\papers\SLR037.pdf,data\papers\SLR037.md,,success,200,ok
+2026-10-25 16:05:07,SLR038,https://arxiv.org/abs/2409.06416,https://arxiv.org/pdf/2409.06416.pdf,data\papers\SLR038.pdf,data\papers\SLR038.md,,success,200,ok
+2026-10-25 16:05:51,SLR039,https://sol.sbc.org.br/index.php/cibse/article/view/35294,,,,,error,,"landing page fetch failed: HTTPSConnectionPool(host='sol.sbc.org.br', port=443): Max retries exceeded with url: /index.php/cibse/article/view/35294 (Caused by ConnectTimeoutError(<HTTPSConnection(host='sol.sbc.org.br', port=443) at 0x283c4c80f50>, 'Connection to sol.sbc.org.br timed out. (connect timeout=30)')); abstract fallback also failed (abstract fetch failed: HTTPSConnectionPool(host='sol.sbc.org.br', port=443): Max retries exceeded with url: /index.php/cibse/article/view/35294 (Caused by ConnectTimeoutError(<HTTPSConnection(host='sol.sbc.org.br', port=443) at 0x283c4c811d0>, 'Connection to sol.sbc.org.br timed out. (connect timeout=30)')))"
+2026-10-25 16:05:52,SLR040,https://arxiv.org/abs/2607.19682,https://arxiv.org/pdf/2607.19682.pdf,data\papers\SLR040.pdf,data\papers\SLR040.md,,success,200,ok
+2026-10-25 16:05:54,SLR041,https://conf.researchr.org/details/icse-2025/icse-2025-software-engineering-in-practice/16/ASTER-Natural-and-Multi-language-Unit-Test-Generation-with-LLMs,,data\papers\SLR041.pdf,data\papers\SLR041.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:05:54,SLR042,https://arxiv.org/abs/2506.03691,https://arxiv.org/pdf/2506.03691.pdf,data\papers\SLR042.pdf,data\papers\SLR042.md,,success,200,ok
+2026-10-25 16:06:01,SLR043,https://odr.chalmers.se/items/495caa45-54d3-4174-ac81-f6eeaf6c4031,https://localhost:4000/bitstreams/24339a6c-f19b-4d8d-9a01-313811cb72b2/download,,,data\papers\SLR043.abstract.md,abstract_only,,"ConnectionError: HTTPSConnectionPool(host='localhost', port=4000): Max retries exceeded with url: /bitstreams/24339a6c-f19b-4d8d-9a01-313811cb72b2/download (Caused by NewConnectionError(""HTTPSConnection(host='localhost', port=4000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it"")); full text unavailable, saved abstract instead"
+2026-10-25 16:06:02,SLR044,https://www.cs.cornell.edu/~saikatd/papers/flakylens-oopsla25.pdf,,data\papers\SLR044.pdf,data\papers\SLR044.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:06:02,SLR045,https://arxiv.org/abs/2602.05465,https://arxiv.org/pdf/2602.05465.pdf,data\papers\SLR045.pdf,data\papers\SLR045.md,,success,200,ok
+2026-10-25 16:06:05,SLR046,https://arxiv.org/abs/2502.02715,https://arxiv.org/pdf/2502.02715.pdf,data\papers\SLR046.pdf,data\papers\SLR046.md,,success,200,ok
+2026-10-25 16:06:06,SLR047,https://arxiv.org/abs/2412.12340,https://arxiv.org/pdf/2412.12340.pdf,data\papers\SLR047.pdf,data\papers\SLR047.md,,success,200,ok
+2026-10-25 16:06:08,SLR048,https://arxiv.org/abs/2605.11482,https://arxiv.org/pdf/2605.11482.pdf,data\papers\SLR048.pdf,data\papers\SLR048.md,,success,200,ok
+2026-10-25 16:06:10,SLR049,https://arxiv.org/abs/2511.14002,,data\papers\SLR049.pdf,data\papers\SLR049.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:06:10,SLR050,https://arxiv.org/abs/2406.13352,,data\papers\SLR050.pdf,data\papers\SLR050.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:06:11,SLR051,https://icml.cc/virtual/2026/82802,https://arxiv.org/pdf/2092.28110.pdf,,,data\papers\SLR051.abstract.md,abstract_only,404,"HTTP 404; full text unavailable, saved abstract instead"
+2026-10-25 16:06:12,SLR052,https://arxiv.org/abs/2607.14611,https://arxiv.org/pdf/2607.14611.pdf,data\papers\SLR052.pdf,data\papers\SLR052.md,,success,200,ok
+2026-10-25 16:06:14,SLR053,https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-coding-agent-sandbox-escapes-20260722-c/,,data\papers\SLR053.pdf,data\papers\SLR053.md,,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 16:06:14,SLR054,https://doi.org/10.1109/TSE.2024.3381015,,,,,no_pdf_found,202,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:06:16,SLR055,https://arxiv.org/abs/2108.12249,https://arxiv.org/pdf/2108.12249.pdf,data\papers\SLR055.pdf,data\papers\SLR055.md,,success,200,ok
+2026-10-25 16:06:18,SLR056,https://arxiv.org/abs/2503.13793,https://arxiv.org/pdf/2503.13793.pdf,data\papers\SLR056.pdf,data\papers\SLR056.md,,success,200,ok
+2026-10-25 16:06:19,SLR057,https://arxiv.org/abs/2409.12405,https://arxiv.org/pdf/2409.12405.pdf,data\papers\SLR057.pdf,data\papers\SLR057.md,,success,200,ok
+2026-10-25 16:06:21,SLR058,https://se.ewi.tudelft.nl/events/2025/09/12/MSc-Defense-Nada-Mouman/,,,,,no_pdf_found,200,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:06:23,SLR059,https://se.ewi.tudelft.nl/events/2024/07/08/PhD-Defense-Carolin-Brandt/,,,,,no_pdf_found,200,no PDF/full-text link detected; abstract fallback also failed (no abstract found on page)
+2026-10-25 16:06:24,SLR060,https://www.researchgate.net/publication/416602275_From_AI-Assisted_Testing_to_Autonomous_Quality_Engineering_Agent-Based_Investigation_and_Reproduction_of_CI_Failures,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:06:26,SLR061,https://arxiv.org/abs/2609.24928,https://arxiv.org/pdf/2609.24928.pdf,data\papers\SLR061.pdf,data\papers\SLR061.md,,success,200,ok
+2026-10-25 16:06:28,SLR062,https://arxiv.org/abs/2609.00081,https://arxiv.org/pdf/2609.00081.pdf,data\papers\SLR062.pdf,data\papers\SLR062.md,,success,200,ok
+2026-10-25 16:06:30,SLR063,https://arxiv.org/abs/2608.18645,https://arxiv.org/pdf/2608.18645.pdf,data\papers\SLR063.pdf,data\papers\SLR063.md,,success,200,ok
+2026-10-25 16:06:32,SLR064,https://arxiv.org/abs/2608.20597,https://arxiv.org/pdf/2608.20597.pdf,data\papers\SLR064.pdf,data\papers\SLR064.md,,success,200,ok
+2026-10-25 16:06:33,SLR065,https://arxiv.org/abs/2607.05139,https://arxiv.org/pdf/2607.05139.pdf,data\papers\SLR065.pdf,data\papers\SLR065.md,,success,200,ok
+2026-10-25 16:06:40,SLR066,https://doi.org/10.14716/ijtech.v17i4.8380,https://ijtech.eng.ui.ac.id/download/article/8380,data\papers\SLR066.pdf,data\papers\SLR066.md,,success,200,ok
+2026-10-25 16:06:42,SLR067,https://arxiv.org/abs/2607.17927,https://arxiv.org/pdf/2607.17927.pdf,data\papers\SLR067.pdf,data\papers\SLR067.md,,success,200,ok
+2026-10-25 16:06:44,SLR068,https://arxiv.org/abs/2607.29405,https://arxiv.org/pdf/2607.29405.pdf,data\papers\SLR068.pdf,data\papers\SLR068.md,,success,200,ok
+2026-10-25 16:06:46,SLR069,https://arxiv.org/abs/2606.28791,https://arxiv.org/pdf/2606.28791.pdf,data\papers\SLR069.pdf,data\papers\SLR069.md,,success,200,ok
+2026-10-25 16:06:47,SLR070,https://arxiv.org/abs/2606.26959,https://arxiv.org/pdf/2606.26959.pdf,data\papers\SLR070.pdf,data\papers\SLR070.md,,success,200,ok
+2026-10-25 16:06:49,SLR071,https://arxiv.org/abs/2605.13357,https://arxiv.org/pdf/2605.13357.pdf,data\papers\SLR071.pdf,data\papers\SLR071.md,,success,200,ok
+2026-10-25 16:06:51,SLR072,https://arxiv.org/abs/2604.10599,https://arxiv.org/pdf/2604.10599.pdf,data\papers\SLR072.pdf,data\papers\SLR072.md,,success,200,ok
+2026-10-25 16:06:52,SLR073,https://arxiv.org/abs/2603.26329,https://arxiv.org/pdf/2603.26329.pdf,data\papers\SLR073.pdf,data\papers\SLR073.md,,success,200,ok
+2026-10-25 16:06:54,SLR074,https://arxiv.org/abs/2603.05637,https://arxiv.org/pdf/2603.05637.pdf,data\papers\SLR074.pdf,data\papers\SLR074.md,,success,200,ok
+2026-10-25 16:06:57,SLR075,https://arxiv.org/abs/2603.13724,https://arxiv.org/pdf/2603.13724.pdf,data\papers\SLR075.pdf,data\papers\SLR075.md,,success,200,ok
+2026-10-25 16:06:58,SLR076,https://arxiv.org/abs/2603.08190,https://arxiv.org/pdf/2603.08190.pdf,data\papers\SLR076.pdf,data\papers\SLR076.md,,success,200,ok
+2026-10-25 16:07:00,SLR077,https://arxiv.org/abs/2602.05242,https://arxiv.org/pdf/2602.05242.pdf,data\papers\SLR077.pdf,data\papers\SLR077.md,,success,200,ok
+2026-10-25 16:07:02,SLR078,https://resources.anthropic.com/2026-agentic-coding-trends-report,,,,data\papers\SLR078.abstract.md,abstract_only,200,"no PDF/full-text link detected; full text unavailable, saved abstract instead"
+2026-10-25 16:07:03,SLR079,https://www.researchgate.net/publication/416650393_AI-Driven_Automation_of_Software_Testing_to_Enhance_Software_Quality_and_Enable_Agentic_AI,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:07:07,SLR080,https://ijarcst.org/index.php/ijarcst/article/view/497,https://ijarcst.org/index.php/ijarcst/article/download/497/479,data\papers\SLR080.pdf,data\papers\SLR080.md,,success,200,ok
+2026-10-25 16:07:09,SLR081,https://www.researchgate.net/publication/398930554_A_Self-Adaptive_AI-Powered_Testing_Framework_for_Cross-Platform_Systems_An_Architectural_Design_and_Industrial_Evaluation,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:07:11,SLR082,https://www.researchgate.net/publication/410376718_AI-Driven_Test_Automation_Frameworks_for_the_Modern_Software_Quality_Engineering,,,,,error,403,landing page HTTP 403; abstract fallback also failed (abstract fetch HTTP 403)
+2026-10-25 16:07:12,SLR083,https://arxiv.org/abs/2510.17164,https://arxiv.org/pdf/2510.17164.pdf,data\papers\SLR083.pdf,data\papers\SLR083.md,,success,200,ok
+2026-10-25 16:07:14,SLR084,https://arxiv.org/abs/2509.25043,https://arxiv.org/pdf/2509.25043.pdf,data\papers\SLR084.pdf,data\papers\SLR084.md,,success,200,ok
+2026-10-25 16:07:16,SLR085,https://arxiv.org/abs/2508.17343,https://arxiv.org/pdf/2508.17343.pdf,data\papers\SLR085.pdf,data\papers\SLR085.md,,success,200,ok
+2026-10-25 16:07:18,SLR086,https://arxiv.org/abs/2508.11126,https://arxiv.org/pdf/2508.11126.pdf,data\papers\SLR086.pdf,data\papers\SLR086.md,,success,200,ok
+2026-10-25 16:07:19,SLR087,https://arxiv.org/abs/2501.00217,https://arxiv.org/pdf/2501.00217.pdf,data\papers\SLR087.pdf,data\papers\SLR087.md,,success,200,ok
+2026-10-25 16:07:21,SLR088,https://arxiv.org/abs/2007.10224,https://arxiv.org/pdf/2007.10224.pdf,data\papers\SLR088.pdf,data\papers\SLR088.md,,success,200,ok

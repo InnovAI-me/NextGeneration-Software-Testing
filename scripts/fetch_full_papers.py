@@ -45,17 +45,22 @@ Strategy per study
    The first candidate found is downloaded. Candidate link resolution uses
    `urljoin` against the landing page URL so relative hrefs work.
 4. If no PDF link can be found (common for paywalled ACM/IEEE/Springer pages,
-   ResearchGate logins, or blocked hosts), the attempt is logged as
-   `no_pdf_found` and the landing-page HTML is NOT saved as a substitute
-   (avoids silently treating an abstract page as "full text read").
+   ResearchGate logins, or blocked hosts), the script falls back to scraping
+   just the **abstract** from the same landing page (citation/Dublin-Core
+   meta tags, an "abstract"-labelled section, or og:description/meta
+   description as a last resort) and saves it to
+   `data/papers/<study_id>.abstract.md`, logged as `abstract_only`. Pass
+   `--no-abstract-fallback` to disable this and keep the old `no_pdf_found`/
+   `error` behaviour (no local file written).
 5. When Markdown output is requested (`--format md` or `both`, the default),
    the downloaded PDF's text is extracted page-by-page with PyMuPDF and
    written to `<study_id>.md` with a small front-matter header (study_id,
    title, authors, year, venue, source_url/pdf). Scanned/image-only PDFs
    that yield no extractable text are reported as `pdf_ok_md_failed`.
 6. Every attempt (success or failure) is appended to
-   `data/papers/fetch-log.csv` and mirrored into three columns added to
-   `papers-tracking.csv`: `pdf_status`, `pdf_local_path`, `md_local_path`.
+   `data/papers/fetch-log.csv` and mirrored into four columns added to
+   `papers-tracking.csv`: `pdf_status`, `pdf_local_path`, `md_local_path`,
+   `abstract_local_path`.
 
 This script is intentionally conservative: it does not attempt to bypass
 paywalls, CAPTCHAs, or login walls. Entries that fail should be fetched
@@ -141,6 +146,85 @@ def find_pdf_link_on_page(html: str, page_url: str) -> str | None:
         return arxiv_pdf_url(match.group(1))
 
     return None
+
+
+ABSTRACT_META_NAMES = ["citation_abstract", "dc.Description", "DC.Description"]
+ABSTRACT_SECTION_PATTERN = re.compile(r"abstract", re.IGNORECASE)
+_STOPWORDS = {
+    "the", "a", "an", "of", "for", "and", "to", "in", "on", "with", "via",
+    "using", "based", "large", "language", "models", "llms", "llm", "test",
+    "testing", "software",
+}
+
+
+def _looks_like_this_paper(candidate_text: str, title: str) -> bool:
+    """Guard against generic venue/CFP boilerplate being mistaken for an
+    abstract (e.g. researchr.org conference-track descriptions): require
+    at least two non-trivial title words to appear in the candidate text."""
+    title_words = {w for w in re.findall(r"[a-zA-Z]{4,}", title.lower()) if w not in _STOPWORDS}
+    if not title_words:
+        return True  # nothing distinctive to check against; don't block
+    candidate_lower = candidate_text.lower()
+    hits = sum(1 for w in title_words if w in candidate_lower)
+    return hits >= min(2, len(title_words))
+
+
+def find_abstract_on_page(html: str, page_url: str, title: str = "") -> str | None:
+    """Best-effort extraction of an abstract from a study's landing page,
+    used as a fallback when no full-text PDF can be located (e.g. paywalled
+    ACM/IEEE/Springer pages, or conference-index pages like researchr.org)."""
+    soup = BeautifulSoup(html, "html.parser")
+
+    # 1) Aggregator metadata conventions (Google Scholar / Dublin Core).
+    for name in ABSTRACT_META_NAMES:
+        meta = soup.find("meta", attrs={"name": name})
+        content = meta.get("content", "").strip() if meta else ""
+        if content and _looks_like_this_paper(content, title):
+            return content
+
+    # 2) An element whose id/class mentions "abstract" (common on ACM DL,
+    #    IEEE Xplore, Springer, researchr.org, arXiv-style abstract pages).
+    for tag in soup.find_all(["section", "div", "p", "blockquote"]):
+        attr_text = " ".join([tag.get("id", ""), " ".join(tag.get("class", []))])
+        if ABSTRACT_SECTION_PATTERN.search(attr_text):
+            text = tag.get_text(" ", strip=True)
+            # Strip a leading "Abstract" label and require a plausible length
+            # so we don't return just the heading itself.
+            text = re.sub(r"^abstract[:\s]*", "", text, flags=re.IGNORECASE).strip()
+            if len(text) > 80 and _looks_like_this_paper(text, title):
+                return text
+
+    # 3) Generic SEO fallbacks: og:description / meta description, which on
+    #    many publisher sites *is* the abstract (sometimes truncated) but on
+    #    conference-index sites is often just generic venue/CFP boilerplate
+    #    -- only trust it if it actually mentions this paper's title words.
+    for attrs in ({"property": "og:description"}, {"name": "description"}):
+        meta = soup.find("meta", attrs=attrs)
+        content = meta.get("content", "").strip() if meta else ""
+        if content and len(content) > 80 and _looks_like_this_paper(content, title):
+            return content
+
+    return None
+
+
+def save_abstract(abstract_text: str, dest: Path, row: dict, page_url: str) -> None:
+    header_lines = [
+        "---",
+        f"study_id: {row.get('study_id', '')}",
+        f"title: \"{(row.get('title') or '').replace(chr(34), chr(39))}\"",
+        f"authors: \"{(row.get('authors') or '').replace(chr(34), chr(39))}\"",
+        f"year: {row.get('year', '')}",
+        f"venue: \"{(row.get('venue') or '').replace(chr(34), chr(39))}\"",
+        f"source_url: {page_url}",
+        "note: ABSTRACT ONLY - full text could not be retrieved automatically",
+        "---",
+        "",
+        f"# {row.get('title', '')} (abstract only)",
+        "",
+        abstract_text,
+    ]
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text("\n".join(header_lines), encoding="utf-8")
 
 
 def download_file(url: str, dest: Path, session: requests.Session) -> tuple[bool, int | None, str]:
@@ -297,19 +381,48 @@ def _download_pdf(row: dict, session: requests.Session, dest: Path) -> dict:
     return result
 
 
-def fetch_one(row: dict, session: requests.Session, force: bool, fmt: str) -> dict:
+def fetch_abstract(row: dict, session: requests.Session) -> tuple[bool, str | None, str, str]:
+    """Fallback: fetch the study's landing page and extract just the
+    abstract. Returns (ok, abstract_text_or_None, resolved_url, message)."""
+    url = (row.get("url") or "").strip()
+    if not url:
+        return False, None, url, "no url available"
+    try:
+        resp = session.get(url, headers=HEADERS, timeout=REQUEST_TIMEOUT)
+    except requests.RequestException as exc:
+        return False, None, url, f"abstract fetch failed: {exc}"
+    if not (200 <= resp.status_code < 300):
+        return False, None, url, f"abstract fetch HTTP {resp.status_code}"
+    abstract = find_abstract_on_page(resp.text, resp.url, title=(row.get("title") or ""))
+    if not abstract:
+        return False, None, resp.url, "no abstract found on page"
+    return True, abstract, resp.url, "ok"
+
+
+def fetch_one(row: dict, session: requests.Session, force: bool, fmt: str, abstract_fallback: bool = True) -> dict:
     """Fetch the full text for one tracking-sheet row in the requested
     `fmt` ('pdf', 'md', or 'both'), handling skip-if-exists / --force and
     optional PDF -> Markdown conversion. A PDF is always downloaded
     internally when Markdown is requested (text extraction needs the PDF
-    bytes); it is deleted afterwards if the caller only wants 'md'."""
+    bytes); it is deleted afterwards if the caller only wants 'md'.
+
+    When the full-text download fails (`no_pdf_found` / `error`) and
+    `abstract_fallback` is True, the study's landing page is re-scraped for
+    just its abstract, saved to `<study_id>.abstract.md`, and the result
+    status is set to `abstract_only` so screening can proceed on the
+    abstract while full text is sourced manually."""
     study_id = row["study_id"].strip()
     keep_pdf = fmt in ("pdf", "both")
     want_md = fmt in ("md", "both")
     pdf_dest = PAPERS_DIR / f"{study_id}.pdf"
     md_dest = PAPERS_DIR / f"{study_id}.md"
+    abstract_dest = PAPERS_DIR / f"{study_id}.abstract.md"
 
-    already_satisfied = (not keep_pdf or pdf_dest.exists()) and (not want_md or md_dest.exists())
+    already_satisfied = (
+        (not keep_pdf or pdf_dest.exists())
+        and (not want_md or md_dest.exists())
+        or abstract_dest.exists()
+    )
     if already_satisfied and not force:
         result = {
             "study_id": study_id,
@@ -317,6 +430,7 @@ def fetch_one(row: dict, session: requests.Session, force: bool, fmt: str) -> di
             "pdf_url": "",
             "local_path": str(pdf_dest.relative_to(REPO_ROOT)) if pdf_dest.exists() else "",
             "md_local_path": str(md_dest.relative_to(REPO_ROOT)) if md_dest.exists() else "",
+            "abstract_local_path": str(abstract_dest.relative_to(REPO_ROOT)) if abstract_dest.exists() else "",
             "status": "already_downloaded",
             "http_code": "",
             "message": "skipped (use --force to re-download)",
@@ -325,6 +439,7 @@ def fetch_one(row: dict, session: requests.Session, force: bool, fmt: str) -> di
 
     result = _download_pdf(row, session, pdf_dest)
     result.setdefault("md_local_path", "")
+    result.setdefault("abstract_local_path", "")
 
     if result["status"] == "success" and want_md:
         ok, msg = convert_pdf_to_md(pdf_dest, md_dest, row)
@@ -337,6 +452,16 @@ def fetch_one(row: dict, session: requests.Session, force: bool, fmt: str) -> di
     if result["status"] in ("success", "pdf_ok_md_failed") and not keep_pdf:
         pdf_dest.unlink(missing_ok=True)
         result["local_path"] = ""
+
+    if abstract_fallback and result["status"] in ("no_pdf_found", "error"):
+        ok, abstract_text, resolved_url, msg = fetch_abstract(row, session)
+        if ok:
+            save_abstract(abstract_text, abstract_dest, row, resolved_url)
+            result["abstract_local_path"] = str(abstract_dest.relative_to(REPO_ROOT))
+            result["status"] = "abstract_only"
+            result["message"] = f"{result['message']}; full text unavailable, saved abstract instead"
+        else:
+            result["message"] = f"{result['message']}; abstract fallback also failed ({msg})"
 
     return result
 
@@ -360,7 +485,7 @@ def append_fetch_log(entries: list[dict]) -> None:
     PAPERS_DIR.mkdir(parents=True, exist_ok=True)
     fieldnames = [
         "timestamp", "study_id", "source_url", "pdf_url",
-        "local_path", "md_local_path", "status", "http_code", "message",
+        "local_path", "md_local_path", "abstract_local_path", "status", "http_code", "message",
     ]
     file_exists = FETCH_LOG.exists()
     with open(FETCH_LOG, "a", newline="", encoding="utf-8") as fh:
@@ -380,6 +505,10 @@ def main() -> int:
         "--format", choices=["pdf", "md", "both"], default="both",
         help="What to keep on disk: raw 'pdf', extracted 'md', or 'both' (default).",
     )
+    parser.add_argument(
+        "--no-abstract-fallback", action="store_true",
+        help="Disable falling back to scraping just the abstract when no full-text PDF can be found.",
+    )
     args = parser.parse_args()
 
     if not TRACKING_CSV.exists():
@@ -387,7 +516,7 @@ def main() -> int:
         return 1
 
     rows, fieldnames = load_tracking_rows()
-    for col in ("pdf_status", "pdf_local_path", "md_local_path"):
+    for col in ("pdf_status", "pdf_local_path", "md_local_path", "abstract_local_path"):
         if col not in fieldnames:
             fieldnames.append(col)
 
@@ -409,13 +538,17 @@ def main() -> int:
     for i, row in enumerate(targets, start=1):
         study_id = row["study_id"].strip()
         print(f"[{i}/{total}] {study_id}: {row.get('title', '')[:70]!r} ...", flush=True)
-        result = fetch_one(row, session, force=args.force, fmt=args.format)
+        result = fetch_one(
+            row, session, force=args.force, fmt=args.format,
+            abstract_fallback=not args.no_abstract_fallback,
+        )
         print(f"    -> {result['status']} ({result['message']})")
 
         log_entries.append({"timestamp": time.strftime("%Y-%m-%d %H:%M:%S"), **result})
         by_id[study_id]["pdf_status"] = result["status"]
         by_id[study_id]["pdf_local_path"] = result["local_path"]
         by_id[study_id]["md_local_path"] = result.get("md_local_path", "")
+        by_id[study_id]["abstract_local_path"] = result.get("abstract_local_path", "")
 
         if result["status"] not in ("already_downloaded",):
             time.sleep(args.delay)
@@ -424,9 +557,13 @@ def main() -> int:
     save_tracking_rows(list(by_id.values()), fieldnames)
 
     n_success = sum(1 for e in log_entries if e["status"] in ("success", "pdf_ok_md_failed"))
+    n_abstract = sum(1 for e in log_entries if e["status"] == "abstract_only")
     n_skip = sum(1 for e in log_entries if e["status"] == "already_downloaded")
-    n_fail = len(log_entries) - n_success - n_skip
-    print(f"\nDone. {n_success} downloaded, {n_skip} already present, {n_fail} failed/needs manual fetch.")
+    n_fail = len(log_entries) - n_success - n_abstract - n_skip
+    print(
+        f"\nDone. {n_success} full text downloaded, {n_abstract} abstract-only "
+        f"(full text unavailable), {n_skip} already present, {n_fail} failed completely."
+    )
     print(f"Files saved under: {PAPERS_DIR.relative_to(REPO_ROOT)} (format={args.format})")
     print(f"Manifest log: {FETCH_LOG.relative_to(REPO_ROOT)}")
     return 0

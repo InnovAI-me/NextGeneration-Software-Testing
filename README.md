@@ -65,9 +65,16 @@ for submission to a computer science review/survey journal.
    ```
    Downloaded files land in `data/papers/<study_id>.pdf` / `.md` and are
    **not committed** (publisher copyright — see the note at the top of
-   the script); only `data/papers/fetch-log.csv` is tracked. Entries that
-   fail (paywalled/blocked) are logged as `no_pdf_found`/`error` in
-   `pdf_status` and should be fetched manually via institutional access.
+   the script); only `data/papers/fetch-log.csv` is tracked. When full
+   text can't be retrieved, the script automatically falls back to
+   scraping just the paper's **abstract** (saved as
+   `data/papers/<study_id>.abstract.md`, status `abstract_only`); a
+   title-keyword-overlap check guards against picking up generic
+   venue/CFP boilerplate instead of the real abstract. Disable this with
+   `--no-abstract-fallback`. Entries that fail even for the abstract
+   (paywalled/blocked, HTTP 403, no abstract on page) are logged as
+   `no_pdf_found`/`error` in `pdf_status` and should be fetched manually
+   via institutional access.
 4. **Extract data** per included study using the template in
    `literature-review/data-extraction-form.md`.
 5. **Run analysis**:
