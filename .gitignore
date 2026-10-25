@@ -20,6 +20,7 @@ paper/sections/*.aux
 # Data (keep raw exports out of git if large/licensed; adjust as needed)
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/reference-list.xlsx
 data/processed/*
 !data/processed/.gitkeep
 

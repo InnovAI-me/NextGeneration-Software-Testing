@@ -20,14 +20,17 @@ for submission to a computer science review/survey journal.
 │   ├── inclusion-exclusion-criteria.md
 │   ├── prisma-flow.md
 │   ├── data-extraction-form.md
+│   ├── reference-set-provenance.md   # How papers-tracking.csv/references.bib were imported
 │   ├── papers-tracking.csv     # Master spreadsheet of candidate/included studies
 │   ├── search-log.csv
 │   └── exclusions-log.csv
 ├── data/
 │   ├── raw/                    # Unmodified exports from databases (CSV/RIS/BibTeX)
+│   │   └── reference-list.xlsx # Curated source workbook (see reference-set-provenance.md)
 │   └── processed/              # Cleaned/deduplicated datasets
 ├── scripts/
-│   └── analyze_literature.py   # Generates figures/tables from tracking sheet
+│   ├── analyze_literature.py   # Generates figures/tables from tracking sheet
+│   └── import_reference_list.py # Imports data/raw/reference-list.xlsx into the tracking CSV + references.bib
 ├── results/
 │   ├── figures/                 # Script-generated figures
 │   └── tables/                  # Script-generated summary tables
@@ -45,7 +48,11 @@ for submission to a computer science review/survey journal.
    strategy, inclusion/exclusion criteria, time window).
 2. **Execute searches** across digital libraries; log each run in
    `literature-review/search-log.csv`; export raw results into
-   `data/raw/`.
+   `data/raw/`. A curated starter set of ~113 candidate studies is
+   already imported from `data/raw/reference-list.xlsx` — see
+   `literature-review/reference-set-provenance.md` for how it was
+   produced and re-run `scripts/import_reference_list.py` after
+   editing that workbook.
 3. **Screen studies** (title/abstract, then full text) and update
    `literature-review/papers-tracking.csv` and `exclusions-log.csv`.
 4. **Extract data** per included study using the template in

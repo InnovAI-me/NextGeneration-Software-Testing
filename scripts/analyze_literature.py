@@ -33,12 +33,15 @@ TABLES_DIR = ROOT / "results" / "tables"
 def load_included_studies() -> pd.DataFrame:
     """Load the tracking sheet and filter to full-text included studies."""
     df = pd.read_csv(TRACKING_CSV)
-    included = df[df["decision_full_text"].str.lower() == "include"].copy()
+    decision = df["decision_full_text"].astype("string").fillna("").str.lower()
+    included = df[decision == "include"].copy()
     return included
 
 
 def plot_publication_trend(df: pd.DataFrame) -> None:
     """Bar chart of included studies per publication year."""
+    if df.empty:
+        return
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     counts = df["year"].value_counts().sort_index()
     ax = counts.plot(kind="bar", color="#2b6cb0")
@@ -52,6 +55,8 @@ def plot_publication_trend(df: pd.DataFrame) -> None:
 
 def plot_technique_distribution(df: pd.DataFrame) -> None:
     """Bar chart of studies per technique category."""
+    if df.empty:
+        return
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     counts = df["technique_category"].fillna("unclassified").value_counts()
     ax = counts.plot(kind="barh", color="#2f855a")
