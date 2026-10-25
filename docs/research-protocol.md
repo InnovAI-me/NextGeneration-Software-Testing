@@ -1,7 +1,8 @@
 # Research Protocol
 
 ## Title (working)
-Next-Generation Software Testing: A Systematic Literature Review
+The Next Generation of Software Testing: A Critical Review of Agentic
+AI, Self-Adaptive Test Frameworks, and Autonomous Quality Engineering
 
 ## Target Venue
 Computer science **review/survey journal** (e.g., ACM Computing

@@ -1,4 +1,4 @@
-# Next-Generation Software Testing — Systematic Literature Review
+# The Next Generation of Software Testing: A Critical Review of Agentic AI, Self-Adaptive Test Frameworks, and Autonomous Quality Engineering
 
 A research repository for producing a **systematic literature review
 (SLR)** on next-generation software testing techniques (AI-driven,

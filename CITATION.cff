@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this review, protocol, or dataset, please cite it as below."
-title: "Next-Generation Software Testing: A Systematic Literature Review"
+title: "The Next Generation of Software Testing: A Critical Review of Agentic AI, Self-Adaptive Test Frameworks, and Autonomous Quality Engineering"
 type: software
 authors:
   - family-names: "One"
