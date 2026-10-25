@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this review, protocol, or dataset, please cite it as below."
+title: "Next-Generation Software Testing: A Systematic Literature Review"
+type: software
+authors:
+  - family-names: "One"
+    given-names: "Author"
+    affiliation: "Your Institution"
+  - family-names: "Two"
+    given-names: "Author"
+    affiliation: "Your Institution"
+repository-code: "https://github.com/InnovAI-me/NextGeneration-Software-Testing"
+license: MIT
+version: 0.1.0
+date-released: 2026-10-25
+keywords:
+  - software testing
+  - test automation
+  - systematic literature review
+  - artificial intelligence
+  - software engineering

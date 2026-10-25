@@ -1,0 +1,4 @@
+# Python dependencies for literature analysis scripts
+pandas>=2.2
+matplotlib>=3.8
+bibtexparser>=1.4

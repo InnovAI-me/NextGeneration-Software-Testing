@@ -1,0 +1,2 @@
+study_id,title,authors,year,venue,venue_type,database_source,doi,decision_title_abstract,decision_full_text,inclusion_exclusion_code,quality_score,technique_category,automation_level,notes
+S001,"Example: AI-driven test case generation using LLMs","Doe, J.; Smith, A.",2024,"Journal of Computer Science Review","Journal","IEEE Xplore","10.0000/example","include","include","","4.5","test generation","generation",""

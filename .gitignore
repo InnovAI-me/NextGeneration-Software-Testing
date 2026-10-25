@@ -1,3 +1,29 @@
 ﻿
 .venv/
+venv/
+__pycache__/
+*.pyc
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.synctex.gz
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.pdf
+paper/sections/*.aux
+
+# Data (keep raw exports out of git if large/licensed; adjust as needed)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
 
