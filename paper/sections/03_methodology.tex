@@ -14,10 +14,18 @@ versioned in \texttt{literature-review/} of the accompanying
 repository for full reproducibility.
 
 \subsection{Search Strategy}
-\textit{[Describe digital libraries searched (e.g., IEEE Xplore, ACM
-Digital Library, Scopus, Web of Science, Google Scholar), the search
-string, and the time window. See
-\texttt{literature-review/search-strategy.md}.]}
+A curated starter corpus of 113 candidate studies was assembled from a
+hand-curated reference list spanning 19 technique categories (see
+\texttt{literature-review/reference-set-provenance.md}) to bootstrap
+screening and taxonomy design. The full systematic multi-database
+search (IEEE Xplore, ACM Digital Library, Scopus, Web of Science, plus
+arXiv/Google Scholar for preprints, with one round of backward/forward
+snowballing) defined in
+\texttt{literature-review/search-strategy.md} is planned but not yet
+executed/logged (see \texttt{docs/research-plan.md}, Phase 1); results
+from that search will be merged with and deduplicated against the
+current 113-study corpus before final inclusion counts are reported
+here.
 
 \subsection{Inclusion and Exclusion Criteria}
 \textit{[Summarize criteria; full list in
@@ -26,12 +34,24 @@ string, and the time window. See
 \subsection{Study Selection Process}
 \textit{[Describe the PRISMA stages: identification, screening,
 eligibility, inclusion. Reference the PRISMA diagram generated from
-\texttt{literature-review/prisma-flow.md}.]}
+\texttt{literature-review/prisma-flow.md}.]} Of the 113 candidate
+studies, 31 were prioritized as ``must-read'' primary studies (based on
+peer-reviewed venue, direct relevance to agentic/autonomous testing,
+and category coverage) and analyzed in full text; full-text or
+verified-abstract coverage currently stands at 102 of 113 studies (99
+full text, 3 abstract-only), with 11 studies pending manual
+institutional-access retrieval (paywalled/blocked sources). See
+\texttt{data/papers/fetch-log.csv} for the complete retrieval manifest.
 
 \subsection{Data Extraction and Synthesis}
 \textit{[Describe the data extraction form fields and the synthesis
 method -- e.g., narrative synthesis, thematic analysis, or
-meta-analysis where applicable.]}
+meta-analysis where applicable.]} Per-study key-point extraction
+(problem/motivation, approach, key findings, limitations, and
+identified research gap) for the 31 priority studies is recorded in
+\texttt{literature-review/priority-papers-key-points.md}, including a
+cross-paper thematic synthesis used to ground this manuscript's
+motivation, research questions, and discussion.
 
 \subsection{Quality Assessment}
 \textit{[Describe the quality assessment checklist used to score each

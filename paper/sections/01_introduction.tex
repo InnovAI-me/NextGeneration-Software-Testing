@@ -28,6 +28,32 @@ testing,'' ``AI-augmented testing''), evaluation benchmarks, and
 maturity levels, making it difficult for researchers and practitioners
 to assess the state of the art.
 
+\subsection{Motivation}
+The rapid adoption of LLMs in software testing has given rise to a new
+generation of agentic, self-adaptive, and autonomous quality-engineering
+techniques, ranging from multi-agent unit-test generation frameworks
+that reconcile hallucinated oracles through panelist consensus, to
+vision-driven GUI agents that detect non-crash functional bugs
+invisible to crash-based testing, to self-healing locators and
+flaky-test triage systems deployed at industrial scale. Yet this
+progress is uneven and often methodologically fragile: independent
+replications have shown that headline accuracy claims for neural
+test-oracle generation and flaky-test classifiers can be substantially
+overstated once data leakage and unrealistic class balance are
+corrected, while several studies suggest that simple non-agentic
+pipelines can match complex autonomous agents at a fraction of the
+cost. Persistent challenges -- unreliable test oracles, limited
+generalization beyond Java/Python and small-to-medium benchmarks,
+unmeasured fault-detection effectiveness beneath coverage metrics,
+unresolved context-management strategies for large codebases, and
+emerging security vulnerabilities such as prompt injection against
+coding agents -- indicate that the field lacks a systematic,
+cross-cutting synthesis of what agentic AI testing techniques reliably
+deliver versus where genuine autonomy remains aspirational. This
+review addresses that gap (see
+\texttt{literature-review/priority-papers-key-points.md} for the
+per-study evidence underlying this motivation).
+
 \subsection{Problem Statement}
 No comprehensive, up-to-date systematic review consolidates these
 next-generation software testing techniques under a unified
@@ -44,9 +70,14 @@ This review addresses the following research questions (RQs):
         generation, execution, oracle, maintenance)?
   \item \textbf{RQ3:} What empirical evidence exists regarding the
         effectiveness, efficiency, and industrial adoption of these
-        techniques?
+        techniques, and how rigorous/reproducible is that evidence
+        (e.g., benchmark leakage, generalizability beyond the
+        originally reported settings)?
   \item \textbf{RQ4:} What are the open challenges and research gaps
-        for next-generation software testing?
+        for next-generation software testing, including test-oracle
+        reliability, cross-language/cross-scale generalization,
+        context management for large codebases, and the security and
+        trustworthiness of autonomous testing agents?
 \end{itemize}
 
 \subsection{Contributions}

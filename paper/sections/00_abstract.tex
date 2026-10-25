@@ -1,28 +1,36 @@
 % Abstract (150-250 words typical for CS review journals)
 %
-% Structure suggestion:
-%  - Context/motivation (1-2 sentences)
-%  - Problem / gap in current literature
-%  - Objective of the review
-%  - Methodology (systematic review, databases, years, N studies)
-%  - Key findings (3-4 themes)
-%  - Implications / contribution
-Software testing is undergoing a paradigm shift driven by artificial
-intelligence, large-scale automation, and continuous delivery practices.
-Despite a growing body of work on next-generation software testing
-techniques, the literature remains fragmented across disparate venues,
-terminologies, and evaluation methodologies. This paper presents a
-systematic literature review (SLR) following the Kitchenham and PRISMA
-guidelines to synthesize research published between
-\textit{[START\_YEAR]} and \textit{[END\_YEAR]} on AI-driven, autonomous,
-and next-generation software testing approaches. We screened
-\textit{[N\_INITIAL]} candidate studies from \textit{[DATABASES]},
-applying explicit inclusion/exclusion criteria to arrive at
-\textit{[N\_FINAL]} primary studies. We classify the selected studies
-along four dimensions: testing technique, level of automation, target
-application domain, and evaluation rigor. Our synthesis identifies
-\textit{[KEY\_THEME\_1]}, \textit{[KEY\_THEME\_2]}, and
-\textit{[KEY\_THEME\_3]} as dominant research trends, while highlighting
-open challenges in explainability, reproducibility, and industrial
-adoption. We conclude with a research agenda for the next generation of
-software testing research and practice.
+% Draft synthesized from literature-review/priority-papers-key-points.md
+% (31 priority full-text studies analyzed in depth). Update
+% [START_YEAR]/[END_YEAR]/[DATABASES]/[N_INITIAL]/[N_FINAL] once the
+% full systematic multi-database search (docs/research-plan.md, Phase 1)
+% is executed and final inclusion counts are locked.
+Large language models (LLMs) are increasingly embedded in autonomous and
+self-adaptive software-testing pipelines, spanning unit-test generation,
+GUI exploration, bug reproduction, flaky-test triage, fuzzing, and REST
+API testing, promising to automate activities long considered to
+require human judgment. Despite rapid growth, the literature is
+fragmented across techniques, benchmarks, and claims of effectiveness,
+with several influential results later shown to be overstated once
+rigorously re-evaluated, making it difficult to assess the genuine
+state of agentic AI in quality engineering. This systematic literature
+review (SLR), following Kitchenham and PRISMA guidelines, screens
+\textit{[N\_INITIAL]} candidate studies drawn from
+\textit{[DATABASES]} (\textit{[START\_YEAR]}--\textit{[END\_YEAR]}),
+with 31 priority studies analyzed in depth across technique categories
+including surveys, unit-test generation, multi-agent/agentic test
+generation, agentic software-engineering foundations, bug
+reproduction/validation, mobile and GUI testing agents, test oracles,
+CI/flaky-test triage, API testing, LLM-based fuzzing, and agent
+security. We find that multi-agent architectures and coverage-guided
+feedback loops consistently improve test quality over single-shot
+prompting, but the test-oracle problem, cross-language/cross-scale
+generalization, fault-detection validity, context management for large
+codebases, and agent security remain substantially unresolved; several
+widely cited ``state-of-the-art'' results do not hold under corrected,
+leakage-free evaluation. We conclude that advancing truly autonomous
+software testing requires rigorous, contamination-resistant benchmarks,
+fault-detection-centric (not coverage-centric) evaluation, and
+dedicated attention to agent robustness, security, and developer trust
+alongside continued architectural innovation, and we outline a
+corresponding research agenda.

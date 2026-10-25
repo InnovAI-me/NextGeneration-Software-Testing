@@ -21,6 +21,8 @@ for submission to a computer science review/survey journal.
 │   ├── prisma-flow.md
 │   ├── data-extraction-form.md
 │   ├── reference-set-provenance.md   # How papers-tracking.csv/references.bib were imported
+│   ├── reading-focus-guide.md  # Per-category reading focus for the non-priority studies
+│   ├── priority-papers-key-points.md  # Key points + research gaps extracted from the 31 priority full-text studies
 │   ├── papers-tracking.csv     # Master spreadsheet of candidate/included studies
 │   ├── search-log.csv
 │   └── exclusions-log.csv
