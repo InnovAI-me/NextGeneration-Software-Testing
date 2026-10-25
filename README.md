@@ -27,10 +27,12 @@ for submission to a computer science review/survey journal.
 ├── data/
 │   ├── raw/                    # Unmodified exports from databases (CSV/RIS/BibTeX)
 │   │   └── reference-list.xlsx # Curated source workbook (see reference-set-provenance.md)
-│   └── processed/              # Cleaned/deduplicated datasets
+│   ├── processed/              # Cleaned/deduplicated datasets
+│   └── papers/                 # Downloaded full-text PDFs/Markdown (local only, gitignored - see below)
 ├── scripts/
 │   ├── analyze_literature.py   # Generates figures/tables from tracking sheet
-│   └── import_reference_list.py # Imports data/raw/reference-list.xlsx into the tracking CSV + references.bib
+│   ├── import_reference_list.py # Imports data/raw/reference-list.xlsx into the tracking CSV + references.bib
+│   └── fetch_full_papers.py    # Downloads each study's full-text PDF and/or extracts it to Markdown
 ├── results/
 │   ├── figures/                 # Script-generated figures
 │   └── tables/                  # Script-generated summary tables
@@ -55,6 +57,17 @@ for submission to a computer science review/survey journal.
    editing that workbook.
 3. **Screen studies** (title/abstract, then full text) and update
    `literature-review/papers-tracking.csv` and `exclusions-log.csv`.
+   To fetch full-text copies for screening:
+   ```powershell
+   python scripts\fetch_full_papers.py --limit 10         # next 10 pending studies (PDF + Markdown)
+   python scripts\fetch_full_papers.py --study-id G1       # one specific study
+   python scripts\fetch_full_papers.py --format md         # keep only extracted Markdown
+   ```
+   Downloaded files land in `data/papers/<study_id>.pdf` / `.md` and are
+   **not committed** (publisher copyright — see the note at the top of
+   the script); only `data/papers/fetch-log.csv` is tracked. Entries that
+   fail (paywalled/blocked) are logged as `no_pdf_found`/`error` in
+   `pdf_status` and should be fetched manually via institutional access.
 4. **Extract data** per included study using the template in
    `literature-review/data-extraction-form.md`.
 5. **Run analysis**:

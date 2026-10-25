@@ -1,0 +1,17 @@
+timestamp,study_id,source_url,pdf_url,local_path,status,http_code,message
+2026-10-25 15:47:11,Z3,https://arxiv.org/abs/2304.02014,https://arxiv.org/pdf/2304.02014.pdf,data\papers\Z3.pdf,success,200,ok
+2026-10-25 15:47:14,SLR053,https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-coding-agent-sandbox-escapes-20260722-c/,https://labs.cloudsecurityalliance.org/wp-content/uploads/2026/07/CSA_research_note_ai_coding_agent_sandbox_escapes_20260722-csa-styled.pdf,data\papers\SLR053.pdf,success,200,ok
+2026-10-25 15:47:26,SLR025,https://arxiv.org/abs/2404.05427,https://arxiv.org/pdf/2404.05427.pdf,data\papers\SLR025.pdf,success,200,ok
+2026-10-25 15:47:28,SLR002,https://arxiv.org/abs/2308.10620,https://arxiv.org/pdf/2308.10620.pdf,data\papers\SLR002.pdf,success,200,ok
+2026-10-25 15:47:36,SLR054,https://doi.org/10.1109/TSE.2024.3381015,,,error,202,landing page HTTP 202
+2026-10-25 15:47:38,SLR013,https://2024.esec-fse.org/details/fse-2024-demonstrations/6/ChatUniTest-A-Framework-for-LLM-based-Test-Generation,,,no_pdf_found,200,no PDF/full-text link detected
+2026-10-25 15:47:40,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,,,no_pdf_found,200,no PDF/full-text link detected
+2026-10-25 15:47:56,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,data\papers\SLR012.pdf,success,200,ok
+2026-10-25 15:47:57,SLR054,https://doi.org/10.1109/TSE.2024.3381015,,,no_pdf_found,202,no PDF/full-text link detected
+2026-10-25 15:47:59,SLR013,https://2024.esec-fse.org/details/fse-2024-demonstrations/6/ChatUniTest-A-Framework-for-LLM-based-Test-Generation,,,no_pdf_found,200,no PDF/full-text link detected
+2026-10-25 15:50:25,Z3,https://arxiv.org/abs/2304.02014,https://arxiv.org/pdf/2304.02014.pdf,data\papers\Z3.pdf,data\papers\Z3.md,success,200,ok
+2026-10-25 15:50:33,Z3,https://arxiv.org/abs/2304.02014,https://arxiv.org/pdf/2304.02014.pdf,,data\papers\Z3.md,success,200,ok
+2026-10-25 15:50:53,SLR002,https://arxiv.org/abs/2308.10620,https://arxiv.org/pdf/2308.10620.pdf,data\papers\SLR002.pdf,data\papers\SLR002.md,success,200,ok
+2026-10-25 15:50:56,SLR025,https://arxiv.org/abs/2404.05427,https://arxiv.org/pdf/2404.05427.pdf,data\papers\SLR025.pdf,data\papers\SLR025.md,success,200,ok
+2026-10-25 15:51:01,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,data\papers\SLR012.pdf,data\papers\SLR012.md,success,200,ok
+2026-10-25 15:51:05,SLR053,https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-coding-agent-sandbox-escapes-20260722-c/,https://labs.cloudsecurityalliance.org/wp-content/uploads/2026/07/CSA_research_note_ai_coding_agent_sandbox_escapes_20260722-csa-styled.pdf,data\papers\SLR053.pdf,data\papers\SLR053.md,success,200,ok

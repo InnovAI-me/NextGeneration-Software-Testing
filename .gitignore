@@ -24,6 +24,12 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 
+# Downloaded full-text PDFs are typically copyrighted (publisher/arXiv license
+# terms vary) - keep them local only. Only the fetch manifest/log is tracked.
+data/papers/*
+!data/papers/.gitkeep
+!data/papers/fetch-log.csv
+
 # OS / editor
 .DS_Store
 Thumbs.db
