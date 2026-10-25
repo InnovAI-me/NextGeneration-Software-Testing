@@ -15,3 +15,35 @@ timestamp,study_id,source_url,pdf_url,local_path,status,http_code,message
 2026-10-25 15:50:56,SLR025,https://arxiv.org/abs/2404.05427,https://arxiv.org/pdf/2404.05427.pdf,data\papers\SLR025.pdf,data\papers\SLR025.md,success,200,ok
 2026-10-25 15:51:01,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,data\papers\SLR012.pdf,data\papers\SLR012.md,success,200,ok
 2026-10-25 15:51:05,SLR053,https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-coding-agent-sandbox-escapes-20260722-c/,https://labs.cloudsecurityalliance.org/wp-content/uploads/2026/07/CSA_research_note_ai_coding_agent_sandbox_escapes_20260722-csa-styled.pdf,data\papers\SLR053.pdf,data\papers\SLR053.md,success,200,ok
+2026-10-25 15:56:12,SLR001,https://arxiv.org/abs/2307.07221,https://arxiv.org/pdf/2307.07221.pdf,data\papers\SLR001.pdf,data\papers\SLR001.md,success,200,ok
+2026-10-25 15:56:15,SLR002,https://arxiv.org/abs/2308.10620,,data\papers\SLR002.pdf,data\papers\SLR002.md,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 15:56:18,SLR003,https://arxiv.org/abs/2310.03533,https://arxiv.org/pdf/2310.03533.pdf,data\papers\SLR003.pdf,data\papers\SLR003.md,success,200,ok
+2026-10-25 15:56:22,SLR004,https://arxiv.org/abs/2409.02977,https://arxiv.org/pdf/2409.02977.pdf,data\papers\SLR004.pdf,data\papers\SLR004.md,success,200,ok
+2026-10-25 15:56:27,SLR006,https://arxiv.org/abs/2409.09030,https://arxiv.org/pdf/2409.09030.pdf,data\papers\SLR006.pdf,data\papers\SLR006.md,success,200,ok
+2026-10-25 15:56:31,SLR009,https://arxiv.org/abs/2409.00411,https://arxiv.org/pdf/2409.00411.pdf,data\papers\SLR009.pdf,data\papers\SLR009.md,success,200,ok
+2026-10-25 15:56:35,SLR023,https://arxiv.org/abs/2405.15793,https://arxiv.org/pdf/2405.15793.pdf,data\papers\SLR023.pdf,data\papers\SLR023.md,success,200,ok
+2026-10-25 15:56:39,SLR024,https://arxiv.org/abs/2407.01489,https://arxiv.org/pdf/2407.01489.pdf,data\papers\SLR024.pdf,data\papers\SLR024.md,success,200,ok
+2026-10-25 15:56:43,SLR025,https://arxiv.org/abs/2404.05427,,data\papers\SLR025.pdf,data\papers\SLR025.md,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 15:56:46,SLR011,https://arxiv.org/abs/2302.06527,https://arxiv.org/pdf/2302.06527.pdf,data\papers\SLR011.pdf,data\papers\SLR011.md,success,200,ok
+2026-10-25 15:56:50,SLR012,https://www.microsoft.com/en-us/research/uploads/prod/2023/03/codamosa_icse23.pdf,,data\papers\SLR012.pdf,data\papers\SLR012.md,already_downloaded,,skipped (use --force to re-download)
+2026-10-25 15:56:53,SLR013,https://2024.esec-fse.org/details/fse-2024-demonstrations/6/ChatUniTest-A-Framework-for-LLM-based-Test-Generation,,,,no_pdf_found,200,no PDF/full-text link detected
+2026-10-25 15:56:57,SLR014,https://arxiv.org/abs/2402.09171,https://arxiv.org/pdf/2402.09171.pdf,data\papers\SLR014.pdf,data\papers\SLR014.md,success,200,ok
+2026-10-25 15:57:01,SLR015,https://arxiv.org/abs/2403.16218,https://arxiv.org/pdf/2403.16218.pdf,data\papers\SLR015.pdf,data\papers\SLR015.md,success,200,ok
+2026-10-25 15:57:05,SLR016,https://arxiv.org/abs/2406.18181,https://arxiv.org/pdf/2406.18181.pdf,data\papers\SLR016.pdf,data\papers\SLR016.md,success,200,ok
+2026-10-25 15:57:10,SLR019,https://arxiv.org/abs/2506.02943,https://arxiv.org/pdf/2506.02943.pdf,data\papers\SLR019.pdf,data\papers\SLR019.md,success,200,ok
+2026-10-25 15:57:14,SLR020,https://conf.researchr.org/details/apsec-2025/apsec-2025-papers/17/MUATC-Multi-Agent-Utilization-to-Augment-Test-Coverage,,,,no_pdf_found,200,no PDF/full-text link detected
+2026-10-25 15:57:18,SLR022,https://arxiv.org/abs/2607.09101,https://arxiv.org/pdf/2607.09101.pdf,data\papers\SLR022.pdf,data\papers\SLR022.md,success,200,ok
+2026-10-25 15:57:23,G1,https://arxiv.org/abs/2310.15780,https://arxiv.org/pdf/2310.15780.pdf,data\papers\G1.pdf,data\papers\G1.md,success,200,ok
+2026-10-25 15:57:26,SLR033,https://arxiv.org/abs/2308.15272,https://arxiv.org/pdf/2308.15272.pdf,data\papers\SLR033.pdf,data\papers\SLR033.md,success,200,ok
+2026-10-25 15:57:31,SLR036,https://conf.researchr.org/details/icse-2026/icse-2026-journal-first-papers/26/Seeing-is-Believing-Vision-driven-Non-crash-Functional-Bug-Detection-for-Mobile-Apps,https://arxiv.org/pdf/2025.36144.pdf,,,error,404,HTTP 404
+2026-10-25 15:57:35,P1,https://arxiv.org/abs/2411.07098,https://arxiv.org/pdf/2411.07098.pdf,data\papers\P1.pdf,data\papers\P1.md,success,200,ok
+2026-10-25 15:57:39,Z1,https://arxiv.org/abs/2308.04748,https://arxiv.org/pdf/2308.04748.pdf,data\papers\Z1.pdf,data\papers\Z1.md,success,200,ok
+2026-10-25 15:57:43,Z2,https://arxiv.org/abs/2212.14834,https://arxiv.org/pdf/2212.14834.pdf,data\papers\Z2.pdf,data\papers\Z2.md,success,200,ok
+2026-10-25 15:57:47,O1,https://arxiv.org/abs/2109.09262,https://arxiv.org/pdf/2109.09262.pdf,data\papers\O1.pdf,data\papers\O1.md,success,200,ok
+2026-10-25 15:57:52,O2,https://arxiv.org/abs/2307.16023,https://arxiv.org/pdf/2307.16023.pdf,data\papers\O2.pdf,data\papers\O2.md,success,200,ok
+2026-10-25 15:57:55,SLR026,https://arxiv.org/abs/2209.11515,https://arxiv.org/pdf/2209.11515.pdf,data\papers\SLR026.pdf,data\papers\SLR026.md,success,200,ok
+2026-10-25 15:57:59,SLR028,https://arxiv.org/abs/2406.12952,https://arxiv.org/pdf/2406.12952.pdf,data\papers\SLR028.pdf,data\papers\SLR028.md,success,200,ok
+2026-10-25 15:58:03,SLR050,https://arxiv.org/abs/2406.13352,https://arxiv.org/pdf/2406.13352.pdf,data\papers\SLR050.pdf,data\papers\SLR050.md,success,200,ok
+2026-10-25 15:58:07,SLR044,https://www.cs.cornell.edu/~saikatd/papers/flakylens-oopsla25.pdf,https://www.cs.cornell.edu/~saikatd/papers/flakylens-oopsla25.pdf,data\papers\SLR044.pdf,data\papers\SLR044.md,success,200,ok
+2026-10-25 15:58:10,SLR049,https://arxiv.org/abs/2511.14002,https://arxiv.org/pdf/2511.14002.pdf,data\papers\SLR049.pdf,data\papers\SLR049.md,success,200,ok
+2026-10-25 15:58:15,SLR041,https://conf.researchr.org/details/icse-2025/icse-2025-software-engineering-in-practice/16/ASTER-Natural-and-Multi-language-Unit-Test-Generation-with-LLMs,https://arxiv.org/pdf/2409.03093.pdf,data\papers\SLR041.pdf,data\papers\SLR041.md,success,200,ok
