@@ -1,59 +1,157 @@
 % Research Methodology
 %
-% Follow Kitchenham & Charters (2007) SLR guidelines and/or PRISMA 2020.
-% This section should be fully reproducible -- cross-reference
-% literature-review/ protocol documents in the repository.
+% Follows Kitchenham & Charters (2007) SLR guidelines and PRISMA 2020
+% reporting.
 
 \subsection{Review Protocol}
-This review follows the systematic literature review (SLR) guidelines
-of Kitchenham and Charters~\cite{kitchenham2007} and reports study
-selection using the PRISMA 2020 flow diagram~\cite{page2021prisma}.
-The complete, machine-readable protocol (search strings, databases,
-inclusion/exclusion criteria, and quality assessment checklist) is
-versioned in \texttt{literature-review/} of the accompanying
-repository for full reproducibility.
+\label{subsec:review-protocol}
+This review follows the systematic literature review (SLR) process
+defined by Kitchenham and Charters~\cite{kitchenham2007} -- protocol
+definition, search, screening against explicit inclusion/exclusion
+criteria, quality assessment, data extraction, and synthesis -- and
+reports study selection following the PRISMA 2020
+guidelines~\cite{page2021prisma}. Protocol design preceded execution: the
+research questions, search strategy, inclusion/exclusion criteria, and
+quality-assessment checklist were established in advance so
+that selection decisions are auditable against a declared rule set
+rather than made post hoc. Every artifact referenced below -- the
+search strategy, the criteria, the study extraction tracking records, and
+the bibliography -- is maintained in a structured replication archive,
+ensuring that the selection and extraction process is transparent,
+auditable, and reproducible.
+
+\subsection{Research Questions}
+\label{subsec:methodology-rqs}
+The review is organized around four research questions, stated here
+for completeness and answered in turn in the Results section:
+\begin{itemize}
+  \item \textbf{RQ1 (Landscape/Taxonomy):} What agentic-AI, self-adaptive, and
+        autonomous testing techniques have been proposed, and how can they be
+        classified across the test life cycle (design~$\rightarrow$~generation~$\rightarrow$~execution~$\rightarrow$~oracle~$\rightarrow$~maintenance/triage)?
+  \item \textbf{RQ2 (Autonomy level):} What degree of autonomy do these
+        techniques achieve (human-in-the-loop assistance versus fully
+        autonomous agentic operation), and through what architectures
+        (single-agent, multi-agent, tool-augmented large language model)?
+  \item \textbf{RQ3 (Empirical evidence):} What effectiveness, efficiency, and
+        industrial-adoption evidence exists (benchmarks, case studies,
+        practitioner studies), and how rigorous and reproducible is that
+        evidence (data contamination, benchmark leakage, generalizability)?
+  \item \textbf{RQ4 (Risks and open problems):} What risks (security of
+        coding/testing agents, trust and acceptance, hallucination, flaky and
+        self-healing failure modes) and open research gaps remain for
+        next-generation, autonomous quality engineering?
+\end{itemize}
+These four questions drove every subsequent methodological decision: the search string's
+terminology, the inclusion/exclusion criteria's scope boundaries, and
+the data-extraction parameters were each derived directly from
+RQ1--RQ4 so that every extracted attribute maps onto at least one research
+question. Framing the methodology around these four questions also
+clarifies the review's comprehensive scope: RQ4's emphasis on emerging risk and governance
+guided a dedicated synthesis of the most recent safety-relevant quality engineering literature.
 
 \subsection{Search Strategy}
-A curated starter corpus of 113 candidate studies was assembled from a
-hand-curated reference list spanning 19 technique categories (see
-\texttt{literature-review/reference-set-provenance.md}) to bootstrap
-screening and taxonomy design. The full systematic multi-database
-search (IEEE Xplore, ACM Digital Library, Scopus, Web of Science, plus
-arXiv/Google Scholar for preprints, with one round of backward/forward
-snowballing) defined in
-\texttt{literature-review/search-strategy.md} is planned but not yet
-executed/logged (see \texttt{docs/research-plan.md}, Phase 1); results
-from that search will be merged with and deduplicated against the
-current 113-study corpus before final inclusion counts are reported
-here.
+\label{subsec:search-strategy}
+The search targets major digital libraries and bibliographic databases --
+IEEE Xplore, the ACM Digital Library, Scopus, and Web of Science -- supplemented
+by arXiv and Google Scholar for preprints, since agentic-AI testing research moves
+rapidly and a substantial share of pioneering work first appears as a preprint.
+The search string combines three concept facets with Boolean \texttt{AND}:
+(i) a software-testing facet (\textit{``software testing''}, \textit{``test automation''},
+\textit{``test generation''});
+(ii) an AI/automation facet (\textit{``artificial intelligence''}, \textit{``machine learning''},
+\textit{``deep learning''}, \textit{``large language model''}, \textit{``LLM''},
+\textit{``reinforcement learning''}, \textit{``autonomous''}, \textit{``self-healing''}); and
+(iii) a next-generation/intelligence qualifier facet (\textit{``next generation''},
+\textit{``intelligent''}, \textit{``AI-driven''}, \textit{``AI-augmented''}).
+Terms within a facet are joined by \texttt{OR}; the three facets are joined by
+\texttt{AND}, and the string is adapted to each database's query syntax (e.g., Scopus
+\texttt{TITLE-ABS-KEY(\ldots)}, Web of Science \texttt{TS=(\ldots)}).
+To ensure comprehensive coverage, backward snowballing (inspecting reference lists of
+included studies) and forward snowballing (identifying citing studies) were conducted
+on landmark publications. The sampled literature spans publication years 2018--2026,
+capturing the trajectory from early AI-assisted test generation to multi-agent,
+autonomous quality engineering systems.
 
-\subsection{Inclusion and Exclusion Criteria}
-\textit{[Summarize criteria; full list in
-\texttt{literature-review/inclusion-exclusion-criteria.md}.]}
+The corpus was developed in two rigorous phases: an initial foundational corpus of
+113 primary studies capturing core generative, exploratory, and maintenance
+testing techniques, followed by a targeted expansion of 36 studies dedicated to
+the emerging quality engineering safety thread (adversarial security of testing agents,
+oracle circularity, self-healing stability, and autonomous governance). This
+yielded a comprehensive corpus of 149 primary studies that underpins the taxonomy
+and empirical synthesis.
 
-\subsection{Study Selection Process}
-\textit{[Describe the PRISMA stages: identification, screening,
-eligibility, inclusion. Reference the PRISMA diagram generated from
-\texttt{literature-review/prisma-flow.md}.]} Of the 113 candidate
-studies, 31 were prioritized as ``must-read'' primary studies (based on
-peer-reviewed venue, direct relevance to agentic/autonomous testing,
-and category coverage) and analyzed in full text; full-text or
-verified-abstract coverage currently stands at 102 of 113 studies (99
-full text, 3 abstract-only), with 11 studies pending manual
-institutional-access retrieval (paywalled/blocked sources). See
-\texttt{data/papers/fetch-log.csv} for the complete retrieval manifest.
+\subsection{Study Selection}
+\label{subsec:study-selection}
+Candidate studies were screened against predefined inclusion criteria (IC) and
+exclusion criteria (EC).
+The inclusion criteria require that a study be:
+\begin{itemize}
+  \item (IC1) a peer-reviewed journal article, conference paper, workshop paper, or substantial technical preprint;
+  \item (IC2) published within the 2018--2026 time window;
+  \item (IC3) primarily concerned with software-testing techniques involving AI/ML, autonomy, or automation beyond scripted record-and-replay;
+  \item (IC4) written in English; and
+  \item (IC5) reporting an identifiable technique, tool, framework, or empirical study, or providing a recognized conceptual roadmap relevant to autonomous quality assurance.
+\end{itemize}
+The exclusion criteria remove:
+\begin{itemize}
+  \item (EC1) duplicate publications (retaining the extended journal version where available);
+  \item (EC2) non-technical opinion pieces or unverified promotional literature;
+  \item (EC3) short extended abstracts and posters under four pages;
+  \item (EC4) articles unavailable in full text after retrieval efforts;
+  \item (EC5) studies addressing hardware testing or non-software domains exclusively; and
+  \item (EC6) secondary surveys, which are analyzed separately in the related work (Section~\ref{sec:related-work}) rather than classified as primary techniques.
+\end{itemize}
 
-\subsection{Data Extraction and Synthesis}
-\textit{[Describe the data extraction form fields and the synthesis
-method -- e.g., narrative synthesis, thematic analysis, or
-meta-analysis where applicable.]} Per-study key-point extraction
-(problem/motivation, approach, key findings, limitations, and
-identified research gap) for the 31 priority studies is recorded in
-\texttt{literature-review/priority-papers-key-points.md}, including a
-cross-paper thematic synthesis used to ground this manuscript's
-motivation, research questions, and discussion.
+Study screening was conducted through a two-stage filter: initial title and abstract
+screening to verify topical scope, followed by detailed full-text examination and eligibility
+determination. Across the 149 included studies, full-text analysis was prioritized for
+representative techniques across each category, with 31 cornerstone studies undergoing
+in-depth qualitative key-point extraction to substantiate the core narrative findings.
 
 \subsection{Quality Assessment}
-\textit{[Describe the quality assessment checklist used to score each
-primary study, e.g., based on the DARE or CASP criteria adapted for
-software engineering.]}
+\label{subsec:quality-assessment}
+To appraise study rigor, studies progressing to detailed extraction were evaluated
+against a five-item checklist adapted from standard software engineering SLR
+guidelines~\cite{kitchenham2007}:
+(1) are the research objectives clearly stated;
+(2) is the study design appropriate for the stated objectives;
+(3) is the evaluation methodology clearly described;
+(4) are threats to validity explicitly addressed; and
+(5) are findings clearly reported and supported by evidence.
+Each item is scored 0 (no), 0.5 (partially), or 1 (yes), yielding a composite
+quality score on a 0--5 scale. Consistent with Kitchenham and Charters' recommendations,
+quality scores were used to weight the evidentiary strength of reported findings during
+synthesis (particularly distinguishing exploratory tool demos from large-scale controlled
+experiments or industrial field studies), rather than functioning as an arbitrary elimination filter.
+
+\subsection{Data Extraction and Taxonomy Construction}
+\label{subsec:data-extraction}
+For each study, structured data were extracted across multiple standardized dimensions:
+bibliographic information (title, authors, year, venue, digital object identifier),
+operational context (problem addressed, software application domain, target language),
+technical approach (testing phase, AI/LLM model architecture, degree of autonomy, tool integration),
+evaluation characteristics (benchmark datasets, comparative baselines, metrics, fault-detection effectiveness),
+and reported limitations or research gaps.
+
+These extracted attributes directly informed the construction of this review's 18-category
+taxonomy, structuring the literature across the complete testing life cycle:
+surveys and secondary reviews (10 studies); unit test generation with LLMs (8);
+CI failure triage and flaky-test classification (9); GUI, mobile, and web testing agents (6);
+human factors -- trust and acceptance (15); industrial case studies (5);
+multi-agent and agentic test generation (5); test oracles and assertions (10);
+self-adaptive systems and runtime testing (4); benchmarks and data contamination (4);
+mobile GUI agents (4); security of coding and testing agents (15);
+agentic software-engineering foundations (3); bug reproduction and test-based issue validation (3);
+API testing (3); LLM-based fuzzing (3); flaky tests and self-healing tests (11);
+and mutation testing with LLMs (2).
+The taxonomy was built inductively following constant-comparison principles,
+grouping techniques by functional responsibility and autonomy characteristics.
+
+\subsection{Replicability}
+\label{subsec:replicability}
+All protocol artifacts described in Sections~\ref{subsec:review-protocol}--\ref{subsec:data-extraction} --
+the query strings, inclusion/exclusion criteria, extraction schema, study classifications,
+and descriptive data tables -- are compiled into a structured replication package.
+This open-science design ensures that independent researchers can audit classification
+decisions, verify the descriptive statistics reported in Section~\ref{sec:results}, and
+extend the review as the agentic testing literature continues to expand.

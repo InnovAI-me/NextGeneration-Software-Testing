@@ -2,52 +2,96 @@
 % The Next Generation of Software Testing: A Critical Review of
 % Agentic AI, Self-Adaptive Test Frameworks, and Autonomous Quality
 % Engineering
-% Template: IEEEtran (journal mode) -- commonly accepted by IEEE
-% Transactions, ACM Computing Surveys (adapt class as needed), and
-% most CS review/survey journals.
+% Template: Elsevier CAS single-column ("cas-sc"), as required by
+% Computer Science Review (els-cas-templates, CTAN). Verified against
+% the official els-cas-templates distribution (cas-sc.cls, identical
+% by hash) and the journal's Guide for Authors: 12pt review layout,
+% numbered citation style (natbib[numbers] + elsarticle-num.bst),
+% Highlights (<= 85 chars/bullet), Keywords, CRediT authorship, and
+% Declarations (Funding, Competing interests, Generative AI,
+% Data availability) sections below.
 % =====================================================================
-\documentclass[journal]{IEEEtran}
+\documentclass[a4paper,fleqn,review,12pt]{cas-sc}
 
-\usepackage{cite}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
-\usepackage{algorithmic}
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \hyphenation{soft-ware test-ing}
 
 \begin{document}
 
-\title{The Next Generation of Software Testing: A Critical Review of
-  Agentic AI, Self-Adaptive Test Frameworks, and Autonomous Quality
-  Engineering}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
 
-\author{%
-  Author~One,~\IEEEmembership{Member,~IEEE,}
-  Author~Two
-  \thanks{Manuscript prepared \today. Corresponding author: author.one@example.com.}
-}
+\shorttitle{The Next Generation of Software Testing}
+\shortauthors{Author}
 
-\markboth{Journal of Computer Science Review, Vol.~XX, No.~X, Month~Year}%
-{Author \MakeLowercase{\textit{et al.}}: The Next Generation of Software Testing}
+\title[mode=title]{The Next Generation of Software Testing: A Critical Review of
+  Agentic AI, Self-Adaptive Test Frameworks, and Autonomous Quality Engineering}
 
-\maketitle
+\author{Author}
+\cormark[1]
+\ead{author@example.com}
+\credit{Conceptualization, Methodology, Investigation, Data Curation, Formal Analysis, Writing -- original draft, Writing -- review \& editing}
+\affiliation{organization={Independent Researcher},
+            addressline={}, city={}, postcode={}, state={}, country={}}
+
+\cortext[1]{Corresponding author}
 
 \begin{abstract}
-\input{sections/00_abstract.tex}
+Large language models (LLMs) are increasingly embedded in autonomous and
+self-adaptive software-testing pipelines, spanning unit-test generation,
+graphical user interface (GUI) exploration, bug reproduction, flaky-test triage,
+fuzzing, and representational state transfer (REST) API testing, promising to
+automate activities long considered to require human judgment. Despite rapid
+growth, the literature is fragmented across techniques, benchmarks, and claims
+of effectiveness, with several influential results later shown to be overstated
+once rigorously re-evaluated, making it difficult to assess the genuine state
+of agentic AI in quality engineering. This systematic literature review (SLR),
+following Kitchenham and PRISMA guidelines, screens 149 candidate studies drawn
+from topic-scoped and protocol database searches (IEEE Xplore, ACM Digital
+Library, Scopus, and Web of Science) spanning \textit{2018}--\textit{2026}, with
+31 priority studies analyzed in depth across categories including surveys,
+unit-test generation, multi-agent/agentic test generation, agentic
+software-engineering foundations, bug reproduction/validation, mobile and GUI
+testing agents, test oracles, continuous integration (CI) and flaky-test triage,
+API testing, LLM-based fuzzing, and agent security. We find that multi-agent
+architectures and coverage-guided feedback loops consistently improve test
+quality over single-shot prompting, but the test-oracle problem,
+cross-language/cross-scale generalization, fault-detection validity, context
+management for large codebases, and agent security remain substantially
+unresolved; several widely cited ``state-of-the-art'' results do not hold under
+corrected, leakage-free evaluation. Advancing truly autonomous testing
+therefore requires contamination-resistant benchmarks, fault-detection-centric
+(not coverage-centric) evaluation, and dedicated attention to agent robustness,
+security, and developer trust, alongside continued architectural innovation;
+we outline a corresponding research agenda.
 \end{abstract}
 
-\begin{IEEEkeywords}
-software testing, test automation, artificial intelligence, machine learning,
-systematic literature review, software quality assurance
-\end{IEEEkeywords}
+\begin{highlights}
+\item Systematic review of agentic AI in software testing across 149 studies.
+\item 18-category taxonomy from unit test generation to self-healing agents.
+\item Synthesis of QE safety: oracle circularity, self-healing, and security.
+\item Four candidate safety mechanisms proposed for autonomous test agents.
+\item Ten-item research roadmap for reaching high-autonomy quality engineering.
+\end{highlights}
 
-\IEEEpeerreviewmaketitle
+\begin{keywords}
+software testing \sep test automation \sep agentic AI \sep large language models \sep
+self-healing test automation \sep systematic literature review \sep software quality assurance
+\end{keywords}
+
+\maketitle
 
 \section{Introduction}
 \label{sec:introduction}
@@ -74,6 +118,7 @@ systematic literature review, software quality assurance
 \input{sections/06_discussion.tex}
 
 \section{Threats to Validity}
+\label{sec:threats}
 \label{sec:validity}
 \input{sections/07_threats_to_validity.tex}
 
@@ -81,10 +126,24 @@ systematic literature review, software quality assurance
 \label{sec:conclusion}
 \input{sections/08_conclusion.tex}
 
-\section*{Acknowledgment}
-The authors thank the reviewers for their constructive feedback.
+\section*{Funding}
+This review did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors. The author conducted this study independently without external financial support.
 
-\bibliographystyle{IEEEtran}
+\section*{Declaration of competing interest}
+The author declares that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work, the author used AI-assisted tools for literature search assistance and text formatting. After using these tools, the author reviewed and edited the content as needed and takes full responsibility for the content of the publication.
+
+\section*{Data availability}
+The search log, screening records (inclusion/exclusion decisions), and per-study data-extraction forms that support the findings of this review are maintained in a structured project archive and are available from the author upon reasonable request. No new experimental data were generated for this review; all cited datasets and benchmarks (e.g., Defects4J, BugsInPy, SWE-bench) are publicly available from their original sources, referenced in the bibliography.
+
+\printcredits
+
+\section*{Acknowledgment}
+The author thanks the anonymous reviewers for their constructive feedback.
+
+\bibliographystyle{elsarticle-num}
 \bibliography{references}
 
 \end{document}

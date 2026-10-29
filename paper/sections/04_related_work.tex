@@ -1,13 +1,298 @@
-% Related Work
-%
-% Position this review against prior surveys/reviews in the area.
-% Use a comparison table (see paper/tables/) highlighting scope,
-% time period, and gaps addressed by this review.
-\textit{[Summarize prior surveys and systematic reviews on software
-testing, test automation, and AI for software engineering. Clearly
-state how this review differs in scope, recency, or methodological
-rigor. Consider including a comparison table such as
-Table~\ref{tab:related-reviews}.]}
+The rapid uptake of large language models (LLMs) and autonomous
+agents in software engineering has produced, in little more than
+three years, a dense secondary literature of its own. At least ten
+surveys, systematic literature reviews (SLRs), or structured mapping
+studies have attempted to summarize some facet of AI-assisted
+testing or AI-assisted software engineering between 2023 and 2025.
+This density is itself informative: it signals that the underlying
+primary literature is moving faster than any single review can track,
+and that different reviewing teams have drawn the scope boundary in
+different places -- by SE activity, by granularity (unit versus
+system level), by artifact type (LLM versus agent), or by whether the
+LLM is treated as subject or as tool. This section surveys that
+landscape in three groups -- test-generation-centric reviews,
+general-purpose LLM-for-SE reviews, and agentic/autonomous-SE reviews
+-- and then states explicitly, group by group, what each omits and
+how the present review's scope, time window, and taxonomy are
+constructed to close those omissions.
 
-% Example table include:
-% \input{tables/related_reviews_comparison.tex}
+\subsection{Surveys of AI-Based and LLM-Based Test Generation}
+\label{subsec:prior-surveys-gen}
+
+The review closest in subject matter to the present work is
+\emph{Software Testing with Large Language
+Models: Survey, Landscape, and Vision}~\cite{slr0012024}, which systematically analyzes
+102 primary studies on LLM applications across the testing
+life cycle -- test generation, program repair, oracle construction,
+and debugging -- and proposes a landscape taxonomy organized around
+testing tasks. It is the single most comparable prior SLR in terms of
+method (systematic search and classification over LLM-for-testing
+primary studies) and remains a valuable baseline for the pre-agentic
+state of the field. However, by its own scope statement it treats
+LLMs strictly as point tools invoked for individual testing tasks,
+and it does not examine self-adaptive execution loops, multi-step
+agent architectures, or questions of operational autonomy -- the
+central organizing axis of the present review. A complementary,
+tool-centric survey~\cite{slr0092024}
+takes a different angle: it systematically reviews
+AI-powered commercial and open-source software testing tools and
+empirically assesses their advertised features, most notably
+self-healing locators, against observed limitations. This is one of
+the few prior works to engage with self-healing test automation at
+all, but its unit of analysis is the tool/vendor rather than the
+primary research literature, and it explicitly flags that independent
+empirical evidence for vendor self-healing claims is sparse -- a gap
+the present review addresses directly by synthesizing the flaky-test
+and self-healing primary-study literature (Section~\ref{sec:results})
+rather than vendor documentation.
+
+Three further reviews narrow the lens specifically to unit testing.
+One SLR~\cite{slr0082025} systematically reviews LLM-based
+unit test generation current to March 2025, and another~\cite{slr0072025}
+reviews achievements, challenges, and opportunities in LLM-based unit
+test generation with particular attention to fault-detection
+effectiveness and the absence of standardized benchmarks. Both are
+methodologically careful SLRs, and both explicitly restrict their
+corpus to the unit level -- neither engages with system-level,
+end-to-end, or agentic test generation, and neither examines
+governance, security, or human-factors concerns around deploying such
+tools in production pipelines. Their research-gap statements note,
+respectively, that no standard benchmarks exist for deciding when
+unit-level generation is adequate, and that fault-detection
+effectiveness of generated unit tests is still weak relative to
+human-written suites. These are important, well-evidenced findings
+that the present review incorporates (Section~\ref{sec:results}), but
+by construction they cannot speak to multi-agent test generation,
+GUI/mobile test agents, CI-triage agents, or any of the
+higher-autonomy categories that make up roughly a third of this
+review's 149-study corpus. Finally, a further survey~\cite{slr0102024} offers a
+software-engineering perspective on testing \emph{of} LLMs --
+benchmarks, evaluation practice, and tooling for assessing LLM
+quality as a software artifact -- which is a necessary but distinct
+problem from testing \emph{with} LLMs. We treat it as background
+context on evaluation methodology (as in
+Section~\ref{sec:background}) rather than as a competing review of
+the same object of study, since its inclusion criteria target a
+different research question entirely.
+
+Taken together, this cluster of five reviews establishes that
+LLM-assisted test generation, chiefly at the unit level, is a mature
+enough sub-area to support multiple independent systematic syntheses.
+None of them, however, adopts autonomy or agency as an organizing
+construct, none extends its corpus past early-to-mid 2025, and only
+one~\cite{slr0092024} touches self-healing test maintenance, doing
+so from a commercial-tooling rather than a primary-research
+perspective. It is also worth noting the publication maturity of this
+cluster: only one of the five has appeared in a peer-reviewed journal
+venue~\cite{slr0012024}; the remainder are arXiv preprints or
+workshop submissions at the time of writing, which does not diminish
+their evidentiary value but does mean that their findings have not
+yet undergone the editorial revision cycle this review itself is
+subject to. We treat all ten comparison surveys -- peer-reviewed and
+preprint alike -- as candidate secondary evidence rather than as
+settled fact, and cross-check their headline claims (such as reported
+fault-detection rates or self-healing success rates) against the
+underlying primary studies wherever both are present in this review's
+corpus, rather than citing survey-level conclusions without
+verification.
+
+\subsection{General LLM-for-Software-Engineering Surveys}
+\label{subsec:prior-surveys-llmse}
+
+A second cluster of reviews treats testing as one activity among many
+within the broader LLM-for-SE research program. The most
+comprehensive of these, \emph{Large Language Models for Software
+Engineering: A Systematic Literature Review}~\cite{slr0022024}, applies a systematic search and
+classification protocol across the full SE life cycle -- requirements,
+design, coding, testing, maintenance -- with testing appearing as a
+single task category among many rather than as the unit of analysis.
+Its corpus closes in January 2024, which by its own account predates
+most of the agent-based testing literature that this review's corpus
+(extending through 2026) is able to capture; indeed, agentic
+architectures for SE had barely been formalized as a research topic
+at that point. A second, earlier contribution,
+\emph{Large Language Models for
+Software Engineering: Survey and Open Problems}~\cite{slr0032023}, is explicitly a
+position paper presented at the ICSE Future of Software Engineering
+track rather than a systematic review: it does not apply a
+reproducible search-and-screening protocol, but it is useful
+background because it was among the first works to articulate the
+``plausible-but-wrong'' failure mode of LLM output as a first-class
+SE risk and to call for hybrid SE-plus-LLM methods combining
+classical static/dynamic analysis with generative models. That call
+is a direct antecedent of several hybrid oracle- and
+verification-focused primary studies surveyed in
+Section~\ref{sec:results}, but the position paper itself contains no
+systematic testing-specific analysis, no inclusion/exclusion
+criteria, and no taxonomy comparable to the eighteen-category scheme
+developed here.
+
+Because both of these broader surveys necessarily allocate only a
+fraction of their synthesis effort to testing -- testing being one of
+perhaps six or seven SE activities each covers -- neither can offer
+the granularity this review provides on, for instance, oracle
+circularity in LLM-as-judge evaluation, the empirical stability of
+self-healing locators under UI drift, or the security posture of
+testing agents specifically (as opposed to coding agents generally).
+Their value to the present review is instead as adjacent evidence on
+general LLM behavior (hallucination rates, prompt sensitivity, context
+window limitations) that recurs as a root cause across the
+testing-specific primary studies synthesized in
+Section~\ref{sec:discussion}. It is also worth noting that these two
+broader surveys are, by design, snapshots of a fast-moving field taken
+roughly a year apart from one another (January 2024 and late 2023,
+respectively); neither could have incorporated the subsequent wave of
+agent-framework releases and benchmark suites that occupy a
+料share of this review's own corpus, and both explicitly
+acknowledge, in their respective discussion sections, that their
+conclusions about LLM reliability in SE tasks should be read as
+time-bound rather than as settled characterizations of the technology.
+
+\subsection{Surveys of Agentic and Autonomous Software Engineering}
+\label{subsec:prior-surveys-agentic}
+
+A third, more recent cluster addresses agentic software engineering
+directly, but, symmetrically to the previous cluster, treats testing
+as one downstream application of agent architectures rather than as
+the primary object of study. \emph{Large Language
+Model-Based Agents for Software Engineering: A Survey}~\cite{slr0042024} systematically
+surveys agent designs -- planning, memory, tool use, multi-agent
+coordination -- across the SE life cycle, but testing agents receive
+only shallow treatment relative to coding and program-repair agents,
+and the review does not analyze testing-specific failure modes such
+as flaky self-healing or oracle circularity. \emph{From LLMs to LLM-based Agents for Software Engineering: A
+Survey of Current, Challenges and Future}~\cite{slr0052024} similarly surveys the
+transition from single-turn LLM usage to multi-step agentic workflows
+in SE and is notable for an explicit methodological caveat: it finds
+no unified standard or benchmark exists for deciding what qualifies as
+an ``LLM-based agent'' at all, a definitional instability that
+complicates any attempt at systematic inclusion/exclusion screening
+in this space. \emph{Agents in Software
+Engineering: Survey, Landscape, and Vision}~\cite{slr0062024} reaches the same
+conclusion independently -- that the field lacks a settled definition
+of ``agent'' in the SE context -- and proposes its own landscape
+taxonomy to partially address this, but, again, with testing agents as
+a minor branch of a much larger tree spanning coding, requirements,
+and DevOps agents.
+
+These three surveys collectively establish an important
+methodological precondition for this review: the absence of a
+standard operational definition of ``agent'' in software engineering
+is a recognized, unresolved problem in the secondary literature
+itself, not an idiosyncrasy of this review's screening process. We
+address it directly in Section~\ref{sec:methodology} by adopting an
+explicit operational definition of autonomy (bounded by observable
+properties -- planning, environment perception, tool invocation, and
+closed-loop correction -- rather than by self-description in primary
+studies) and by using that definition consistently across all
+eighteen taxonomy categories. This operational stance also underlies
+the second of this review's four research questions (autonomy level
+and architecture: single-agent, multi-agent, or tool-augmented LLM),
+which has no counterpart research question in any of the three
+agentic-SE surveys discussed here, since none of them screens primary
+studies specifically for testing-related autonomy properties. None of
+the three agentic-SE surveys,
+moreover, engages with the quality-engineering-specific hazards that
+autonomy introduces into testing specifically: an agent that can
+autonomously rewrite its own locators, regenerate its own assertions,
+or judge its own test outputs raises oracle-circularity and
+self-correction-reliability concerns (Sections~\ref{sec:results},
+\ref{sec:discussion}) that have no analogue in, say, an autonomous
+code-repair agent evaluated against a fixed, human-authored test
+suite. These surveys also predate or only partially overlap with the
+agent-security literature on indirect prompt injection, tool-privilege
+escalation, and benign-operation insecurity in coding/testing agents
+that this review treats as a dedicated taxonomy category.
+
+\subsection{Positioning of This Review}
+\label{subsec:positioning-review}
+
+Reading these ten prior surveys together reveals a consistent
+structural pattern rather than ten unrelated gaps: each review draws
+its scope boundary along one of two axes -- either restricting the
+\emph{activity} (testing only, and within that, often unit testing
+only) while remaining agnostic to autonomy, or restricting the
+\emph{technology} (agents in general) while remaining agnostic to
+which SE activity the agent performs. None combines a testing-specific
+activity scope with an autonomy-specific technology scope, and none
+treats quality-engineering safety -- the reliability, security, and
+governance properties required before autonomous testing artifacts
+can be trusted in production -- as a first-class organizing category
+rather than an incidental observation. This review is positioned
+precisely at that intersection, and its distinguishing contributions
+relative to the surveys discussed in Sections~\ref{subsec:prior-surveys-gen}--\ref{subsec:prior-surveys-agentic} can be summarized as follows.
+
+First, \textbf{scope}: this review's unit of analysis is testing
+activities performed with varying degrees of autonomy, spanning
+generation, execution, maintenance, oracle construction, and triage,
+rather than either ``testing performed by any LLM''
+(\cite{slr0012024}) or ``any SE activity performed by an agent''
+(\cite{slr0042024,slr0052024,slr0062024}). This single difference in
+unit of analysis is what allows the present review to place a unit
+test generated by a single prompt invocation, a self-healing locator
+repaired by a runtime agent, and a fully autonomous multi-agent test
+suite on one continuum rather than in three disconnected literatures.
+Second,
+\textbf{temporal coverage}: the corpus spans publications from 2018 --
+predating the LLM era, to capture the self-adaptive and runtime
+testing literature that forms a conceptual precursor to today's
+testing agents -- through 2026, giving an eight-year window that
+subsumes and extends every prior survey's cutoff, several of which
+close in 2023 or early-to-mid 2024 (\cite{slr0022024,slr0032023})
+before most agentic testing work existed. Third,
+\textbf{breadth and granularity of taxonomy}: the review classifies
+149 primary studies into eighteen categories spanning not only
+generation tasks (unit test generation, GUI/mobile/API test agents,
+multi-agent test generation, LLM-based fuzzing, mutation testing) but
+also maintenance and triage tasks (flaky-test and self-healing-test
+research, CI failure triage and flaky-test classification),
+foundational and evaluative concerns (test oracles and assertions,
+agentic SE foundations, benchmarks and data contamination,
+self-adaptive systems and runtime testing), and -- most distinctively
+relative to prior surveys -- safety and governance concerns
+(security of coding and testing agents, human factors of trust and
+acceptance, industrial case studies), none of which receives dedicated
+taxonomic treatment in any of the ten prior reviews. Fourth, and
+central to the review's contribution, is the explicit
+\textbf{quality-engineering safety lens}: where one review~\cite{slr0092024}
+notes in passing that independent evidence for self-healing claims is
+limited and two others~\cite{slr0052024,slr0062024} note in passing that
+``agent'' lacks a settled definition, this review treats oracle
+circularity (an agent generating and then judging its own test
+assertions), self-healing stability under distributional UI or API
+drift, agent-security exposure (indirect prompt injection and
+tool-privilege escalation specific to testing agents), and governance
+and accountability requirements for autonomous QA pipelines as
+primary synthesis targets with their own evidence base, cross-cutting
+discussion (Section~\ref{sec:discussion}), and open-problem agenda
+(Section~\ref{sec:conclusion}), rather than as footnoted caveats.
+
+Methodologically, this review also differs from the two narrative or
+position-paper-style contributions in the comparison set
+(\cite{slr0032023,slr0102024}) in following a reproducible
+protocol -- multi-database systematic search, explicit
+inclusion/exclusion criteria, and PRISMA-style study-flow reporting
+\cite{kitchenham2007,page2021prisma} -- and from the narrower unit-
+test SLRs (\cite{slr0072025,slr0082025}) in deliberately not
+restricting inclusion to a single granularity level, precisely because
+the central research question concerns how autonomy properties
+recur, or fail to recur consistently, across granularities from a
+single generated assertion to a fully autonomous, self-correcting
+end-to-end QA agent. This also explains why this review's four
+research questions (landscape/taxonomy, autonomy level, empirical
+evidence, and risks/open problems) are each phrased to cut across
+rather than within a single activity: RQ3, in particular, requires
+assessing the rigor and reproducibility of reported effectiveness
+evidence (benchmark leakage, data contamination, generalizability)
+across the whole corpus, a question none of the ten comparison
+reviews poses as a dedicated, corpus-wide synthesis target, even
+though several note isolated instances of weak or unverifiable
+evidence within their own narrower scopes. In short, no prior survey or SLR identified
+during screening provides a systematic, cross-granularity synthesis of
+AI-based software testing organized around autonomy and its attendant
+safety, reliability, and governance consequences; this review is
+intended to fill precisely that gap, and the remaining sections
+develop the taxonomy (Section~\ref{sec:methodology}), present the
+synthesized evidence per category (Section~\ref{sec:results}), and
+discuss cross-cutting implications (Section~\ref{sec:discussion}) that
+follow from this positioning.

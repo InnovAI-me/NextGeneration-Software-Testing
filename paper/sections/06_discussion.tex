@@ -2,7 +2,343 @@
 %
 % Interpret findings, connect back to RQs, discuss implications for
 % researchers, practitioners, and tool vendors.
-\textit{[Discuss the maturity of next-generation testing techniques,
-implications for practice (e.g., CI/CD integration), and implications
-for research (e.g., need for standardized benchmarks). Explicitly
-revisit each RQ and state how the evidence answers it.]}
+This section interprets the results reported in
+Section~\ref{sec:results} against the four research questions, then
+draws out implications for three audiences -- researchers, tool
+vendors, and practitioners adopting these techniques in industrial
+pipelines -- before turning to the quality engineering safety synthesis
+that spans all four RQs.
+
+\subsection{Revisiting RQ1: What Techniques Exist, and How Mature Are They?}
+The 18-category taxonomy shows that ``next-generation software
+testing'' is not a single technique but a loosely federated family of
+architectures unified mainly by their reliance on an LLM as a
+reasoning component somewhere in the pipeline. At one extreme sit
+single-shot code-completion-style test generators that differ from
+classical automated test generation only in using a pretrained
+language model instead of a symbolic or search-based engine; at the
+other extreme sit genuinely agentic systems that plan a multi-step
+investigation, call external tools (compilers, debuggers, browsers,
+issue trackers), observe the results, and revise their own plan with
+little or no human supervision. The evidence base is considerably
+stronger for the former than the latter: unit-test generation and
+mutation-testing techniques (categories well represented in the
+corpus) benefit from a decade of prior automated-test-generation
+research to build on and compare against, whereas multi-agent and
+GUI/mobile testing agents are newer, smaller in study count, and more
+often evaluated on bespoke benchmarks constructed by the same team
+that built the tool -- a pattern that, as discussed under RQ3 in
+Section~\ref{sec:results}, correlates with inflated effectiveness claims. The practical
+implication for RQ1 is that technique maturity should not be inferred
+from architectural sophistication: a simple, well-evaluated single-shot
+generator may currently be a safer adoption choice than an elaborate
+multi-agent pipeline whose claimed gains have not been independently
+reproduced.
+
+\subsection{Revisiting RQ2: What Autonomy Levels Are Actually Achieved?}
+Despite frequent use of the word ``autonomous'' in paper titles, the
+corpus shows that most deployed systems operate with a human firmly in
+the loop at one or more critical junctures: approving generated test
+code before it enters a suite, triaging flagged flaky tests rather than
+having them auto-quarantined, or reviewing agent-authored pull requests
+before merge. Genuinely low-supervision operation is concentrated in
+narrow, well-bounded sub-tasks (e.g., locator self-healing, mutation
+generation) rather than across the full test life cycle (design,
+generation, execution, oracle judgment, and maintenance). This gap
+between rhetorical and demonstrated autonomy is precisely why this
+review adopts an explicit autonomy-level framing (L0--L5, following
+\cite{feng2025autonomylevels}) in the roadmap and governance discussion
+below: without a shared vocabulary for \emph{how much} supervision a
+system actually requires, ``autonomous testing'' risks becoming a
+marketing label rather than a measurable engineering property.
+
+\subsection{Revisiting RQ3: How Rigorous Is the Supporting Evidence?}
+The clearest cross-cutting finding under RQ3 is that benchmark design
+problems are not isolated incidents but a structural feature of this
+literature. Studies in the ``Benchmarks and data contamination''
+category document cases where headline accuracy numbers for neural
+test-oracle generation and flaky-test classification fell substantially
+once training/test leakage and class-balance artifacts were corrected,
+and several comparative studies found that simple, non-agentic
+baselines matched or exceeded elaborate multi-agent pipelines at a
+fraction of the inference cost. This matters for how the remaining
+results in this review should be read: wherever a specific effectiveness
+number is cited, it should be understood as a claim made \emph{under
+the evaluation conditions of the original study}, not a validated,
+generalizable property of the technique. For researchers, this argues
+for mandatory leakage audits and cost-normalized comparisons as a
+condition of publication in this area; for practitioners, it argues
+for re-validating any vendor or paper's effectiveness claims against a
+held-out, in-house test set before trusting them in a production
+pipeline.
+
+\subsection{Revisiting RQ4: What Remains Open?}
+RQ4 is answered most directly by the quality-engineering-safety
+synthesis below and by the ten-item research roadmap in
+Section~\ref{sec:conclusion}, but two cross-cutting observations are
+worth stating plainly here. First, the ``Human factors: trust and
+acceptance'' and ``Security of coding and testing agents'' categories
+are, jointly, the largest single block of the corpus (30 of 149
+studies), which indicates that the research community itself already
+recognizes trust and security as the dominant open problem, even though
+tooling and standards have not caught up with that recognition.
+Second, almost none of the reviewed studies propose or evaluate a
+mechanism for \emph{detecting} when an autonomous testing agent has
+gone wrong in a way that is not immediately visible as a test failure
+(for example, a self-healing agent that has quietly relaxed an
+assertion, or a judge model that shares a blind spot with the
+generator it is judging). This asymmetry -- extensive work on making
+agents capable, comparatively little on making their failures legible
+-- is the throughline connecting all four quality-engineering-safety
+threads discussed next.
+
+\subsection{Implications for Practitioners and Tool Vendors}
+\label{subsec:implications}
+For teams evaluating these techniques for production adoption, three
+practical implications follow from the synthesis presented in
+Section~\ref{sec:results} and Section~\ref{sec:qe-safety}. First, treat
+any claim of autonomous operation as scoped to a specific sub-task
+(e.g., ``autonomous locator repair'') rather than as a property of an
+entire pipeline, and verify the autonomy level against the L0--L5
+framing discussed in Section~\ref{sec:conclusion} before relying on it
+for unsupervised operation. Second, demand leakage-free, in-house
+validation of any effectiveness claim before adoption, given the
+documented frequency with which benchmark-reported numbers fail to
+reproduce under corrected evaluation. Third, budget for governance
+and security from the outset: indirect prompt injection against coding
+and testing agents is a demonstrated, quantified threat (Section~\ref{sec:results}),
+and human review catches only a fraction of agent-introduced defects
+in practice, so relying on manual code review as a sole defense is
+untenable.
+
+\subsection{Quality Engineering Safety}
+\label{sec:qe-safety}
+A cross-cutting theme emerges across four otherwise distinct bodies of
+evidence gathered for RQ4: security of testing/coding agents
+\cite{zhan2024injecagent,debenedetti2024agentdojo,guo2024redcode,
+she2025queryipi,sakib2026trustverify,kozak2025developeraid,
+shi2025progent,wu2024isolategpt,wu2026skillshield,xie2026vibeguard,
+kokkonis2025rosa}; test-oracle independence and the circularity of AI
+testing AI-written code
+\cite{bodicoat2026oracle,molina2024oracleautomation,xu2025candor,
+wataoka2024selfpreference,panickssery2024evaluators,huang2023selfcorrect,
+olausson2023selfrepair}; self-healing/flaky-test stability
+\cite{alshammari2024flakyclassifiers,parry2023cannier,
+leinen2026detectedundetected,parry2025systemic,lam2020lifecycle,
+meta2020pfs,joseph2026zerocost,rohamo2024robotframework,ijam2025healenium};
+and governance/accountability for highly autonomous quality engineering
+\cite{iso2020tr29119,iso2025ts42119,feng2025autonomylevels,
+treude2026accountable,cheng2026threepillar,ibm2024trew,
+passi2025overreliance,ibrahim2025overreliance,kiran2026humanai}.
+
+Reading these four threads together reveals a shared structure. In each
+case, the core risk is not that an agent fails to perform a task, but
+that it performs the task in a way that generates false confidence: an
+oracle that quietly accepts subtle bugs because the judge model shares
+pretraining blind spots with the generator; a self-healing test that
+passes again by modifying a locator to point to the wrong element or by
+weakening an assertion; a testing agent hijacked by indirect prompt
+injection embedded in a third-party library or test fixture; or a
+Level~4--5 autonomous pipeline making release-sign-off decisions without
+traceable human accountability. Classical software testing research
+relied on an implicit assumption of an independent, trusted, and
+adversarially neutral tester; autonomous quality engineering violates
+all three assumptions simultaneously.
+
+We argue that resolving this cluster requires treating \emph{quality
+engineering safety} as a distinct sub-discipline with its own
+mechanisms, rather than as a set of disconnected caveats. Four
+candidate mechanisms following this principle are proposed in
+Section~\ref{sec:safety-framework} and the supplementary material:
+a layered Trust Boundary for Test Agents (TBTA) for the security thread,
+Provenance-Partitioned Oracle Verification (PPOV) for the oracle-
+circularity thread, Mutation-Gated Dual-Signal Heal Verification
+(MG-DSV) for the self-healing thread, and an Autonomy-Tiered Quality
+Sign-off Protocol (ATQSP) for the governance thread. None of these four
+mechanisms has yet been implemented or empirically evaluated in this
+review; they are synthesized proposals for future work, not validated
+contributions, and should be read as scoping the research agenda in
+Section~\ref{sec:conclusion} rather than as established results.
+
+A further observation, not explored in depth by any single reviewed
+study but implied by reading all four threads together, is that the
+``second independent signal'' principle has a recursive cost: verifying
+a verifier is itself a quality-engineering problem. TBTA's sandboxing
+layer must itself be monitored for escape; PPOV's provenance-partitioned
+oracle must itself avoid inheriting the generator's blind spots through
+shared pretraining data; MG-DSV's mutation-adequacy gate must itself be
+protected from the same metric-gaming pressure that motivated the
+``Benchmarks and data contamination'' findings under RQ3; and ATQSP's
+sign-off protocol is only as trustworthy as the audit log it depends
+on. None of the four mechanisms, as currently formalized, fully closes this
+regress, which is itself evidence for treating ``verification of
+verifiers'' as a standing research problem rather than a one-time
+design fix -- a point made explicit in open problem~9 of the roadmap in
+Section~\ref{sec:conclusion}.
+
+\subsection{Toward a Testable Safety Framework: Safety-Assured Agentic Quality Engineering}
+\label{sec:safety-framework}
+The ATQSP sketch introduced in Section~\ref{sec:qe-safety} answers \emph{what} a governance artifact for
+autonomous test agents should record, but it does not yet specify
+\emph{how} an organization should decide, in a principled and
+revisable way, how much autonomy a given agent has earned in a given
+context. We elaborate ATQSP into a fuller framework, Safety-Assured
+Agentic Quality Engineering (SAAQE), that borrows its central
+metaphor from drug-safety practice: an agent, like a drug, is granted
+a privilege (dosage, autonomy level) only as far as its accumulated,
+monitored track record justifies, and that privilege is continuously
+re-evaluated rather than granted once and forgotten. Framed this way,
+the four mechanisms proposed in Section~\ref{sec:qe-safety} (TBTA, PPOV,
+MG-DSV, and ATQSP) become the \emph{safety guardrails} that feed evidence into a
+single accountability substrate, summarized in
+Table~\ref{tab:saaqe-components}.
+
+\begin{table}[t]
+\caption{Components of the proposed Safety-Assured Agentic Quality
+Engineering (SAAQE) framework.}
+\label{tab:saaqe-components}
+\begin{tabular}{p{0.3\linewidth}p{0.6\linewidth}}
+\toprule
+Component & What it does \\
+\midrule
+Safety guardrails &
+Five checks: oracle independence from the code under test (PPOV),
+mutation-gated self-healing safety (MG-DSV), a sandboxed security
+boundary (TBTA), risk-based mandatory human review, and explicit
+accountability assignment for release decisions (ATQSP). \\
+Knowledge graph &
+Traces each escaped defect back through the code and tests to the
+specific agent(s) that wrote, healed, or approved them, using
+commit-level provenance and bug-inducing-change identification. \\
+Reliability score &
+A Bayesian score per agent and per task context: clean work raises
+the score, escaped defects lower it in proportion to severity, and a
+confidence interval reflects the amount of accumulated evidence. \\
+Safety boundary (``therapeutic window'') &
+The autonomy range in which effort saved by the agent remains high
+while the escaped-defect rate stays within an organization-defined
+acceptable bound. \\
+Privileging &
+An agent is granted autonomy level L0--L5
+\cite{feng2025autonomylevels} only once its reliability score clears
+that level's threshold, and is automatically demoted a level when the
+score falls below it -- operationalizing ATQSP's Autonomy Certificate
+as a continuously re-evaluated, rather than one-time, grant. \\
+Phased rollout and monitoring &
+Sandbox evaluation, then shadow mode (the agent acts but a human
+retains the decision), then limited production rollout, then full
+production, with continuous monitoring of the escaped-defect rate at
+each stage before advancing. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Read together with the roadmap items in Section~\ref{sec:conclusion}, SAAQE's intended
+contribution is fourfold: (i) the framework itself, unifying the four
+guardrail mechanisms under one accountability substrate; (ii) a small
+set of safety metrics -- escaped-defect rate, masked-regression rate
+(valid test behavior silently weakened by a heal or an oracle change),
+and attack-success rate under adversarial prompt injection -- that
+make ``safety'' measurable rather than aspirational; (iii) a
+benchmark suite assembled from existing public datasets (proposed
+next); and (iv) an open-source reference implementation of the
+knowledge graph and reliability-scoring components, so that the
+scoring mechanism itself is auditable rather than a proprietary black
+box. We position this contribution within the niche of
+\emph{safety-assured agentic quality engineering}: unlike the
+capability-focused benchmarks surveyed under RQ1--RQ3, SAAQE is
+explicitly a safety-governance layer that sits above whichever
+test-generation or self-healing technique an organization already
+uses, and is therefore complementary to, not competitive with, the
+techniques cataloged in the taxonomy (Section~\ref{sec:results}).
+
+\subsection{An Empirical Validation Plan Using Public Datasets}
+\label{sec:saaqe-validation}
+Like the four guardrail mechanisms it builds on, SAAQE is a proposed,
+not yet empirically validated, mechanism; this subsection outlines how
+it \emph{could} be validated before any claim of effectiveness is
+made, using data that -- unlike an individual organization's private
+CI/CD and defect-tracker history -- is public and therefore
+independently reproducible. The guiding idea is to \emph{replay
+history}: score agents retrospectively on past work using only
+information available at the time, and test whether the resulting
+score predicts defects that escaped and were discovered later.
+Table~\ref{tab:saaqe-data} summarizes candidate public datasets and
+the specific SAAQE component each would exercise.
+
+\begin{table}[t]
+\caption{Candidate public datasets for validating the proposed SAAQE
+framework.}
+\label{tab:saaqe-data}
+\begin{tabular}{p{0.26\linewidth}p{0.3\linewidth}p{0.34\linewidth}}
+\toprule
+Data & What it gives & Use it to test \\
+\midrule
+AIDev \cite{li2026aidev} &
+932{,}791 real agent-authored pull requests from five coding agents
+across 116{,}211 repositories &
+Reliability scores and the knowledge graph on real, in-the-wild agent
+work \\
+GitHub issues and bug-fix commits traced with SZZ
+\cite{sliwerski2005szz} &
+Which earlier commits introduced each later-reported bug &
+Escaped defects (bugs found after merge), linked back to the
+responsible agent \\
+SWE-bench \cite{jimenez2024swebench}, SWT-Bench \cite{slr0282024},
+TestGenEval \cite{jain2024testgeneval} &
+Agent results on real GitHub issues and tests &
+Score calibration; oracle-independence guardrail (PPOV) \\
+Defects4J \cite{just2014defects4j}, BugsInPy
+\cite{widyasari2020bugsinpy} &
+Known, real, previously-fixed faults (prefer the newer, less
+contamination-prone releases) &
+Whether agent-written tests catch known faults; the masked-regression
+rate \\
+Flaky-test datasets (e.g., as used by FlakyLens
+\cite{slr0442025} and FlakyGuard \cite{slr0492025}) &
+Real flaky tests and their fixes &
+Heal-safety guardrail (MG-DSV) \\
+AgentDojo \cite{debenedetti2024agentdojo}, RepoGuardBench
+\cite{li2026repoguardbench} &
+Prompt-injection attacks against coding/testing agents &
+Security-sandbox guardrail (TBTA) \\
+Organization-internal CI/CD and defect-tracker history (where access
+permits) &
+Production escaped defects with real severity labels &
+The strongest validation, as an industrial case study \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A four-step validation protocol follows from this data: (1)
+\emph{build the knowledge graph} from AIDev by linking each agent's
+pull requests to the files, tests, and later bug-fix commits
+identified via SZZ; (2) \emph{replay the reliability score in time
+order}, updating each agent's score at each historical time step using
+only evidence that would have been available at that time, to avoid
+leaking future information into a retrospective score; (3)
+\emph{check predictive validity}, measuring with AUC, precision, and
+recall whether agents whose replayed score was low at time $t$
+produced more escaped defects in the subsequent period than agents
+whose score was high; and (4) \emph{test the safety boundary
+counterfactually}, estimating how many of the actually-escaped defects
+in the historical record would have been prevented, and how much
+measured productivity would have been forgone, had autonomy been
+restricted to agents whose score cleared the proposed threshold at
+the time. A successful outcome on all four steps would support three
+claims: \emph{validity} (the reliability score predicts future
+escaped defects), \emph{value} (the safety boundary reduces escaped
+defects at an acceptable productivity cost), and \emph{generalization}
+(the relationship holds across repositories, languages, and agents).
+Three limitations should be stated up front, consistent with this
+review's broader emphasis on methodological caution (RQ3,
+Section~\ref{sec:threats}): agent-authored pull requests are a recent
+phenomenon, so the available history for replay is short;
+SZZ-identified bug-inducing commits are known to include labeling
+errors, so any SZZ-derived escaped-defect count should be reported
+alongside an estimate of SZZ's own error rate rather than treated as
+ground truth; and public repositories rarely carry official severity
+ratings, so severity must be estimated from proxies such as issue
+labels and reporter language, a construct-validity limitation that
+should be disclosed rather than hidden behind a single aggregate
+metric.

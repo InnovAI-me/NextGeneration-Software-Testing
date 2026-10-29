@@ -8,14 +8,19 @@
 % 5. Contributions (bulleted)
 % 6. Paper structure (roadmap)
 
-\IEEEPARstart{S}{oftware} testing remains one of the most resource-intensive
+Software testing remains one of the most resource-intensive
 activities in the software development lifecycle, commonly consuming
-30--50\% of overall project effort~\cite{placeholder2024}. Traditional
+30--50\% of overall project effort~\cite{bluemke2021}. Traditional
 testing techniques -- manual test case design, coverage-driven unit
 testing, and scripted regression suites -- are increasingly challenged
 by the scale, complexity, and release velocity of modern software
 systems, including microservices, machine-learning-enabled components,
-and continuously deployed cloud-native applications.
+and continuously deployed cloud-native applications. As systems grow
+in size and interdependency, the cost of writing, executing, and
+maintaining tests grows with them, and conventional automation --
+record-and-replay scripts, parameterized unit tests, coverage-driven
+fuzzers -- struggles to keep pace with the rate at which application
+interfaces, business logic, and deployment environments change.
 
 In response, a new generation of testing approaches has emerged,
 leveraging artificial intelligence (AI), machine learning (ML),
@@ -26,7 +31,15 @@ dynamically. However, the research landscape is fragmented: studies
 differ in terminology (e.g., ``intelligent testing,'' ``autonomous
 testing,'' ``AI-augmented testing''), evaluation benchmarks, and
 maturity levels, making it difficult for researchers and practitioners
-to assess the state of the art.
+to assess the state of the art. This fragmentation is not merely
+terminological. It reflects genuinely different design philosophies:
+some systems retrofit LLMs as a smarter code-completion layer bolted
+onto an otherwise conventional testing pipeline, while others treat
+the LLM as the orchestrating controller of a multi-step, tool-using
+agent that plans, executes, observes, and revises its own test
+artifacts with little human supervision. Distinguishing between these
+architectures, and establishing what empirical evidence actually
+supports each, is a central motivation for this review.
 
 \subsection{Motivation}
 The rapid adoption of LLMs in software testing has given rise to a new
@@ -50,14 +63,45 @@ emerging security vulnerabilities such as prompt injection against
 coding agents -- indicate that the field lacks a systematic,
 cross-cutting synthesis of what agentic AI testing techniques reliably
 deliver versus where genuine autonomy remains aspirational. This
-review addresses that gap (see
-\texttt{literature-review/priority-papers-key-points.md} for the
-per-study evidence underlying this motivation).
+review addresses that gap, drawing on the per-study evidence
+synthesized in the methodology and results that follow.
+
+Beyond the question of \emph{what works}, a second and increasingly
+urgent motivation concerns \emph{what could go wrong}. As testing
+agents gain the authority to generate, execute, and even autonomously
+``heal'' failing tests, the field inherits an entirely new category of
+risk that classical test-automation research never had to confront:
+agents that test code can themselves be attacked (prompt injection,
+sandbox escape, supply-chain poisoning of tool outputs), agents that
+heal tests can silently suppress genuine regressions if the healing
+criterion is miscalibrated, and agents that judge correctness via an
+LLM-based oracle risk a circularity problem when the same family of
+model that wrote the code under test is also asked to validate it. We
+refer to this cluster of concerns collectively as \emph{quality
+engineering safety}, and treat it as a first-class object of study in
+this review rather than an afterthought, because it determines whether
+autonomous testing can be trusted with escalating levels of
+unsupervised operation (see Sections~\ref{sec:results}
+and~\ref{sec:discussion}).
 
 \subsection{Problem Statement}
 No comprehensive, up-to-date systematic review consolidates these
 next-generation software testing techniques under a unified
 classification framework with rigorous methodological screening.
+Existing surveys (discussed in detail in
+Section~\ref{sec:related-work}) tend to focus narrowly on a single
+technique family -- for example, LLM-based unit-test generation, or
+mutation testing -- and were largely conducted before the emergence of
+tool-using, multi-step agentic architectures and before the quality
+engineering safety concerns outlined above had been documented in the
+literature. Consequently, researchers entering this space lack a
+single reference point that (a) classifies the full breadth of
+agentic and self-adaptive testing techniques, (b) critically appraises
+the strength of the empirical evidence behind them, including where
+that evidence has since been contested or overturned, and (c)
+catalogs the safety, security, and governance problems that must be
+solved before autonomous testing can be deployed with reduced human
+oversight.
 
 \subsection{Research Questions}
 This review addresses the following research questions (RQs):
@@ -81,14 +125,30 @@ This review addresses the following research questions (RQs):
 \end{itemize}
 
 \subsection{Contributions}
+This review makes the following contributions:
 \begin{itemize}
   \item A systematic, reproducible literature review protocol
-        (Section~\ref{sec:methodology}) covering \textit{[DATE\_RANGE]}.
-  \item A taxonomy of next-generation software testing techniques
-        derived from \textit{[N\_FINAL]} primary studies.
+        (Section~\ref{sec:methodology}), following the Kitchenham
+        and PRISMA guidelines~\cite{kitchenham2007,page2021prisma},
+        covering primary studies published between 2018 and 2026.
+  \item An 18-category taxonomy of next-generation software testing
+        techniques derived from 149 primary studies, spanning unit
+        test generation, multi-agent/agentic test generation, GUI and
+        mobile testing agents, API testing, fuzzing, mutation testing,
+        flaky-test triage and self-healing automation, test oracles,
+        benchmarks and contamination, human factors, and the security
+        of testing agents themselves.
   \item A synthesis of empirical evidence on effectiveness and
-        adoption barriers.
-  \item A forward-looking research agenda (Section~\ref{sec:conclusion}).
+        adoption barriers, including a critical appraisal of claims
+        that do not survive leakage-free or cost-normalized
+        re-evaluation.
+  \item A dedicated synthesis of \emph{quality engineering safety}
+        concerns -- oracle circularity, self-healing stability, agent
+        security, and governance -- together with four candidate
+        safety mechanisms proposed as starting points for future
+        empirical validation (Section~\ref{sec:discussion}).
+  \item A forward-looking research agenda of ten open problems
+        (Section~\ref{sec:conclusion}).
 \end{itemize}
 
 \subsection{Paper Structure}

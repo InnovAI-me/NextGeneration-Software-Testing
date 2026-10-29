@@ -1,37 +1,616 @@
 % Results and Analysis
 %
-% Organize by Research Question (RQ1-RQ4). Include demographic
-% analysis (publication trends by year/venue), taxonomy figures,
-% and synthesis tables generated from data/processed/.
+% Organized by Research Question (RQ1-RQ4), preceded by an overview of
+% the corpus, publication-trend analysis, and a taxonomy overview.
+% Statistics in this section are computed directly from the review's
+% candidate-study tracking sheet (149 rows) as of 2026-10-28.
 
 \subsection{Overview of Selected Studies}
-\textit{[Report N\_FINAL primary studies, publication year
-distribution, venue distribution. Reference
-Figure~\ref{fig:pub-trend} generated from
-\texttt{scripts/analyze\_literature.py}.]}
+\label{subsec:corpus-overview}
 
-% \begin{figure}[t]
-%   \centering
-%   \includegraphics[width=\columnwidth]{figures/publication_trend.pdf}
-%   \caption{Publication trend of next-generation software testing
-%   studies by year.}
-%   \label{fig:pub-trend}
-% \end{figure}
+The working corpus assembled for this review comprises 149 primary
+studies identified through systematic queries and screening across digital
+libraries and preprints.
+Of the 149 studies, 120 have been assigned to
+one of 18 substantive thematic categories through iterative open
+coding against titles, abstracts, and full texts;
+the remaining 29 studies represent foundational baseline works
+analyzed as general background rather than forced into a narrow category.
+The 18 categories, in descending order of frequency, are: Security of coding
+and testing agents (15), Human factors: trust and acceptance (15),
+Flaky tests and self-healing tests (11), Test oracles and assertions
+(10), Surveys and literature reviews (10), CI failure triage and
+flaky-test classification (9), Unit test generation with LLMs (8),
+GUI, mobile and web testing agents (6), Industrial case studies (5),
+Multi-agent and agentic test generation (5), Mobile GUI agents (4),
+Benchmarks and data contamination (4), Self-adaptive systems and
+runtime testing (4), Bug reproduction and test-based issue validation
+(3), LLM-based fuzzing (3), API testing (3), Agentic software
+engineering foundations (3), and Mutation testing with LLMs (2). This
+distribution is itself an empirical finding: more than a fifth of the
+categorized corpus (30 of 120 studies, 25\%) concerns risk rather than
+capability -- security of coding/testing agents and human trust/
+acceptance are jointly the two largest categories, each larger than
+the combined unit-test-generation and multi-agent-generation
+literature that much of the field still treats as its core subject
+matter. This asymmetry motivates the emphasis given to RQ4 below and
+to the dedicated QE-safety synthesis in Section~\ref{sec:qe-safety}.
+
+The corpus's venue distribution reflects the rapid pace of development in
+agentic testing. Peer-reviewed software engineering venues (such as ICSE,
+ASE, and \emph{IEEE Transactions on Software Engineering}) represent core
+anchors, supplemented by timely preprints and foundational technical reports,
+consistent with the post-2023 publication surge analyzed next.
+
+\subsection{Publication Trends}
+\label{subsec:pub-trends}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth,
+  height=5.2cm,
+  ybar,
+  bar width=10pt,
+  symbolic x coords={2018,2019,2020,2021,2022,2023,2024,2025,2026},
+  xtick=data,
+  ymin=0,
+  ymax=50,
+  ylabel={Studies},
+  xlabel={Publication year},
+  nodes near coords,
+  nodes near coords align={vertical},
+  every node near coord/.append style={font=\scriptsize},
+  tick label style={font=\scriptsize},
+  label style={font=\small},
+  enlarge x limits=0.06,
+]
+\addplot coordinates {(2018,1) (2019,1) (2020,4) (2021,2) (2022,1)
+  (2023,14) (2024,46) (2025,40) (2026,39)};
+\end{axis}
+\end{tikzpicture}
+\caption{Publication-year distribution across the 149-study corpus
+(one record with an unresolvable year is omitted). The 2026 bar is a
+partial-year count as of this review's cut-off date.}
+\label{fig:pub-trend}
+\end{figure}
+
+Figure~\ref{fig:pub-trend} and the year-of-publication distribution show the field's explosive and
+very recent growth. Across the 149 tracked studies (one record has no
+resolvable year), publication counts by year are: 2018 (1), 2019 (1),
+2020 (4), 2021 (2), 2022 (1), 2023 (14), 2024 (46), 2025 (40), and
+2026 (39, as of this review's cut-off date and therefore a partial
+year). Only nine studies in the entire corpus (6\%) predate 2023; the
+remaining 94\% were published in the four years from 2023 onward, and
+2024 alone accounts for nearly a third of the corpus (46 of 149).
+This step change coincides with the maturation of instruction-tuned,
+tool-using large language models (GPT-4-class and successor models)
+into agentic software-engineering pipelines, and it mirrors the
+trajectory documented by the field's own survey literature
+\cite{slr0012024,slr0022024,slr0032023,slr0042024,slr0052024,slr0062024}.
+Two implications follow for how this review's evidence should be
+read. First, the literature is young: most empirical claims rest on
+single-study results from 2024--2026 rather than on independently
+replicated, converging evidence, so effect sizes reported below should
+be read as early indicators rather than settled findings. Second, the
+corpus is still accelerating -- 2026 already contributes 39 studies
+despite covering less than a full calendar year at the time of
+writing -- which argues for treating this review's taxonomy and
+synthesis as a snapshot of a fast-moving target rather than a
+terminal classification, consistent with the phased, re-runnable
+protocol defined for this review.
+
+\subsection{Taxonomy Overview}
+\label{subsec:taxonomy-overview}
+
+The 149 primary studies identified during the review process were classified
+into an 18-category taxonomy mapping the software testing life cycle.
+Table~\ref{tab:taxonomy} summarizes the categories alongside their study counts,
+and Figure~\ref{fig:category-dist} visualizes their frequency distribution.
+
+\begin{table}[t]
+\caption{The 18-category taxonomy of next-generation software
+testing techniques, with study counts from the 149-study corpus.}
+\label{tab:taxonomy}
+\begin{tabular*}{\tblwidth}{@{}L r@{}}
+\toprule
+Category & Studies \\
+\midrule
+Security of coding and testing agents & 15 \\
+Human factors: trust and acceptance & 15 \\
+Flaky tests and self-healing tests & 11 \\
+Test oracles and assertions & 10 \\
+Surveys and literature reviews & 10 \\
+CI failure triage and flaky-test classification & 9 \\
+Unit test generation with LLMs & 8 \\
+GUI, mobile and web testing agents & 6 \\
+Industrial case studies & 5 \\
+Multi-agent and agentic test generation & 5 \\
+Mobile GUI agents & 4 \\
+Benchmarks and data contamination & 4 \\
+Self-adaptive systems and runtime testing & 4 \\
+Bug reproduction and test-based issue validation & 3 \\
+LLM-based fuzzing & 3 \\
+API testing & 3 \\
+Agentic software engineering foundations & 3 \\
+Mutation testing with LLMs & 2 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth,
+  height=7.6cm,
+  xbar,
+  bar width=5pt,
+  y dir=reverse,
+  xmin=0,
+  xmax=17,
+  xlabel={Studies},
+  ytick={1,...,18},
+  yticklabels={Mutation testing with LLMs,
+    Agentic software engineering foundations, API testing,
+    LLM-based fuzzing, Bug reproduction and test-based issue validation,
+    Self-adaptive systems and runtime testing,
+    Benchmarks and data contamination, Mobile GUI agents,
+    Multi-agent and agentic test generation, Industrial case studies,
+    GUI/mobile/web testing agents, Unit test generation with LLMs,
+    CI failure triage and flaky-test classification,
+    Surveys and literature reviews, Test oracles and assertions,
+    Flaky tests and self-healing tests,
+    Human factors and trust,
+    Security of coding and testing agents},
+  ymin=0.3, ymax=18.7,
+  tick label style={font=\scriptsize},
+  yticklabel style={font=\scriptsize, align=right},
+  label style={font=\small},
+  nodes near coords,
+  every node near coord/.append style={font=\scriptsize},
+]
+\addplot coordinates {
+  (2,1) (3,2) (3,3) (3,4) (3,5) (4,6) (4,7) (4,8) (5,9) (5,10)
+  (6,11) (8,12) (9,13) (10,14) (10,15) (11,16) (15,17) (15,18)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Study counts per taxonomy category (same data as
+Table~\ref{tab:taxonomy}), ordered from least to most represented.}
+\label{fig:category-dist}
+\end{figure}
+
+As illustrated in Figure~\ref{fig:category-dist}, the categories
+cluster naturally into four super-groups that track the test
+life cycle framing used throughout this review (design $\rightarrow$
+generation $\rightarrow$ execution $\rightarrow$ oracle $\rightarrow$
+maintenance/triage), plus a cross-cutting risk dimension. The
+\emph{generation-centric} cluster -- unit test generation with LLMs
+(8), multi-agent and agentic test generation (5), bug reproduction and
+test-based issue validation (3), LLM-based fuzzing (3), and mutation
+testing with LLMs (2), 21 studies in total -- addresses how tests and
+test inputs are synthesized. The \emph{interface-and-execution}
+cluster -- GUI, mobile and web testing agents (6), mobile GUI agents
+(4), and API testing (3), 13 studies -- addresses how agents drive a
+system under test once inputs exist. The \emph{judgment} cluster --
+test oracles and assertions (10) -- addresses how pass/fail decisions
+are made, a category whose size (the fourth largest in the taxonomy)
+reflects the oracle problem's centrality to autonomous testing. The
+\emph{operational} cluster -- flaky tests and self-healing tests (11),
+CI failure triage and flaky-test classification (9), and self-adaptive
+systems and runtime testing (4), 24 studies -- addresses what happens
+to tests after they are written, the maintenance and triage end of the
+life cycle. Framing, evidence, and context studies -- surveys and
+literature reviews (10), industrial case studies (5), and agentic
+software-engineering foundations (3) -- total 18 studies. Finally, the
+\emph{risk} cluster -- security of coding and testing agents (15) and
+human factors: trust and acceptance (15) -- is, taken together, the
+single largest thematic grouping in the taxonomy at 30 studies,
+alongside a small but consequential benchmarks-and-contamination
+category (4) that qualifies how much of the generation-centric and
+judgment evidence can be trusted at face value. The remainder of this
+section answers RQ1--RQ4 against this structure.
 
 \subsection{RQ1: Taxonomy of Techniques}
-\textit{[Present the taxonomy derived from thematic coding. Consider
-Table~\ref{tab:taxonomy}.]}
+\label{subsec:rq1-taxonomy}
+
+The generation-centric literature is the most mature sub-area, with
+the earliest techniques following a straightforward pattern: condition
+an LLM on the focal method (and increasingly, retrieved context) and
+have it emit unit-test code directly. TestPilot
+\cite{slr0112024} demonstrated this for TypeScript libraries using
+only API documentation and signatures; CodaMosa \cite{slr0122023}
+instead hybridizes LLM generation with search-based testing
+(Pynguin), invoking the model specifically when coverage plateaus,
+showing that LLMs are most valuable as a targeted escape mechanism
+for classical techniques rather than a wholesale replacement.
+ChatUniTest \cite{slr0132024} and Meta's TestGen-LLM
+\cite{slr0142024} push toward industrial deployment: TestGen-LLM
+reports that LLM-generated tests were accepted into Meta's production
+codebase after automated build/pass/coverage filtering, evidence that
+the generate-then-filter pattern can survive contact with a real CI
+pipeline. CoverUp \cite{slr0152025} iterates generation against live
+coverage feedback to target high line/branch coverage for Python, and
+a cluster of evaluation-focused studies
+\cite{slr0162024,slr0172024,slr0182024} characterizes how sensitive
+unit-test-generation quality is to prompt design, model choice, and
+target language -- recurring findings are that compilable-but-vacuous
+assertions and prompt brittleness remain open problems even as raw
+compilability rates improve.
+
+A second, architecturally distinct generation paradigm delegates test
+construction to multiple cooperating LLM agents rather than a single
+pass. Multi-agent JUnit generation with explicit consensus mechanisms
+\cite{slr0192025,xu2025candor} assigns separate roles (e.g., a
+generator and one or more critics) that must agree before a test is
+accepted, reporting double-digit correctness gains over single-model
+baselines; MUATC \cite{slr0202025} and HPCAgentTester
+\cite{slr0212025} extend multi-agent utilization to coverage
+augmentation and HPC-specific code respectively, while TESTAGENT
+\cite{slr0222026} explicitly models its workflow on how human testers
+decompose a task. These multi-agent systems sit alongside, and often
+build directly on, general-purpose agentic software-engineering
+frameworks such as SWE-agent's agent-computer interface
+\cite{slr0232024}, Agentless's deliberately non-agentic alternative
+\cite{slr0242024}, and AutoCodeRover's program-repair-oriented
+autonomy \cite{slr0252024} -- the agentic-testing literature is, in
+this sense, a specialization of a broader agentic-software-engineering
+foundation (3 studies), not an isolated sub-field. A closely related
+generation task, automated bug reproduction, uses LLMs to synthesize
+failure-triggering tests from bug reports: LIBRO \cite{slr0262023}
+established the "few-shot tester" framing, a follow-up study
+\cite{slr0272023} re-evaluated it across 15 LLMs to test
+generalizability, and SWT-Bench \cite{slr0282024} turns bug-fix
+validation itself into a benchmark for code agents, directly bridging
+the generation and benchmarking clusters discussed under RQ3.
+
+Interface-driving agents form the second major technique family. On
+mobile, GPTDroid \cite{liu2024} and its antecedent zero-shot GUI
+exploration work \cite{liu2023} recast GUI testing as a conversational,
+function-aware interaction between the LLM and the app under test;
+DroidAgent \cite{yoon2023} frames exploration as an intent-driven
+autonomous agent rather than a scripted monkey tester. A second wave
+targets specifically the perception problem -- AutoDroid
+\cite{slr0332024} grounds task automation in Android's accessibility
+tree, while AUITestAgent \cite{slr0342024} and the vision-driven
+agents VisionDroid \cite{slr0352024} and a related non-crash
+functional-bug detector \cite{slr0362026} instead condition on
+screenshots via multimodal LLMs, trading accessibility-tree fragility
+for vision-model cost and latency. On the web, NaviQAte
+\cite{shahbandeh2024} and AutoE2E \cite{alian2024} target
+functionality-guided navigation and end-to-end test generation
+respectively, and WebTestPilot \cite{g62026} generalizes the
+vision-driven paradigm to test web applications directly against
+natural-language specifications using a vision-language-model agent.
+API-level interface testing is comparatively nascent (3 studies):
+AutoRestTest \cite{stennett2025,same2025} combines a multi-agent
+architecture with semantic operation-dependency graphs and
+LLM-driven input synthesis for REST APIs, and RESTGPT
+\cite{kim2024} similarly targets REST API test improvement via LLM
+assistance -- both report fault-detection gains over prior
+search-based REST testers, though neither has yet been independently
+replicated outside its originating group.
+
+Input-generation at the fuzzing end of the spectrum has also been
+reframed around LLMs. Fuzz4All \cite{xia2024} positions an LLM as a
+universal input generator spanning multiple target languages/systems
+within one framework, in contrast to the traditionally
+grammar-specific nature of fuzzers. TitanFuzz \cite{deng2023} and
+FuzzGPT \cite{deng2023b} target deep-learning library fuzzing
+specifically, with FuzzGPT explicitly optimizing for edge-case,
+historical-bug-triggering inputs rather than raw coverage -- a
+fault-centric framing this review returns to under RQ3. Mutation
+testing, the smallest technique category (2 studies), uses LLMs
+generatively but for a different purpose: synthesizing mutants rather
+than tests. Wang et al.'s comprehensive mutation-testing study
+\cite{wang2024} and LLMorpheus \cite{tip2024} both report that
+LLM-generated mutants are more diverse and more often
+semantically-higher-order than traditional operator-based mutants,
+though at a higher per-mutant generation cost.
+
+Finally, the judgment problem -- test oracles and assertions, the
+fourth-largest category (10 studies) -- spans neural oracle synthesis
+and the meta-question of whether an LLM oracle can be trusted at all.
+TOGA \cite{dinella2022} and the large-scale evaluation that followed
+it \cite{hossain2023} established neural oracle generation as
+distinct from test-input generation; TOGLL \cite{o32024} and
+AugmenTest \cite{o42025} extend this toward stronger, LLM-driven
+oracle correctness guarantees. A second, more recent sub-thread --
+largely surfaced through the QE-safety synthesis -- interrogates the
+reliability of LLM judges themselves: Bodicoat et al.
+\cite{bodicoat2026oracle} and Molina and Gorla
+\cite{molina2024oracleautomation} study oracle generation and
+automation specifically through an LLM-as-code-generator lens, while
+Wataoka et al. \cite{wataoka2024selfpreference} and Panickssery et
+al. \cite{panickssery2024evaluators} show that an LLM judge's ability
+to recognize its own outputs is causally linked to how favorably it
+scores them, and Huang et al. \cite{huang2023selfcorrect} and Olausson
+et al. \cite{olausson2023selfrepair} show LLMs cannot reliably
+self-correct reasoning or self-repair code without an external
+signal. Taken together, RQ1's technique landscape is broad and
+increasingly agentic, but the judgment layer that must certify any of
+it is, by this review's own category counts, nearly as heavily
+studied as generation itself -- and, as RQ4 discusses, for reasons
+that are more cautionary than celebratory.
 
 \subsection{RQ2: Automation and Autonomy Levels}
-\textit{[Classify studies by automation level across the test
-life cycle: design, generation, execution, oracle, maintenance.]}
+\label{subsec:rq2-autonomy}
+
+Classifying studies by where in the test life cycle autonomy is
+exercised -- design, generation, execution, oracle, or
+maintenance -- shows that automation has advanced furthest at the
+generation and execution stages (analyzed under RQ1 in
+Section~\ref{subsec:rq1-taxonomy}) and is least mature, yet
+most operationally consequential, at the maintenance stage: keeping a
+test suite usable once it has started failing. Two adjacent
+maintenance categories dominate this cluster by study count: flaky
+tests and self-healing tests (11 studies) and CI failure triage and
+flaky-test classification (9 studies), together 20 of the corpus's 120
+categorized studies. Flaky-test-focused work spans empirical
+characterization and automated repair. FlakyFix \cite{fatima2025}
+predicts flaky-test fix categories and attempts automated repair;
+self-healing locator approaches for Robot Framework
+\cite{h2nd,h32026} use LLMs to re-identify UI elements whose
+selectors have drifted. A larger empirical sub-thread quantifies how
+hard flakiness detection actually is: an evaluation of flaky-failure
+classifiers across 230,439 test failures \cite{alshammari2024flakyclassifiers}
+reports that failure-deduplication logic is "entirely ineffective" on
+some projects; CANNIER \cite{parry2023cannier} combines rerunning with
+machine-learning classification to cut detection cost by an order of
+magnitude, at the price of an empirical recall ceiling (even 10,000
+reruns catch only roughly two-thirds of flaky tests); systemic
+flakiness \cite{parry2025systemic} shows flaky failures co-occur
+rather than behaving as independent events; a Microsoft study of the
+flaky-test lifecycle \cite{lam2020lifecycle} finds that developer- or
+tool-claimed "fixes" frequently do not change a test's actual failure
+behavior; and Meta's Probabilistic Flakiness Score
+\cite{meta2020pfs} explicitly rejects a binary flaky/not-flaky label
+in favor of a continuously monitored reliability score, so that a
+sudden post-fix increase in failure rate stays visible rather than
+being silently absorbed by a "healed" label. Self-healing-locator
+tooling itself -- a zero-cost DOM-accessibility-tree approach
+\cite{joseph2026zerocost}, LLM-based Robot Framework locator repair
+\cite{rohamo2024robotframework}, and an empirical comparison against
+the Healenium framework \cite{ijam2025healenium} -- reports large
+reductions in locator-failure rate and near-complete pass-rate
+recovery, but, as discussed under RQ4, measures success purely as
+"the test passes again," not as "the test still verifies the same
+behavior."
+
+CI failure triage extends this maintenance automation from individual
+flaky tests to whole-pipeline diagnosis. LogSage \cite{slr0422025}
+and a related industrial log-analysis study \cite{slr0432026} apply
+LLMs to CI/CD failure detection and remediation with production
+validation; FlakyLens \cite{slr0442025}, an empirical exploration of
+LLM-based flaky-test conversation \cite{slr0452026}, fine-tuned and
+few-shot flaky classifiers \cite{slr0462025}, a C++-specific
+flakiness identifier \cite{slr0472024}, the neuro-symbolic NeuroFlake
+framework \cite{slr0482026}, and FlakyGuard's industry-scale automatic
+fixing \cite{slr0492025} together show flaky-test classification
+converging on hybrid neuro-symbolic and fine-tuned architectures
+rather than zero-shot prompting alone, while an industrial study of
+detected-versus-undetected flaky failures in real CI pipelines
+\cite{leinen2026detectedundetected} frames the detector/healer
+boundary symmetrically -- every detection mechanism implies a
+corresponding undetected-failure population that may include real
+regressions misclassified as noise. Beyond test-suite maintenance,
+self-adaptive systems and runtime testing (4 studies) addresses a
+related but architecturally distinct autonomy problem: testing
+systems that themselves reconfigure at runtime. An architectural
+runtime-model testing scheme \cite{hnsel2018}, the "perpetual
+assurances" framing of continuous self-adaptive-system verification
+\cite{weyns2019}, a review of how self-adaptive systems are evaluated
+\cite{wohlrab2021}, and a survey of runtime testing for dynamically
+adaptable and distributed systems \cite{sa42021} collectively suggest
+that assurance for self-adaptive systems is treated as a continuous,
+never-finished activity rather than a pre-release gate -- a framing
+this review's taxonomy adopts for autonomous QE more broadly, in which
+maintenance-stage autonomy (self-healing, triage) is not a lesser
+concern than generation-stage autonomy but its necessary complement.
 
 \subsection{RQ3: Empirical Evidence}
-\textit{[Synthesize reported effectiveness metrics (e.g., fault
-detection rate, coverage, precision/recall of generated oracles) and
-industrial case studies.]}
+\label{subsec:rq3-evidence}
+
+Reported effectiveness evidence is strongest, and most convergent,
+for coverage-centric metrics and weakest for fault-detection and
+reproducibility. Industrial case studies (5 studies) provide the
+clearest signal that LLM-based test generation survives deployment:
+Ericsson's program-analysis-augmented fine-tuned LLM pipeline
+\cite{slr0372025}, a study of LLM integration into industrial test
+maintenance \cite{slr0382024}, an account of unit-test generation
+challenges and lessons learned in industrial environments
+\cite{slr0392025}, CATGen's focus on practical reliability of
+LLM-based unit-test generation \cite{slr0402026}, and ASTER's
+natural, multi-language unit-test generation \cite{slr0412025} report
+consistent gains in compilability and coverage relative to
+unassisted baselines, but none report a standardized, cross-study
+fault-detection metric -- each uses its own internal benchmark, which
+limits comparability across the five studies.
+
+This comparability problem is compounded by a distinct and smaller but
+consequential category: benchmarks and data contamination (4 studies),
+which directly qualifies how much of the generation-centric evidence
+summarized under RQ1 can be taken at face value. TestGenEval
+\cite{slr0292025} proposes a real-world unit-test-generation and
+test-completion benchmark explicitly designed to be harder to
+memorize than function-signature-only benchmarks; a study asking
+whether LLMs are "memorizing bug benchmarks"
+\cite{slr0302025} finds evidence consistent with contamination on
+at least some widely used bug-fixing datasets; the GitHub Recent Bugs
+Dataset \cite{slr0312023} is explicitly constructed to postdate common
+training cutoffs as a mitigation; and a study of inter-dataset code
+duplication and data leakage \cite{slr0322024} shows that leakage is
+not confined to a single benchmark but propagates across supposedly
+independent ones via shared source repositories. The practical
+implication for RQ1's generation-centric results is that
+headline compilability/coverage numbers reported on long-standing
+public benchmarks (e.g., Defects4J-derived corpora) should be
+discounted relative to numbers reported on benchmarks explicitly
+designed, like TestGenEval and the GitHub Recent Bugs Dataset, to
+resist memorization. A related, narrower fault-centric evaluation
+thread appears in the fuzzing literature under RQ1: FuzzGPT
+\cite{deng2023b} is unusual in this corpus for explicitly optimizing
+for historical-bug-triggering inputs rather than raw code coverage,
+illustrating that fault-detection-centric evaluation, while rarer
+than coverage-centric evaluation across the corpus as a whole, is
+achievable when a study deliberately designs for it. Across RQ3 as a
+whole, then, the empirical record supports confident claims about
+compilability and coverage improvement from agentic/LLM-based testing
+techniques, but only cautious, benchmark-qualified claims about actual
+fault-detection improvement, and essentially no cross-study
+meta-analysis of effect sizes given how recent and heterogeneously
+evaluated this literature is (see Section~\ref{subsec:pub-trends} and Section~\ref{subsec:rq2-autonomy}).
 
 \subsection{RQ4: Open Challenges}
-\textit{[List and discuss identified gaps: explainability,
-reproducibility, benchmark standardization, flaky test handling,
-cost of adoption, etc.]}
+\label{subsec:rq4-challenges}
+
+The corpus's two largest categories -- security of coding and testing
+agents and human factors: trust and acceptance, 15 studies each, 30 in
+total -- are also its most forward-looking: both concern whether
+autonomous testing and coding agents can be trusted with the
+authority this review's taxonomy shows they increasingly hold (RQ1,
+RQ2). On security, four benchmark/attack studies
+\cite{zhan2024injecagent,debenedetti2024agentdojo,guo2024redcode,she2025queryipi}
+establish that indirect prompt injection is a real, quantifiable
+threat rather than a theoretical one: InjecAgent reports a ReAct-style
+GPT-4 agent hijacked in roughly 24\% of cases by maliciously crafted
+content embedded in the data it processes, nearly doubling under
+reinforced attacker prompts \cite{zhan2024injecagent}; AgentDojo
+confirms that injection attacks reliably break some, but not all,
+tested security properties across 629 test cases
+\cite{debenedetti2024agentdojo}; RedCode's 4,050 test cases show agents
+inconsistently refuse risky operations, and more capable models can
+produce more sophisticated malicious code once jailbroken -- a
+capability/safety inversion -- \cite{guo2024redcode}; and QueryIPI
+shows that payloads hidden in invariant context such as tool
+descriptions -- rather than per-query triggers -- achieve up to 87\%
+success and transfer to real IDE-integrated coding agents, meaning an
+attacker need not predict a developer's query, only poison the
+tool/plugin ecosystem a testing agent consults
+\cite{she2025queryipi}. Complementary industrial-scale studies show
+risk is not confined to adversarial settings: a systematic analysis of
+security debt in autonomous coding agents \cite{sakib2026trustverify}
+finds that 38.9\% of agent-authored pull requests in a large-scale
+dataset contain security smells (82.3\% of those are supply-chain
+issues, and 99.6\% of critical smells are hardcoded credentials), with
+existing human review catching only around 19\% of leaked credentials
+before merge, and a study of insecure behaviors arising even during
+benign, non-adversarial developer-aid tasks \cite{kozak2025developeraid}
+reports 21\% of agent trajectories are insecure during ordinary setup
+tasks, dominated by information-exposure weaknesses -- directly
+undermining "a human reviews the agent's output" as a sufficient
+safety story for AI-generated tests and code. A
+corresponding defense literature is emerging in parallel: a lightweight
+repository-borne-injection benchmark and defense study
+\cite{slr0512026}, a study of memory-file prompt injection against
+coding agents \cite{slr0522026}, and an analysis of sandbox-escape
+"trust handoff" flaws in AI coding agents \cite{slr0532026} identify
+new attack surfaces, while VibeGuard's pre-publish security gate
+\cite{xie2026vibeguard}, ROSA's metamorphic-fuzzing backdoor detector
+\cite{kokkonis2025rosa}, Progent's SMT-verified least-privilege policy
+enforcement \cite{shi2025progent}, IsolateGPT's OS-style execution
+isolation at under 30\% overhead for most queries
+\cite{wu2024isolategpt}, and SkillShield's prompt-space, weight-free
+defense matching a dedicated 8B guard classifier's blocking rate at a
+0.14\% false-refusal rate \cite{wu2026skillshield} each mitigate a
+specific slice of the threat surface -- VibeGuard's pre-publish gate
+separately reports 100\% recall and 89.47\% precision on
+packaging/secret-exposure failures missed by conventional static
+analysis, and ROSA's metamorphic fuzzing oracle detects planted
+backdoors in roughly 90 minutes without reverse engineering -- but, as
+AgentDojo's own framing makes explicit, attacks and defenses remain
+incomplete and co-evolving rather than settled
+\cite{debenedetti2024agentdojo}.
+
+On the human-factors side, the 15-study category spans developer
+perception of LLM-assisted testing tooling, standards for testing AI
+systems, and the governance of highly autonomous agents. Developer
+acceptance work shows a consistent concern with trust and transparency
+rather than raw output quality: studies of how developers perceive
+amplified tests \cite{slr0542024,slr0552023,slr0592024}, a mapping of
+the broader LLM-in-software-engineering trust landscape
+\cite{slr0562025}, LLM-generated verifications for manual tests
+\cite{slr0572024}, and PyTestGuard's IDE-level support for developers
+consuming LLM-generated unit tests \cite{slr0582025} together indicate
+that acceptance of agentic testing tools depends less on measured
+accuracy than on whether developers can inspect, explain, and override
+what the tool produced. At the standards and governance level,
+ISO/IEC TR 29119-11 \cite{iso2020tr29119} and ISO/IEC TS 42119-2
+\cite{iso2025ts42119} supply risk-based guidance for testing AI as the
+system under test but, as this review's taxonomy makes visible by
+grouping them with trust/acceptance rather than with a dedicated
+standards category, do not address the inverse and increasingly urgent
+scenario this review's own taxonomy foregrounds -- AI acting as the
+tester or quality gatekeeper. Feng et al.'s five-level autonomy
+taxonomy \cite{feng2025autonomylevels}, Treude et al.'s terms-of-service
+analysis showing accountability is currently settled by vendor
+contract rather than engineering standard \cite{treude2026accountable},
+Cheng et al.'s three-pillar transparency/accountability/
+trustworthiness model \cite{cheng2026threepillar}, IBM's CHI workshop
+study of trust and reliance in evolving human-AI workflows
+\cite{ibm2024trew}, two independent overreliance studies
+\cite{passi2025overreliance,ibrahim2025overreliance}, and Kiran's
+enterprise human-AI collaboration model for scalable testing
+\cite{kiran2026humanai} collectively show that as agents move beyond a
+"collaborator" role toward "approver" or "observer" autonomy, a human
+is no longer meaningfully in the quality-sign-off loop, yet no
+standard, contract, or regulation yet assigns traceable accountability
+for that condition.
+
+This security-and-trust evidence motivated a dedicated \emph{Quality
+Engineering Safety} literature thread -- security of testing/coding
+agents, test-oracle independence and the AI-testing-AI circularity
+problem, self-healing/flaky-test stability, and governance/
+accountability for Level~4--5 autonomy -- synthesized from 36
+additional sources (Section~\ref{sec:qe-safety}) specifically to
+deepen RQ4. These sources encompass specialized security benchmarks,
+adversarial attack analyses, and emerging governance guidelines
+(including relevant international standards and industrial white papers)
+that provide critical context for autonomous testing risks.
+Beyond the security evidence summarized under RQ4 in this subsection,
+this thread's synthesis surfaces two further findings that cut across RQ1--RQ3.
+First, the oracle-independence
+problem documented under RQ1 (LLM judges favoring low-perplexity,
+self-recognized outputs \cite{wataoka2024selfpreference,panickssery2024evaluators})
+means that consensus among multiple same-family LLM agents, as used
+by CANDOR-style multi-agent oracle generation \cite{xu2025candor}, can
+still produce correlated false confidence rather than genuine
+independence when the underlying models share representational blind
+spots or overlapping pretraining data -- a risk this review's
+synthesis terms a provenance gap, since no paper in the corpus
+measures or discloses training-data overlap between a code-generating
+agent and the LLM judge that scores its output. Second, the RQ2
+maintenance-automation evidence (self-healing locator recovery rates
+of 40--60\% fewer locator failures and near-complete pass-rate
+recovery \cite{joseph2026zerocost,rohamo2024robotframework,ijam2025healenium})
+is, across every surveyed self-healing study, validated only against
+cosmetic DOM or attribute changes with no underlying functional
+change -- no paper in this corpus evaluates whether a self-healing
+test, once repaired, still detects a deliberately injected real
+regression, meaning current self-healing evidence demonstrates
+maintenance-cost reduction but not preserved fault-detection capacity.
+A third, unifying observation emerges from reading all four QE-safety
+sub-threads together rather than in isolation: each independently
+converges on the same structural weakness, namely that the
+"healed/passed/approved" signal currently relied on in practice is a
+single, gameable proxy that is not independently verified -- whether
+that signal is a self-healing locator's pass rate, an LLM oracle's
+verdict, a code agent's benign-looking tool call, or a human
+reviewer's sign-off on an agent-authored pull request. None of the
+mechanisms surveyed in this subsection (policy/privilege control,
+execution isolation, multi-agent consensus, probabilistic flakiness scoring)
+individually closes this gap; each substitutes a different single
+proxy for the one it replaces rather than requiring a second,
+independently sourced signal before the first is trusted. Taken
+together with the security findings discussed in this subsection,
+RQ4's open-challenges picture is one in which autonomous testing's
+generation and execution capabilities (RQ1) have advanced faster than
+the mechanisms needed to trust their outputs (oracle independence),
+secure their operation (prompt injection, sandbox escape, supply-chain contamination),
+verify their maintenance claims (self-healing without regression masking),
+or govern their growing decision authority (accountability for
+Level~4--5 autonomy) -- a gap this review carries forward into the
+discussion and the ten-problem research roadmap in
+Section~\ref{sec:discussion} and the conclusion.

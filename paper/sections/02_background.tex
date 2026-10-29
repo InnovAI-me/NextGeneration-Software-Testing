@@ -1,22 +1,294 @@
-% Background and Motivation
-%
-% Suggested content:
-% - Evolution of software testing (manual -> scripted -> model-based -> AI-driven)
-% - Key enabling technologies (ML, LLMs, symbolic execution, fuzzing, RL)
-% - Industrial drivers (CI/CD, DevOps, cloud-native, microservices)
-% - Definitions of key terms used throughout the paper
-\subsection{Evolution of Software Testing}
-\textit{[Describe the historical progression of software testing
-practices, citing seminal works for each era.]}
+Understanding why ``agentic AI for software testing'' has become a
+distinct and fast-moving research area requires situating it against
+the longer trajectory of test-automation research, clarifying the
+specific technical properties of large language models (LLMs) and
+agentic architectures that differentiate this generation of tools from
+earlier automation, and fixing a shared vocabulary for terms --
+autonomy level, self-healing, the test-oracle problem, flakiness --
+that recur throughout the taxonomy and synthesis in later sections.
+This section does not attempt a comparative analysis of prior surveys
+(that is the task of Section~\ref{sec:related-work}); instead, it
+supplies the conceptual scaffolding a reader needs before engaging with
+the review's results.
 
-\subsection{Enabling Technologies}
-\textit{[Discuss AI/ML, LLMs, symbolic execution, fuzzing, reinforcement
-learning, and how they are being applied to testing.]}
+\subsection{A Short History of Software Test Automation}
+Software testing automation has evolved through several overlapping
+eras, each lowering the manual effort required to exercise a system
+while raising new questions about what ``coverage'' or ``correctness''
+actually guarantees. The earliest automation targeted the mechanics of
+test \emph{execution} rather than test \emph{design}: capture/replay
+tools recorded a tester's interactions with a GUI or API and replayed
+them as scripted regression suites. This approach is cheap to adopt but
+notoriously brittle -- a single UI change invalidates every recorded
+locator, producing the maintenance burden that decades later motivates
+self-healing locator research~\cite{h2nd,rohamo2024robotframework}.
+A second era shifted the unit of automation from whole user journeys to
+isolated code units, popularized by xUnit-style frameworks that made
+writing and running assertions over individual functions or classes a
+routine developer activity rather than a separate QA discipline; this
+coverage-driven, developer-authored style of unit testing remains the
+substrate that most LLM-based test-generation work still targets and
+evaluates against~\cite{slr0072025,slr0082025}.
 
-\subsection{Industrial and Process Drivers}
-\textit{[Discuss CI/CD, DevOps, shift-left/shift-right testing, and
-cloud-native architectures as drivers for next-generation testing.]}
+A third era pursued automated test \emph{generation} rather than mere
+execution, using the structure of the program itself as a generation
+signal. Search-based software testing framed test-input selection as
+an optimization problem over a fitness landscape (typically branch or
+line coverage), while symbolic and concolic execution reasoned about
+path constraints to derive inputs that reach specific program
+locations; fuzzing complemented both by mutating or generating inputs
+to find crashes and robustness violations without requiring a precise
+specification of correctness. These coverage-driven and property-driven
+generators were effective at producing inputs but persistently weak at
+producing \emph{meaningful} test oracles and at escaping coverage
+plateaus once a program's branching structure became deep or
+semantically opaque -- a limitation that later motivated hybridizing
+search-based generation with LLMs, as in CodaMosa's strategy of
+invoking a pre-trained language model to escape stalled coverage
+exploration~\cite{slr0122023}. Classical fuzzers and symbolic engines
+also had no access to natural-language context (requirements,
+identifiers, comments, commit messages) and so could not connect a
+generated input to a domain-level notion of intended
+behavior~\cite{xia2024,deng2023,deng2023b}.
 
-\subsection{Key Definitions}
-\textit{[Define terms: autonomous testing, AI-augmented testing,
-self-healing tests, test oracle problem, etc.]}
+The most recent era layers machine learning, and subsequently large
+language models and agentic orchestration, on top of this stack.
+Early ML-for-testing work used learned models for narrower sub-problems
+-- prioritizing test cases, predicting flaky outcomes, or ranking
+likely-buggy locations -- without altering the fundamentally
+human-authored nature of test design. The arrival of LLMs trained on
+large code and natural-language corpora changed the unit of automation
+again: a model can now read a function, its surrounding repository
+context, and an informal description of intent, and directly emit a
+syntactically valid, semantically plausible unit test, mutation, fuzz
+target, or GUI action sequence~\cite{slr0012024,slr0022024,slr0032023}.
+Agentic AI represents a further step beyond single-shot generation: a
+testing agent couples an LLM with tool use (running a compiler,
+executing a test, reading a stack trace, querying a repository) inside
+an iterative plan-act-observe loop, allowing it to generate a test,
+execute it, diagnose a failure, and revise its own output without
+further human intervention~\cite{slr0232024,slr0252024,slr0242024}.
+Multi-agent variants extend this further still, assigning specialized
+roles (generator, critic, oracle-repairer) to separate LLM instances
+that debate or vote on a shared artifact before it is
+accepted~\cite{slr0192025,xu2025candor,slr0222026}. This progression --
+from replaying what a human already did, to generating code that
+satisfies a structural criterion, to agents that plan, act, and revise
+toward a goal -- is the backdrop against which the remainder of this
+review classifies next-generation testing techniques.
+
+\subsection{Why LLMs and Agentic AI Changed the Picture}
+Four technical properties of LLM-based and agentic systems explain why
+this generation of tools is treated as a qualitative departure from
+earlier automation rather than an incremental improvement to it.
+
+\textbf{In-context code understanding.} Unlike symbolic or
+coverage-driven generators, which reason purely over a program's
+syntax or control-flow graph, LLMs are trained on vast corpora of code
+paired with natural-language artifacts (comments, documentation,
+commit messages, issue discussions), giving them an implicit model of
+what a function is \emph{supposed} to do, not merely what paths it
+contains. This lets a model propose plausible test oracles -- expected
+return values, exception conditions, invariants -- directly from a
+function's signature, docstring, and surrounding usage, something
+earlier generators could only approximate through heuristics such as
+implicit specifications mined from existing assertions or crash
+oracles~\cite{dinella2022,hossain2023,o32024}.
+
+\textbf{Natural-language-to-test generation.} Because LLMs operate
+over natural language and code in a shared representation, a
+requirement, bug report, or user story can itself become the
+generation prompt, collapsing the traditional pipeline in which a
+human first translates a requirement into a formal test specification.
+Tools such as RESTGPT for API testing, NaviQAte and WebTestPilot for
+web navigation, and DroidAgent and GPTDroid for mobile GUI exploration
+all exploit this property to drive functional test generation directly
+from natural-language intent or app-state descriptions rather than
+from pre-written scripts~\cite{kim2024,shahbandeh2024,g62026,yoon2023,liu2024}.
+
+\textbf{Tool use and multi-step, multi-agent planning loops.} Agentic
+frameworks equip an LLM with callable tools -- a shell, a debugger, a
+test runner, a code-search index -- and an explicit control loop that
+interleaves reasoning with action, observation, and re-planning. This
+allows an agent to validate its own output empirically (does the
+generated test compile? does it pass? does it reproduce the reported
+bug?) rather than emitting a single unverified artifact, and to
+decompose a task such as ``reproduce and fix this failing CI run''
+across multiple reasoning steps and, increasingly, multiple
+specialized agents~\cite{slr0232024,slr0282024,slr0602026,stennett2025}.
+This loop is the architectural feature that most clearly separates
+agentic testing tools from earlier one-shot neural generators, and it
+is also the source of the review's later distinctions between
+single-agent, tool-augmented, and multi-agent architectures (RQ2).
+
+\textbf{Self-healing and self-adaptive test maintenance.} Because an
+LLM can inspect a changed UI, API schema, or DOM tree and propose an
+updated locator, assertion, or oracle in place of a now-broken one,
+test \emph{maintenance} -- traditionally the single largest recurring
+cost of scripted and record/replay automation -- becomes an operation
+the system can perform on itself. Self-healing locator frameworks for
+tools such as Robot Framework and Selenium, and runtime-testing work on
+self-adaptive systems more broadly, exemplify this
+shift~\cite{h2nd,rohamo2024robotframework,ijam2025healenium,joseph2026zerocost,weyns2019,wohlrab2021}.
+Taken together, these four properties explain both the enthusiasm
+surrounding agentic testing and the specific new risks it introduces,
+since a system that can rewrite its own oracles and locators can also
+silently rewrite away a genuine regression.
+
+\subsection{Key Terminology and Concepts}
+The results and discussion sections rely on a small set of terms that
+are used inconsistently across the primary literature; this review
+adopts the following working definitions.
+
+\textbf{Agentic AI / autonomous testing agent.} We use \emph{agentic
+AI} to denote an LLM-based system that perceives a software artifact
+or execution environment, forms a plan, invokes external tools to act
+on that environment, observes the result, and iterates -- as opposed to
+a single-pass model invocation that maps an input prompt directly to
+an output artifact~\cite{slr0042024,slr0052024,slr0062024}. An
+\emph{autonomous testing agent} is an agentic system whose task is
+specifically test design, generation, execution, triage, or
+maintenance, potentially spanning several of these life-cycle stages
+without human intervention between them~\cite{slr0882020,slr0662026}.
+
+\textbf{Self-healing test automation.} This refers to mechanisms --
+typically, but not exclusively, LLM-based -- that automatically detect
+a broken element of a test (a UI locator, an API contract assumption,
+an assertion that no longer matches intended behavior) and repair it at
+or near runtime, without requiring a human to re-author the affected
+test~\cite{h2nd,rohamo2024robotframework,ijam2025healenium}. Self-healing
+is a special case of the broader notion of a self-adaptive system,
+which continuously monitors and adjusts its own structure or behavior
+in response to a changing environment~\cite{weyns2019,hnsel2018,sa42021}.
+
+\textbf{The test-oracle problem.} The test-oracle problem is the
+long-standing difficulty of deciding, for a given test input, what the
+\emph{correct} output or behavior should be, absent a complete and
+trustworthy specification. Neural and LLM-based oracle generation
+(e.g., TOGA, TOGLL, AugmenTest) attempts to approximate this judgment
+by learning from existing assertions, exception patterns, or developer
+intent expressed in code and
+comments~\cite{dinella2022,o32024,o42025,bodicoat2026oracle,molina2024oracleautomation}.
+Using an LLM to both generate a test and judge whether its own
+generated behavior is correct raises a circularity concern -- an agent
+testing code it (or a closely related model) produced -- that is
+compounded by documented self-preference biases in LLM-as-judge
+settings and by evidence that models struggle to self-correct their own
+reasoning or code without external
+feedback~\cite{wataoka2024selfpreference,panickssery2024evaluators,huang2023selfcorrect,olausson2023selfrepair}.
+
+\textbf{Flaky tests.} A flaky test is one that can pass or fail across
+repeated executions of the same code under test, without any change to
+that code, typically due to non-determinism such as timing, concurrency,
+test-order dependence, or external-resource instability. Flaky tests
+undermine the trustworthiness of continuous-integration signals and
+have motivated a substantial body of machine-learning and, more
+recently, LLM-based classification and repair
+work~\cite{fatima2025,alshammari2024flakyclassifiers,parry2023cannier,leinen2026detectedundetected,parry2025systemic,lam2020lifecycle,meta2020pfs}.
+Flakiness is directly relevant to self-healing test automation because
+a system that automatically repairs a ``failing'' test must first
+distinguish a genuine regression from an artifact of flakiness, or risk
+silently suppressing real defects.
+
+\textbf{Autonomy-level framing (L0--L5).} To compare how much human
+oversight a given technique still requires, this review adopts the
+autonomy-level scale used later in the roadmap and discussion
+sections, following the general levels-of-autonomy framing for AI
+agents of \cite{feng2025autonomylevels}: autonomy ranges from no
+agentic behavior (a human performs the task with no AI assistance)
+through assistive and co-pilot levels (the system suggests artifacts a
+human reviews and approves) to conditional and high autonomy (the
+system executes multi-step plans with narrow human checkpoints) and,
+at the upper end, full autonomy, in which a testing agent designs,
+executes, triages, and maintains tests across a life cycle with no
+routine human intervention. This scale, together with the ISO/IEC
+guidance on testing AI-based systems and on testing AI more
+generally~\cite{iso2020tr29119,iso2025ts42119}, gives the taxonomy in
+Section~\ref{sec:results} a consistent axis along which to classify
+otherwise heterogeneous techniques (RQ2).
+
+\subsection{Motivation: Why This Topic Needs a Rigorous Synthesis Now}
+Four converging pressures motivate a systematic, rather than
+narrative, review of this literature at this particular moment.
+
+\textbf{Fragmentation of claims and terminology.} The corpus assembled
+for this review spans 149 candidate studies published between 2018 and
+2026, distributed across at least eighteen partially overlapping
+taxonomy categories -- unit-test generation, GUI and mobile testing
+agents, API testing, fuzzing, mutation testing, oracle generation,
+flaky-test classification, self-adaptive runtime testing, CI-failure
+triage, security of coding and testing agents, and more. Authors
+routinely use different labels (``intelligent testing,'' ``autonomous
+testing,'' ``AI-augmented testing,'' ``agentic software engineering'')
+for closely related ideas, and several existing surveys already
+attempt partial consolidations of this
+space~\cite{slr0012024,slr0022024,slr0032023,slr0092024,slr0102024},
+underscoring that the field has grown too large and too fast for any
+single narrative account to track consistently; a reproducible,
+protocol-driven synthesis is needed to make comparisons across these
+overlapping categories meaningful (RQ1).
+
+\textbf{Inconsistent benchmarks and limited generalizability.}
+Empirical claims in this area are frequently anchored to small,
+language-specific, or project-specific benchmarks, and several
+targeted replications show that headline results are sensitive to
+exactly how a benchmark is constructed and evaluated. Independent
+re-evaluations of flaky-test classifiers, for instance, have found that
+reported accuracy drops substantially once unrealistic class balance or
+weak validation protocols are
+corrected~\cite{alshammari2024flakyclassifiers,parry2023cannier}, and
+studies of neural test-oracle generation report similarly large gaps
+between original and large-scale replicated
+evaluations~\cite{hossain2023}. Without a systematic review that
+extracts and compares evaluation methodology across studies -- not
+merely headline numbers -- the field risks treating isolated,
+possibly fragile results as generalizable evidence (RQ3).
+
+\textbf{Data contamination and benchmark leakage.} Because LLMs are
+trained on enormous, largely undisclosed corpora that plausibly include
+public GitHub repositories, there is a concrete risk that a model
+``generating'' a correct test for a benchmark problem is in fact
+recalling memorized training data rather than reasoning about the code
+under test. Direct studies of this risk -- measuring whether LLMs
+memorize widely used bug benchmarks and quantifying inter-dataset code
+duplication and leakage across popular training and evaluation
+corpora -- show the problem is non-hypothetical, and have motivated
+the construction of contamination-resistant benchmarks built from
+recently created bug
+datasets~\cite{slr0302025,slr0322024,slr0312023,slr0292025}. A
+synthesis that explicitly tracks which primary studies address, ignore,
+or are vulnerable to contamination is necessary before the field's
+quantitative claims about LLM testing effectiveness can be taken at
+face value.
+
+\textbf{The hype-versus-evidence gap and the quality-engineering safety
+angle.} Enthusiastic framings of agentic AI as a wholesale replacement
+for human test engineering coexist with sober industrial reports that
+document narrower, assistive deployments and persistent practitioner
+skepticism~\cite{slr0372025,slr0382024,slr0392025,slr0832025}, and with
+emerging survey and position work explicitly interrogating how far
+agentic autonomy in software engineering has actually
+progressed~\cite{slr0662026,slr0692026,slr0722026,slr0842025,slr0852025}.
+Closing this gap matters beyond academic tidiness because autonomous
+testing agents introduce safety concerns that earlier, purely
+assistive tools did not: when an agent both writes production code and
+generates the tests meant to validate it, the two artifacts can share
+the same blind spots, producing a circularity in which a test suite
+systematically fails to catch the very class of defect the generating
+model is prone to introduce~\cite{xu2025candor,slr0192025}. Testing
+agents are also newly exposed, tool-using software themselves, and are
+therefore subject to indirect prompt injection, unsafe tool
+invocation, and sandbox-escape attacks that have been demonstrated
+against LLM coding and tool-augmented agents more
+broadly~\cite{zhan2024injecagent,debenedetti2024agentdojo,guo2024redcode,she2025queryipi,sakib2026trustverify,kozak2025developeraid,shi2025progent,wu2024isolategpt}.
+Finally, as autonomy increases toward the higher end of the L0--L5
+scale, questions of accountability, overreliance, and governance --
+who is responsible when a self-healing agent masks a regression, and
+what standards should govern a Level-5 testing agent -- move from
+speculative to
+urgent~\cite{treude2026accountable,cheng2026threepillar,passi2025overreliance,ibrahim2025overreliance,kiran2026humanai}.
+Together, fragmentation, benchmark fragility, contamination risk, and
+this emerging safety angle constitute the gap this systematic review
+is designed to address, following an SLR protocol in the tradition of
+\cite{kitchenham2007} and reported per the PRISMA
+guidelines~\cite{page2021prisma}.

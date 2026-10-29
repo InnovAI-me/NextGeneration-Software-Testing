@@ -24,11 +24,15 @@
   doi     = {10.1136/bmj.n71}
 }
 
-@misc{placeholder2024,
-  author = {Placeholder, Author},
-  title  = {Placeholder citation -- replace with a real source on software testing effort},
-  year   = {2024},
-  note   = {Remove once replaced with an actual reference}
+@article{bluemke2021,
+  author  = {Bluemke, Ilona and Malanowska, Anna},
+  title   = {Software Testing Effort Estimation and Related Problems: A Systematic Literature Review},
+  journal = {ACM Computing Surveys},
+  volume  = {54},
+  number  = {3},
+  pages   = {Article 53},
+  year    = {2021},
+  doi     = {10.1145/3442694}
 }
 
 % --- BEGIN IMPORTED REFERENCES (auto-generated) ---
@@ -376,7 +380,7 @@
 
 @misc{shahbandeh2024,
   title        = {{NaviQAte: Functionality-Guided Web Application Navigation}},
-  author       = {Shahbandeh, Alian, Nashid, Mesbah},
+  author       = {Shahbandeh and Alian and Nashid and Mesbah},
   year         = {2024},
   eprint       = {2409.10741},
   archivePrefix= {arXiv},
@@ -387,7 +391,7 @@
 
 @misc{alian2024,
   title        = {{A Feature-Based Approach to Generating Comprehensive End-to-End Tests (AutoE2E)}},
-  author       = {Alian, Nashid, Shahbandeh, Shabani, Mesbah},
+  author       = {Alian and Nashid and Shahbandeh and Shabani and Mesbah},
   year         = {2024},
   eprint       = {2408.01894},
   archivePrefix= {arXiv},
@@ -409,7 +413,7 @@
 
 @misc{stennett2025,
   title        = {{A Multi-Agent Approach for REST API Testing with Semantic Graphs and LLM-Driven Inputs (AutoRestTest)}},
-  author       = {Stennett, Kim, Sinha, Orso},
+  author       = {Stennett and Kim and Sinha and Orso},
   year         = {2025},
   eprint       = {2411.07098},
   archivePrefix= {arXiv},
@@ -453,7 +457,7 @@
 
 @misc{deng2023,
   title        = {{Large Language Models Are Zero-Shot Fuzzers: Fuzzing Deep-Learning Libraries via Large Language Models (TitanFuzz)}},
-  author       = {Deng, Xia, Peng, Yang, Zhang},
+  author       = {Deng and Xia and Peng and Yang and Zhang},
   year         = {2023},
   eprint       = {2212.14834},
   archivePrefix= {arXiv},
@@ -1238,3 +1242,447 @@
   url          = {https://arxiv.org/abs/2007.10224}
 }
 % --- END IMPORTED REFERENCES (auto-generated) ---
+
+% =====================================================================
+% Manually curated: Quality Engineering Safety literature thread
+% (security of testing/coding agents, oracle independence / AI-testing-
+% AI circularity, self-healing stability, governance & accountability).
+% Added via multi-agent literature research; see
+% literature-review/qe-safety-literature.md for full synthesis.
+% =====================================================================
+
+@misc{zhan2024injecagent,
+  title        = {{InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents}},
+  author       = {Zhan, Qiusi and Liang, Zhixiang and Ying, Zifan and Kang, Daniel},
+  year         = {2024},
+  eprint       = {2403.02691},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2403.02691},
+  note         = {ACL 2024 Findings},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{debenedetti2024agentdojo,
+  title        = {{AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents}},
+  author       = {Debenedetti, Edoardo and Zhang, Jie and Balunovi{\'c}, Mislav and Beurer-Kellner, Luca and Fischer, Marc and Tram{\`e}r, Florian},
+  year         = {2024},
+  eprint       = {2406.13352},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2406.13352},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{guo2024redcode,
+  title        = {{RedCode: Risky Code Execution and Generation Benchmark for Code Agents}},
+  author       = {Guo, Chengquan and Liu, Xun and Xie, Chulin and Zhou, Andy and Zeng, Yi and Lin, Zinan and Song, Dawn and Li, Bo},
+  year         = {2024},
+  eprint       = {2411.07781},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2411.07781},
+  note         = {NeurIPS 2024 Datasets and Benchmarks Track},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{she2025queryipi,
+  title        = {{QueryIPI: Query-agnostic Indirect Prompt Injection on Coding Agents}},
+  author       = {She, Dongdong and others},
+  year         = {2025},
+  eprint       = {2510.23675},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2510.23675},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{sakib2026trustverify,
+  title        = {{Trust but Verify? Uncovering the Security Debt of Autonomous Coding Agents}},
+  author       = {Sakib, A H M Nazmus and Banik, Dipayan and Jadliwala, Murtuza},
+  year         = {2026},
+  eprint       = {2607.12428},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2607.12428},
+  note         = {KDD 2026 Workshop on Agentic Software Engineering (AgenticSE)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{kozak2025developeraid,
+  title        = {{When Developer Aid Becomes Security Debt: A Systematic Analysis of Insecure Behaviors in LLM Coding Agents}},
+  author       = {Kozak, Matous and others},
+  year         = {2025},
+  eprint       = {2507.09329},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2507.09329},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{xie2026vibeguard,
+  title        = {{VibeGuard: A Security Gate Framework for AI-Generated Code}},
+  author       = {Xie, Ying},
+  year         = {2026},
+  eprint       = {2604.01052},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2604.01052},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{kokkonis2025rosa,
+  title        = {{ROSA: Finding Backdoors with Fuzzing}},
+  author       = {Kokkonis, Dimitri and Marcozzi, Micha{\"e}l and Decoux, Emilien and Zacchiroli, Stefano},
+  year         = {2025},
+  eprint       = {2505.08544},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2505.08544},
+  note         = {IEEE/ACM ICSE 2025},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{shi2025progent,
+  title        = {{Progent: Securing AI Agents with Privilege Control}},
+  author       = {Shi, Tianneng and He, Jingxuan and Wang, Zhun and Li, Hongwei and Wu, Linyu and Guo, Wenbo and Song, Dawn},
+  year         = {2025},
+  eprint       = {2504.11703},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2504.11703},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{wu2024isolategpt,
+  title        = {{IsolateGPT: An Execution Isolation Architecture for LLM-Based Agentic Systems}},
+  author       = {Wu, Yuhao and others},
+  year         = {2024},
+  eprint       = {2403.04960},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2403.04960},
+  note         = {NDSS Symposium 2025},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{wu2026skillshield,
+  title        = {{SkillShield: Prompt-Space Security Skills for LLM Coding Agents}},
+  author       = {Wu, Xiaodong and Zhao, Zhimin and Li, Qi and Li, Xiangman and Shi, Yu and Adams, Bram and Ni, Jianbing},
+  year         = {2026},
+  eprint       = {2608.25817},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2608.25817},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{bodicoat2026oracle,
+  title        = {{Understanding LLM-Driven Test Oracle Generation}},
+  author       = {Bodicoat, Adam and Jahangirova, Gunel and Terragni, Valerio},
+  year         = {2026},
+  eprint       = {2601.05542},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2601.05542},
+  note         = {AIware 2025},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{molina2024oracleautomation,
+  title        = {{Test Oracle Automation in the era of LLMs}},
+  author       = {Molina, Facundo and Gorla, Alessandra},
+  year         = {2024},
+  eprint       = {2405.12766},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2405.12766},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{xu2025candor,
+  title        = {{Hallucination to Consensus: Multi-Agent LLMs for End-to-End JUnit Test Generation}},
+  author       = {Xu, Qinghua and Wang, Guancheng and Briand, Lionel and Liu, Kui},
+  year         = {2025},
+  eprint       = {2506.02943},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2506.02943},
+  note         = {CANDOR; arXiv / ACM},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{wataoka2024selfpreference,
+  title        = {{Self-Preference Bias in LLM-as-a-Judge}},
+  author       = {Wataoka, Koki and Takahashi, Tsubasa and Ri, Ryokan},
+  year         = {2024},
+  eprint       = {2410.21819},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2410.21819},
+  note         = {NeurIPS 2024 Safe Generative AI Workshop},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{panickssery2024evaluators,
+  title        = {{LLM Evaluators Recognize and Favor Their Own Generations}},
+  author       = {Panickssery, Arjun and Bowman, Samuel R. and Feng, Shi},
+  year         = {2024},
+  eprint       = {2404.13076},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2404.13076},
+  note         = {NeurIPS 2024},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{huang2023selfcorrect,
+  title        = {{Large Language Models Cannot Self-Correct Reasoning Yet}},
+  author       = {Huang, Jie and Chen, Xinyun and Mishra, Swaroop and Zheng, Huaixiu Steven and Yu, Adams Wei and Song, Xinying and Zhou, Denny},
+  year         = {2023},
+  eprint       = {2310.01798},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2310.01798},
+  note         = {arXiv preprint (ICLR 2024)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{olausson2023selfrepair,
+  title        = {{Is Self-Repair a Silver Bullet for Code Generation?}},
+  author       = {Olausson, Theo X. and Inala, Jeevana Priya and Wang, Chenglong and Gao, Jianfeng and Solar-Lezama, Armando},
+  year         = {2023},
+  eprint       = {2306.09896},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2306.09896},
+  note         = {ICLR 2024},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{alshammari2024flakyclassifiers,
+  title        = {{230,439 Test Failures Later: An Empirical Evaluation of Flaky Failure Classifiers}},
+  author       = {Alshammari, Abdulrahman and Moran, Jonathan and Riganelli, Oliviero and Micco, Daniel and Lam, Wing and Baudry, Benoit and Marinov, Darko},
+  year         = {2024},
+  eprint       = {2401.15788},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2401.15788},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{parry2023cannier,
+  title        = {{Empirically Evaluating Flaky Test Detection Techniques Combining Test Case Rerunning and Machine Learning Models}},
+  author       = {Parry, Owain and Kapfhammer, Gregory M. and Hilton, Michael and McMinn, Phil},
+  year         = {2023},
+  url          = {https://philmcminn.com/publications/parry2023.pdf},
+  note         = {Empirical Software Engineering (Springer)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{leinen2026detectedundetected,
+  title        = {{An Empirical Study of Detected and Undetected Flaky Test Failures in Real-World CI Pipelines}},
+  author       = {Leinen, Fabian and Gruber, Marcel and Erdo{\u{g}}an, Sevde S. and Stahlbauer, Andreas and Pretschner, Alexander},
+  year         = {2026},
+  url          = {https://mediatum.ub.tum.de/doc/1862458/1862458.pdf},
+  note         = {IEEE Transactions on Software Engineering (early access)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{parry2025systemic,
+  title        = {{Systemic Flakiness: An Empirical Analysis of Co-Occurring Flaky Test Failures}},
+  author       = {Parry, Owain and Kapfhammer, Gregory M. and Hilton, Michael and McMinn, Phil},
+  year         = {2025},
+  eprint       = {2504.16777},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2504.16777},
+  note         = {ESEM 2025},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{lam2020lifecycle,
+  title        = {{A Study on the Lifecycle of Flaky Tests}},
+  author       = {Lam, Wing and Muslu, Kivanc and Sajnani, Hitesh and Thummalapenta, Suresh},
+  year         = {2020},
+  url          = {https://www.microsoft.com/en-us/research/publication/a-study-on-the-lifecycle-of-flaky-tests/},
+  note         = {ICSE 2020 (Microsoft Research)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{meta2020pfs,
+  title        = {{Probabilistic Flakiness: How Do You Test Your Tests?}},
+  author       = {{Meta Engineering}},
+  year         = {2020},
+  url          = {https://engineering.fb.com/2020/12/10/developer-tools/probabilistic-flakiness/},
+  note         = {Meta Engineering Blog},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{joseph2026zerocost,
+  title        = {{Beyond LLM-based Test Automation: A Zero-Cost Self-Healing Approach Using DOM Accessibility Tree Extraction}},
+  author       = {Joseph, R. N.},
+  year         = {2026},
+  eprint       = {2603.20358},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2603.20358},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{rohamo2024robotframework,
+  title        = {{Enabling Self-Healing Locators for Robot Framework with Large Language Models}},
+  author       = {Rohamo, P.},
+  year         = {2024},
+  url          = {https://helda.helsinki.fi/items/8cdf6a7e-bcfa-45bb-a0ed-caae6b20df4d},
+  note         = {MSc Thesis, University of Helsinki},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{ijam2025healenium,
+  title        = {{Self-Healing Web Automation: An Empirical Comparison of Traditional Selenium Frameworks and Healenium Stack}},
+  author       = {{IJAM}},
+  year         = {2025},
+  url          = {https://ijamjournal.org/ijam/publication/index.php/ijam/article/view/1391},
+  note         = {International Journal of Applied Mathematics, Vol. 38 No. 12s},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{iso2020tr29119,
+  title        = {{{ISO/IEC TR 29119-11:2020} -- Software and systems engineering -- Software testing -- Part 11: Guidelines on the testing of AI-based systems}},
+  author       = {{ISO/IEC JTC 1/SC 7}},
+  year         = {2020},
+  url          = {https://www.iso.org/obp/ui/en/\#!iso:std:79016:en},
+  note         = {Technical Report},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{iso2025ts42119,
+  title        = {{{ISO/IEC TS 42119-2:2025} -- Artificial intelligence -- Testing of AI -- Part 2: Overview of testing AI systems}},
+  author       = {{ISO/IEC JTC 1/SC 42}},
+  year         = {2025},
+  url          = {https://webstore.iec.ch/en/publication/110279},
+  note         = {Technical Specification},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{feng2025autonomylevels,
+  title        = {{Levels of Autonomy for AI Agents}},
+  author       = {Feng, K. J. Kevin and McDonald, David W. and Zhang, Amy X.},
+  year         = {2025},
+  eprint       = {2506.12469},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2506.12469},
+  note         = {Knight First Amendment Institute essay series},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{treude2026accountable,
+  title        = {{Accountable Agents in Software Engineering: An Analysis of Terms of Service and a Research Roadmap}},
+  author       = {Treude, Christoph and others},
+  year         = {2026},
+  eprint       = {2605.04532},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2605.04532},
+  note         = {AIware 2026},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{cheng2026threepillar,
+  title        = {{Toward Safe and Responsible AI Agents: A Three-Pillar Model for Transparency, Accountability, and Trustworthiness}},
+  author       = {Cheng, Edward and others},
+  year         = {2026},
+  eprint       = {2601.06223},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2601.06223},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{ibm2024trew,
+  title        = {{Trust and Reliance in Evolving Human-AI Workflows}},
+  author       = {{IBM Research}},
+  year         = {2024},
+  url          = {https://research.ibm.com/publications/trust-and-reliance-in-evolving-human-ai-workflows-at-chi-2024},
+  note         = {CHI 2024 Workshop (TREW)},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{passi2025overreliance,
+  title        = {{Addressing Overreliance on AI}},
+  author       = {Passi, Samir and Dhanorkar, Shipi and Vorvoreanu, Mihaela},
+  year         = {2025},
+  url          = {https://www.microsoft.com/en-us/research/publication/addressing-overreliance-on-ai/},
+  note         = {in Handbook of Human-Centered Artificial Intelligence, Springer Nature},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{ibrahim2025overreliance,
+  title        = {{Measuring and Mitigating Overreliance to Build Human-Compatible AI}},
+  author       = {Ibrahim, Lujain and Collins, Katherine M. and Kim, Sunnie S. Y. and Reuel, Anka and Lamparth, Max and Feng, Kevin and others},
+  year         = {2025},
+  eprint       = {2509.08010},
+  archivePrefix= {arXiv},
+  url          = {https://arxiv.org/abs/2509.08010},
+  note         = {arXiv preprint},
+  keywords     = {Quality engineering safety}
+}
+
+@misc{kiran2026humanai,
+  title        = {{Human-AI Collaboration Models for Scalable Enterprise Software Testing}},
+  author       = {Kiran, Rejenish},
+  year         = {2026},
+  url          = {https://ijesty.org/index.php/ijesty/article/view/1872},
+  note         = {International Journal of Engineering, Science and Information Technology (IJESTY), Vol. 6, No. 3},
+  keywords     = {Quality engineering safety}
+}
+
+% --- Public datasets/benchmarks for the proposed ATQSP validation plan (Section~\ref{sec:qe-safety}) ---
+
+@inproceedings{jimenez2024swebench,
+  author    = {Jimenez, Carlos E. and Yang, John and Wettig, Alexander and Yao, Shunyu and Pei, Kexin and Press, Ofir and Narasimhan, Karthik R.},
+  title     = {{SWE}-bench: Can Language Models Resolve Real-World {GitHub} Issues?},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  keywords  = {Benchmarks and data contamination}
+}
+
+@article{jain2024testgeneval,
+  author  = {Jain, Kush and Synnaeve, Gabriel and Rozi{\`e}re, Baptiste},
+  title   = {{TestGenEval}: A Real World Unit Test Generation and Test Completion Benchmark},
+  journal = {arXiv preprint arXiv:2410.00752},
+  year    = {2024},
+  keywords = {Benchmarks and data contamination}
+}
+
+@inproceedings{just2014defects4j,
+  author    = {Just, Ren{\'e} and Jalali, Darioush and Ernst, Michael D.},
+  title     = {Defects4J: A Database of Existing Faults to Enable Controlled Testing Studies for {Java} Programs},
+  booktitle = {Proceedings of the 2014 International Symposium on Software Testing and Analysis (ISSTA)},
+  pages     = {437--440},
+  year      = {2014},
+  keywords  = {Benchmarks and data contamination}
+}
+
+@inproceedings{widyasari2020bugsinpy,
+  author    = {Widyasari, Ratnadira and Sim, Sheng Qin and Lok, Camellia and Qi, Haodi and Phan, Jack and Tay, Qijin and Tan, Constance and Wee, Fiona and Tan, Jodie Ethelda and Yieh, Yuheng and Goh, Brian and Thung, Ferdian and Kang, Hong Jin and Hoang, Thong and Lo, David and Ouh, Eng Lieh},
+  title     = {{BugsInPy}: A Database of Existing Bugs in {Python} Programs to Enable Controlled Testing and Debugging Studies},
+  booktitle = {Proceedings of the 28th ACM Joint Meeting European Software Engineering Conference and Symposium on the Foundations of Software Engineering (ESEC/FSE)},
+  pages     = {1556--1560},
+  year      = {2020},
+  keywords  = {Benchmarks and data contamination}
+}
+
+@inproceedings{li2026aidev,
+  author    = {Li, Hao and Zhang, Haoxiang and Hassan, Ahmed E.},
+  title     = {{AIDev}: Studying {AI} Coding Agents on {GitHub}},
+  booktitle = {Proceedings of the 23rd International Conference on Mining Software Repositories (MSR)},
+  year      = {2026},
+  keywords  = {Quality engineering safety}
+}
+
+@inproceedings{sliwerski2005szz,
+  author    = {{\'S}liwerski, Jacek and Zimmermann, Thomas and Zeller, Andreas},
+  title     = {When Do Changes Induce Fixes?},
+  booktitle = {Proceedings of the 2005 International Workshop on Mining Software Repositories (MSR)},
+  pages     = {1--5},
+  year      = {2005},
+  keywords  = {Quality engineering safety}
+}
+
+@misc{li2026repoguardbench,
+  author = {Li, Daoyuan and others},
+  title  = {{RepoGuardBench}: Repository-Borne Prompt Injection Attacks and Lightweight Defenses},
+  year   = {2026},
+  note   = {ICML 2026 Workshop on Deep Learning for Code (DL4C)},
+  url    = {https://github.com/DaoyuanLi2816/RepoGuardBench},
+  keywords = {Security of coding and testing agents}
+}

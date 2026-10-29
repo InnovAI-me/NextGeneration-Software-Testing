@@ -1,6 +1,157 @@
 % Conclusion and Future Work
-\textit{[Summarize key findings per RQ in 1-2 sentences each. State
-the primary contribution of the taxonomy/synthesis. Propose a concrete
-research agenda: e.g., standardized benchmarks for AI-driven testing,
-explainable test oracles, longitudinal industrial studies, and
-integration with LLM-based agents.]}
+%
+% 1. Summary of review findings (answering RQ1-RQ4 briefly)
+% 2. Synthesis of implications
+% 3. Research roadmap: prioritized open problems
+% 4. Concluding remarks
+
+\subsection{Summary of Findings}
+This systematic literature review has synthesized 149 primary
+studies (2018--2026) on next-generation software testing, spanning
+large-language-model-based test generation, multi-agent architectures,
+self-adaptive and self-healing test automation, test oracles, and
+autonomous quality engineering. We answered four research questions:
+
+\begin{itemize}
+  \item \textbf{RQ1 (Taxonomy):} We identified 18 technique
+        categories across the test life cycle, from unit test
+        generation to multi-agent systems and self-healing automation.
+  \item \textbf{RQ2 (Autonomy):} Most techniques operate at
+        human-in-the-loop assistance levels (L1--L3); true agentic
+        autonomy (L4--L5) is concentrated in narrow sub-tasks such as
+        GUI exploration and flaky-test triage, with significant human
+        supervision remaining for test design and oracle validation.
+  \item \textbf{RQ3 (Evidence):} Empirical evidence demonstrates
+        consistent coverage gains from LLM-based and multi-agent
+        generation, but fault-detection effectiveness is less rigorously
+        measured, and several widely cited findings do not hold under
+        corrected, leakage-free evaluation.
+  \item \textbf{RQ4 (Challenges):} Key open problems include the
+        test-oracle problem, benchmark contamination,
+        cross-language/cross-scale generalization, context management
+        for large codebases, and the security and trustworthiness of
+        autonomous testing agents.
+\end{itemize}
+
+Building on the primary synthesis, this review extended its scope to
+address four emergent \emph{quality engineering safety} threads:
+security of testing/coding agents, test-oracle independence and the
+circularity of AI testing AI-written code, self-healing/flaky-test
+stability, and governance/accountability for high levels of autonomy.
+This extension was driven by an empirical finding in the corpus itself:
+nearly a third of the categorized primary studies address risk and
+trust rather than capability. The resulting synthesis formalizes
+several of these RQ4 gaps as a connected set of ten open problems and
+four candidate, as-yet-unvalidated safety mechanisms.
+
+\subsection{Research Roadmap: Ten Open Problems}
+\label{sec:research-roadmap}
+Building on the gaps surfaced throughout the synthesis
+(Section~\ref{sec:discussion}), we propose the following research
+roadmap for next-generation, autonomous software testing. Each item is
+stated as an open problem rather than a solution, to orient future
+empirical and methodological work (RQ4). Items 1, 4, 7, 8, 9, and 10 —
+collectively our \emph{Quality Engineering Safety} thread — are backed
+by a dedicated literature synthesis and a candidate safety mechanism each
+(detailed in Section~\ref{sec:discussion}; corresponding primary citations
+are included in the bibliography):
+
+\begin{enumerate}
+  \item \textbf{Oracles independent of the code under test.} Most
+        LLM-based oracles are trained or prompted on artifacts derived
+        from the same codebase they judge, risking circular validation;
+        open problem: oracle construction strategies that do not
+        depend on the implementation being tested. Empirical evidence
+        of shared generator/judge failure modes is reported by
+        \cite{panickssery2024evaluators,wataoka2024selfpreference,
+        huang2023selfcorrect,olausson2023selfrepair}; partial mitigations
+        (consensus panels, context grounding) are evaluated by
+        \cite{xu2025candor,bodicoat2026oracle,molina2024oracleautomation}.
+        We propose \emph{Provenance-Partitioned Oracle Verification
+        (PPOV)} as a candidate mechanism (formalized in
+        Section~\ref{sec:safety-framework}).
+  \item \textbf{Probabilistic guarantees on test-suite adequacy.}
+        Coverage metrics do not bound fault-detection probability for
+        LLM-generated suites; open problem: statistically grounded
+        adequacy criteria with confidence guarantees.
+  \item \textbf{Contamination-free fault-detection benchmarks.}
+        Existing benchmarks risk training-data leakage, inflating
+        reported accuracy; open problem: benchmarks that measure true
+        fault detection and are verifiably free of contamination.
+  \item \textbf{Stability of self-healing loops.} Self-healing locators
+        and tests can silently suppress genuine regressions while
+        recovering pass rates; open problem: bounding and certifying the
+        correctness of automated repairs under distributional UI and
+        API drift. Empirical evidence on flaky-classifier limits is
+        reported by \cite{alshammari2024flakyclassifiers,parry2023cannier,
+        leinen2026detectedundetected}, systemic flakiness by
+        \cite{parry2025systemic}, fix stability by \cite{lam2020lifecycle},
+        and continuous scoring by \cite{meta2020pfs}. We propose
+        \emph{Mutation-Gated Dual-Signal Heal Verification (MG-DSV)} as
+        a candidate mechanism (formalized in
+        Section~\ref{sec:safety-framework}).
+  \item \textbf{Cross-language and cross-ecosystem generalization.}
+        Research is heavily concentrated in Java and Python; open
+        problem: techniques and benchmarks spanning systems languages,
+        functional paradigms, and embedded platforms.
+  \item \textbf{Scalable context management for repository-level testing.}
+        Single-file/method context limits LLM reasoning; open problem:
+        hierarchical retrieval, code-graph representations, and memory
+        architectures for whole-repository test generation and triage.
+  \item \textbf{Security and integrity of testing agents.} Testing agents
+        execute code with elevated privileges, creating attack vectors
+        (prompt injection, code poisoning, exfiltration); open problem:
+        least-privilege execution environments, verified tool calling,
+        and supply-chain defenses tailored to testing pipelines. Attack
+        evidence is provided by
+        \cite{zhan2024injecagent,debenedetti2024agentdojo,guo2024redcode,
+        she2025queryipi,sakib2026trustverify,kozak2025developeraid}, with
+        candidate defenses by
+        \cite{shi2025progent,wu2024isolategpt,wu2026skillshield,
+        xie2026vibeguard,kokkonis2025rosa}. We propose a layered
+        \emph{Trust Boundary for Test Agents (TBTA)} architecture
+        (formalized in Section~\ref{sec:safety-framework}).
+  \item \textbf{Human--agent collaboration.} When to escalate to a
+        human, who is accountable for agent-authored tests, and how
+        trust is calibrated remain open; open problem: escalation and
+        accountability frameworks for mixed human/agent QE teams.
+        Evidence on overreliance and trust calibration is reported by
+        \cite{passi2025overreliance,ibrahim2025overreliance,ibm2024trew},
+        with QA-specific escalation proposals in \cite{kiran2026humanai}.
+  \item \textbf{The circularity problem of AI testing AI-written code.}
+        As AI increasingly writes both code and its tests, independence
+        between implementation and verification erodes; open problem:
+        validation strategies that preserve independence when both
+        artifacts share a generative origin. See the oracle-
+        independence evidence under item 1 in this roadmap
+        \cite{panickssery2024evaluators,wataoka2024selfpreference},
+        which is the same underlying mechanism.
+  \item \textbf{Governance standards for Level-5 (fully autonomous)
+        testing.} Existing standards (e.g., ISO/IEC/IEEE~29119) do not
+        address fully autonomous test agents; open problem: extending
+        or replacing such standards with governance criteria for L5
+        autonomy. The current standards baseline is
+        \cite{iso2020tr29119,iso2025ts42119}; autonomy-level and
+        accountability proposals that could extend it are given by
+        \cite{feng2025autonomylevels,treude2026accountable,
+        cheng2026threepillar}. We propose an \emph{Autonomy-Tiered
+        Quality Sign-off Protocol (ATQSP)} as a candidate extension,
+        elaborated in Section~\ref{sec:safety-framework} into the fuller
+        Safety-Assured Agentic Quality Engineering (SAAQE) framework,
+        with a proposed public-dataset validation protocol in
+        Section~\ref{sec:saaqe-validation}.
+\end{enumerate}
+
+These ten items map onto, and partially answer, recurring gaps
+identified across the included studies (Section~\ref{sec:discussion}):
+test-oracle reliability and independence, unmeasured fault-detection
+adequacy, benchmark/data contamination, self-healing/flaky-test
+stability, reproducibility of agentic results, and security/governance
+of autonomous agents.
+A cross-thread observation from the Quality Engineering Safety
+synthesis: items 1, 4, 7, and 10 share a common structural pattern —
+the currently used ``healed / passed / approved'' signal is a single,
+gameable proxy that is not independently verified — motivating a
+general design principle for next-generation QE safety mechanisms:
+\emph{require a second, independently-sourced signal before trusting
+the first} (see Section~\ref{sec:qe-safety} and Section~\ref{sec:safety-framework}).

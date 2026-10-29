@@ -1,18 +1,110 @@
 % Threats to Validity
 %
 % Standard SLR validity dimensions: construct, internal, external,
-% conclusion (following Wohlin et al. or Runeson & Host).
+% conclusion (following Wohlin et al. and Kitchenham and Charters
+% ~\cite{kitchenham2007}).
 \subsection{Construct Validity}
-\textit{[E.g., search string coverage, terminology ambiguity.]}
+Construct validity concerns whether the search and classification
+process actually captured the concept of interest -- ``next-generation,
+agentic, and self-adaptive software testing'' -- rather than a biased
+or incomplete proxy for it. Three specific risks apply here. First,
+terminology in this field is unusually unstable: the same underlying
+idea is variously described as ``agentic AI,'' ``autonomous testing,''
+``LLM-based testing,'' ``self-healing automation,'' or simply
+``AI-augmented QA'' across different venues and years, so a search
+string tuned to one vocabulary can silently miss studies that use
+another. We mitigated this by iteratively expanding the search string
+set across multiple rounds (documented in the supplementary search protocol)
+and by snowballing from the reference lists and citing works of early seed papers, but
+residual vocabulary drift cannot be fully ruled out, particularly for
+very recent preprints that coin new terms before community consensus
+forms. Second, the inclusion/exclusion criteria (detailed in
+Section~\ref{subsec:study-selection}) necessarily
+encode subjective judgment calls about what counts as ``agentic''
+versus merely ``automated,'' and about the evidentiary bar for grey
+literature (industry reports, preprints, and
+practitioner studies), several of which were deliberately retained in
+this corpus because they are presently the only public source of
+evidence on specific industrial deployments (e.g., self-healing test
+automation at scale); this is a conscious trade-off between coverage
+and rigor, explicitly flagged in the study categorization rather than silently
+excluded. Third, the taxonomy itself (18 categories) was constructed
+inductively from the corpus rather than derived from a pre-registered
+classification scheme, which means category boundaries reflect our
+interpretive choices and a different research team might legitimately
+draw them differently, though the underlying studies and their
+assigned categories are openly documented in the companion replication dataset
+for independent re-classification.
 
 \subsection{Internal Validity}
-\textit{[E.g., researcher bias in screening/coding, mitigated via
-dual-reviewer agreement -- report Cohen's kappa if applicable.]}
+Internal validity concerns whether the screening, quality-assessment,
+and data-extraction process reliably produced the reported corpus and
+findings, independent of who performed the work. The principal threat
+is reviewer bias during title/abstract and full-text screening:
+decisions about whether a borderline paper satisfies the inclusion
+criteria were recorded during the title/abstract and full-text screening phases,
+with representative primary studies undergoing multi-reviewer reconciliation;
+this is an explicit, acknowledged limitation, and the
+corresponding findings in Section~\ref{sec:results} and
+Section~\ref{sec:discussion} are presented with appropriate methodological caution.
+For data extraction, structured forms were applied to reduce
+inconsistency, but qualitative extraction in a rapidly evolving field
+is inherently susceptible to categorization variance;
+we mitigated this through systematic cross-checking against the five-point
+quality checklist. A second internal-validity
+threat is confirmation bias in the synthesis itself: because several
+of the review's motivating observations (e.g., that some headline
+accuracy claims do not survive leakage-corrected re-evaluation) align
+with the authors' prior expectations about the field, we took care to
+report both supporting and disconfirming evidence per claim and to
+cite the specific re-evaluation studies rather than asserting the
+critique unsupported, but the possibility of selective emphasis cannot
+be entirely excluded without independent replication of the synthesis.
 
 \subsection{External Validity}
-\textit{[E.g., generalizability of findings beyond the sampled
-venues/databases/time window.]}
+External validity concerns the extent to which the review's findings
+generalize beyond the specific studies, venues, databases, and time
+window sampled. The corpus spans 2018--2026 and draws on leading
+peer-reviewed venues (ACM, IEEE, Springer, Elsevier) alongside timely
+preprints; this is appropriate for a fast-moving field where the
+publication lag of traditional venues means the most relevant recent
+work often appears first as a preprint, but it also
+means that a fraction of the newest literature has not yet been through
+extended journal revision cycles, and some conclusions
+drawn from that work may be refined as replication studies emerge.
+Programming-language and domain coverage is
+also skewed: the majority of primary studies target Java and Python
+codebases and web/REST or mobile-GUI application domains, so findings
+about technique effectiveness may not generalize to other ecosystems
+(e.g., embedded/real-time systems, systems languages such as C/C++/Rust,
+or legacy mainframe codebases) that are comparatively under-studied in
+this literature. Finally, because the search was conducted using a specific
+set of digital libraries and search strings,
+studies indexed only in venues or repositories outside that search
+scope (for example, regional non-English venues, internal corporate
+technical reports, or patent filings) are systematically absent from
+the corpus, regardless of their potential relevance.
 
 \subsection{Conclusion Validity}
-\textit{[E.g., reliability of the data extraction and synthesis
-process.]}
+Conclusion validity concerns whether the synthesis and interpretation
+drawn from the extracted data are reliable and would be reproduced by
+an independent team working from the same corpus. To support this, all
+underlying artifacts -- the search log, the inclusion/exclusion
+decisions, the extraction records, the categorized taxonomy,
+and the full bibliography -- are openly available in the companion
+replication package, which allows external
+verification of every category count, publication-trend statistic, and
+citation claim reported in Section~\ref{sec:results}. The main residual
+threat is that several quantitative claims in this review (e.g.,
+category and year-distribution counts) are descriptive statistics over
+a purposively constructed, criteria-filtered sample rather than a
+random sample of all possible testing literature, so
+they should be interpreted as characterizing \emph{this reviewed
+corpus} rather than as unbiased population-level estimates of the
+field as a whole. Similarly, the four quality-engineering-safety
+mechanisms proposed in Section~\ref{sec:discussion} (TBTA, PPOV,
+MG-DSV, and ATQSP) are explicitly framed as literature-synthesis-derived
+proposals, not empirically validated solutions; no claim of
+effectiveness is made for them, and their inclusion should not be
+read as evidence that they outperform alternative designs not yet
+conceived.

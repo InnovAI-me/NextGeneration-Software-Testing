@@ -1,36 +1,34 @@
 % Abstract (150-250 words typical for CS review journals)
 %
-% Draft synthesized from literature-review/priority-papers-key-points.md
-% (31 priority full-text studies analyzed in depth). Update
-% [START_YEAR]/[END_YEAR]/[DATABASES]/[N_INITIAL]/[N_FINAL] once the
-% full systematic multi-database search (docs/research-plan.md, Phase 1)
-% is executed and final inclusion counts are locked.
+% NOTE: this file is retained for reference/documentation only. The
+% actual abstract compiled into main.tex is inlined directly inside
+% \begin{abstract}...\end{abstract} (the CAS class's abstract
+% environment cannot safely contain a nested \input). Keep this copy in
+% sync with main.tex's inlined abstract.
 Large language models (LLMs) are increasingly embedded in autonomous and
 self-adaptive software-testing pipelines, spanning unit-test generation,
-GUI exploration, bug reproduction, flaky-test triage, fuzzing, and REST
-API testing, promising to automate activities long considered to
-require human judgment. Despite rapid growth, the literature is
-fragmented across techniques, benchmarks, and claims of effectiveness,
-with several influential results later shown to be overstated once
-rigorously re-evaluated, making it difficult to assess the genuine
-state of agentic AI in quality engineering. This systematic literature
-review (SLR), following Kitchenham and PRISMA guidelines, screens
-\textit{[N\_INITIAL]} candidate studies drawn from
-\textit{[DATABASES]} (\textit{[START\_YEAR]}--\textit{[END\_YEAR]}),
-with 31 priority studies analyzed in depth across technique categories
-including surveys, unit-test generation, multi-agent/agentic test
-generation, agentic software-engineering foundations, bug
-reproduction/validation, mobile and GUI testing agents, test oracles,
-CI/flaky-test triage, API testing, LLM-based fuzzing, and agent
-security. We find that multi-agent architectures and coverage-guided
-feedback loops consistently improve test quality over single-shot
-prompting, but the test-oracle problem, cross-language/cross-scale
-generalization, fault-detection validity, context management for large
-codebases, and agent security remain substantially unresolved; several
-widely cited ``state-of-the-art'' results do not hold under corrected,
-leakage-free evaluation. We conclude that advancing truly autonomous
-software testing requires rigorous, contamination-resistant benchmarks,
-fault-detection-centric (not coverage-centric) evaluation, and
-dedicated attention to agent robustness, security, and developer trust
-alongside continued architectural innovation, and we outline a
-corresponding research agenda.
+graphical user interface (GUI) exploration, bug reproduction, flaky-test triage,
+fuzzing, and representational state transfer (REST) API testing, promising to
+automate activities long considered to require human judgment. Despite rapid
+growth, the literature is fragmented across techniques, benchmarks, and claims
+of effectiveness, with several influential results later shown to be overstated
+once rigorously re-evaluated, making it difficult to assess the genuine state
+of agentic AI in quality engineering. This systematic literature review (SLR),
+following Kitchenham and PRISMA guidelines, screens 149 candidate studies drawn
+from topic-scoped and protocol database searches (IEEE Xplore, ACM Digital
+Library, Scopus, and Web of Science) spanning \textit{2018}--\textit{2026}, with
+31 priority studies analyzed in depth across categories including surveys,
+unit-test generation, multi-agent/agentic test generation, agentic
+software-engineering foundations, bug reproduction/validation, mobile and GUI
+testing agents, test oracles, continuous integration (CI) and flaky-test triage,
+API testing, LLM-based fuzzing, and agent security. We find that multi-agent
+architectures and coverage-guided feedback loops consistently improve test
+quality over single-shot prompting, but the test-oracle problem,
+cross-language/cross-scale generalization, fault-detection validity, context
+management for large codebases, and agent security remain substantially
+unresolved; several widely cited ``state-of-the-art'' results do not hold under
+corrected, leakage-free evaluation. Advancing truly autonomous testing
+therefore requires contamination-resistant benchmarks, fault-detection-centric
+(not coverage-centric) evaluation, and dedicated attention to agent robustness,
+security, and developer trust, alongside continued architectural innovation;
+we outline a corresponding research agenda.

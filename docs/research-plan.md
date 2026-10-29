@@ -91,11 +91,30 @@ Full protocol detail lives in `literature-review/search-strategy.md`,
 
 | Metric | Value |
 |---|---|
-| Candidate studies in tracking sheet | 113 |
-| Full text successfully retrieved (new + pre-existing) | 99 (67 new + 32 already present) |
+| Candidate studies in tracking sheet | 149 (113 original + 36 new QE-safety sources, 2026-10-28) |
+| Full text successfully retrieved (new + pre-existing) | 99 (67 new + 32 already present); the 36 QE-safety sources below are not yet fetched |
 | Abstract-only fallback (full text unreachable, abstract verified) | 3 |
 | Unresolved (paywalled/blocked/no content found) | 11 — require manual institutional access |
 | Emerging taxonomy categories (from `category` column) | 18 (see §5) |
+
+**2026-10-28 addition — Quality Engineering Safety thread:** four
+parallel research agents each investigated one safety sub-topic
+(security of testing/coding agents, test-oracle independence/AI-
+testing-AI circularity, self-healing/flaky-test stability, and
+governance/accountability for L4–5 autonomy), surfacing 36 verified
+sources (`SLR089`–`SLR124`) with full synthesis and a candidate safety
+mechanism per sub-topic in
+`literature-review/qe-safety-literature.md`. These are now cited in
+`paper/sections/06_discussion.tex` (§"Quality Engineering Safety") and
+`paper/sections/08_conclusion.tex` (§"Research Roadmap"), and recorded
+in `paper/references.bib` under the `Quality engineering safety`
+keyword. **These 36 sources are title/abstract-level candidates only**
+— they have not been through `scripts/fetch_full_papers.py` or
+dual-reviewer full-text screening per
+`inclusion-exclusion-criteria.md`, and several are grey literature or
+standards text (ISO/IEC documents, a company engineering blog, an MSc
+thesis, practitioner-journal articles) that must be flagged as such
+if retained in the final manuscript.
 
 Remaining gap vs. a complete SLR: the 113-study set is a **curated
 starter corpus**, not yet the product of the systematic multi-database
@@ -128,6 +147,35 @@ during full-text synthesis (RQ1):
 18. Mutation testing with LLMs (2)
 19. Original/general reference-list carryover items pending re-categorization (29)
 
+## 5a. Planned Research Roadmap (RQ4 / Conclusion)
+
+Yes — a forward-looking **research roadmap of ten open problems** is
+planned as part of this review's contribution (see RQ4 and
+Contribution 4 in `paper/sections/01_introduction.tex`), drafted in
+`paper/sections/08_conclusion.tex` §"Research Roadmap: Ten Open
+Problems":
+
+1. Oracles independent of the code under test
+2. Probabilistic guarantees on test-suite adequacy
+3. Contamination-free fault-detection benchmarks
+4. Stability of self-healing loops (a heal must never mask a real
+   regression)
+5. Reproducibility despite agents' stochastic variation
+6. Cost-aware autonomy
+7. Security of testing agents (prompt injection, sandbox escape)
+8. Human–agent collaboration (escalation, accountability, trust)
+9. The circularity problem of AI testing AI-written code
+10. Governance standards for Level-5 autonomy (e.g., extending
+    ISO/IEC/IEEE 29119)
+
+This roadmap is currently a **draft tied to RQ4's general gap
+statement** (test-oracle reliability, benchmark contamination,
+security/trust of autonomous agents). It still needs to be
+cross-referenced against a finalized, numbered gap enumeration once
+Phase 5 (Synthesis) produces one from the full-text data extraction,
+so that "answers Gaps 3, 5, 6, 8, 9, 10"-style claims are backed by
+the review's own evidence rather than asserted ahead of synthesis.
+
 ## 6. Phased Plan & Timeline
 
 Fill in actual calendar dates in `docs/timeline.md` once the team
@@ -159,6 +207,21 @@ calendar weeks) for a 1–2 person review team.
    `paper/sections/05_results.tex` early.
 4. Update `docs/timeline.md` with real target dates once the team and
    target journal are confirmed.
+5. **Quality Engineering Safety follow-up:** (a) run
+   `fetch_full_papers.py` against `SLR089`–`SLR124` to retrieve full
+   text where available (several are arXiv, so retrieval should be
+   largely automatic); (b) run full-text screening against
+   `inclusion-exclusion-criteria.md` for these 36 sources and record
+   decisions (note several are grey literature/standards text — apply
+   EC2/EC6 judgment explicitly rather than defaulting to include);
+   (c) if retained, write per-study extraction records per
+   `data-extraction-form.md`; (d) treat the four proposed mechanisms
+   (TBTA, PPOV, MG-DSV, ATQSP) in
+   `literature-review/qe-safety-literature.md` as a candidate
+   contribution for a future "proposed framework" section — they are
+   currently unimplemented, unevaluated synthesis proposals, not
+   validated results, and should not be presented as this review's
+   empirical findings.
 
 ## 8. Reproducibility
 
